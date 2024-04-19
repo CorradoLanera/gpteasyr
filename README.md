@@ -1,27 +1,18 @@
----
-output: github_document
----
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
-```
 
 # ubep.gpt
 
 <!-- badges: start -->
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![Codecov test coverage](https://codecov.io/gh/UBESP-DCTV/ubep.gpt/branch/main/graph/badge.svg)](https://app.codecov.io/gh/UBESP-DCTV/ubep.gpt?branch=main)
+
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Codecov test
+coverage](https://codecov.io/gh/UBESP-DCTV/ubep.gpt/branch/main/graph/badge.svg)](https://app.codecov.io/gh/UBESP-DCTV/ubep.gpt?branch=main)
 [![R-CMD-check](https://github.com/UBESP-DCTV/ubep.gpt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/UBESP-DCTV/ubep.gpt/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of ubep.gpt is to ...
+The goal of ubep.gpt is to …
 
 ## Installation
 
@@ -35,7 +26,7 @@ You can install the development version of ubep.gpt like so:
 
 This is a basic example which shows you how to solve a common problem:
 
-```{r example}
+``` r
 library(ubep.gpt)
 
 db <- data.frame(
@@ -72,10 +63,36 @@ res <- db |>
    style = style,
    examples = examples
  )
+#> • POST the query
+#> ✔ POST the query
+#> • Parse the response
+#> ✔ Parse the response
+#> • Check whether request failed and return parsed
+#> ✔ Check whether request failed and return parsed
+#> • POST the query
+#> ✔ POST the query
+#> • Parse the response
+#> ✔ Parse the response
+#> • Check whether request failed and return parsed
+#> ✔ Check whether request failed and return parsed
+#> • POST the query
+#> ✔ POST the query
+#> • Parse the response
+#> ✔ Parse the response
+#> • Check whether request failed and return parsed
+#> ✔ Check whether request failed and return parsed
 res
+#> # A tibble: 3 × 2
+#>   commenti                        gpt_res      
+#>   <chr>                           <chr>        
+#> 1 Che barba, che noia!            insoddisfatto
+#> 2 Un po' noioso, ma interessante  insoddisfatto
+#> 3 Che bello, mi è piaciuto molto! soddisfatto
 ```
 
 ## Code of Conduct
 
-Please note that the ubep.gpt project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
-
+Please note that the ubep.gpt project is released with a [Contributor
+Code of
+Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.

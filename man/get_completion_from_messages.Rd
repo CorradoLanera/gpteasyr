@@ -10,12 +10,13 @@ get_completion_from_messages(
   messages,
   model = c("gpt-3.5-turbo", "gpt-4-turbo"),
   temperature = 0,
-  max_tokens = 1000
+  max_tokens = 1000,
+  quiet = FALSE
 )
 
 get_content(completion)
 
-get_tokens(completion, what = c("total", "prompt", "completion"))
+get_tokens(completion, what = c("total", "prompt", "completion", "all"))
 }
 \arguments{
 \item{messages}{(list) in the following format: \verb{⁠list(list("role" = "user", "content" = "Hey! How old are you?")} (see:
@@ -33,10 +34,13 @@ https://platform.openai.com/docs/api-reference/chat/create#chat/create-temperatu
 maximum number of tokens to generate in the chat completion. (see:
 https://platform.openai.com/docs/api-reference/chat/create#chat/create-max_tokens)}
 
+\item{quiet}{(lgl, default = FALSE) whether to suppress messages}
+
 \item{completion}{the number of tokens used for output of a
 \code{get_completion_from_messages} call}
 
-\item{what}{(chr) one of "total" (default), "prompt", or "completion"}
+\item{what}{(chr) one of "total" (default), "prompt", "completion",
+or "all"}
 }
 \value{
 (list) of two element: \code{content}, which contains the chr
@@ -47,7 +51,8 @@ other two)
 
 (chr) the output message returned by the assistant
 
-(int) number of token used in completion for prompt or completion part, or overall (total)
+(int) number of token used in completion for prompt or
+completion part, or overall (total)
 }
 \description{
 Get completion from chat messages

@@ -12,6 +12,7 @@
 #' @param max_tokens (dbl, default = 500) a value greater than 0. The
 #'   maximum number of tokens to generate in the chat completion. (see:
 #'   https://platform.openai.com/docs/api-reference/chat/create#chat/create-max_tokens)
+#' @param quiet (lgl, default = FALSE) whether to suppress messages
 #'
 #' @details For argument description, please refer to the [official
 #'   documentation](https://platform.openai.com/docs/api-reference/chat/create).
@@ -76,7 +77,8 @@ get_completion_from_messages <- function(
   messages,
   model = c("gpt-3.5-turbo", "gpt-4-turbo"),
   temperature = 0,
-  max_tokens = 1000
+  max_tokens = 1000,
+  quiet = FALSE
 ) {
 
   model <- match.arg(model)
@@ -85,7 +87,14 @@ get_completion_from_messages <- function(
     "gpt-4-turbo" = "gpt-4-1106-preview"
   )
 
-  res <- openai::create_chat_completion(
+  get_chat_completion <- if (quiet) {
+    \(...) openai::create_chat_completion(...) |>
+      suppressMessages()
+  } else {
+    openai::create_chat_completion
+  }
+
+  res <- get_chat_completion(
     model = model,
     messages = messages,
     temperature = temperature,
@@ -114,17 +123,22 @@ get_content <- function(completion) {
 #'
 #' @param completion the number of tokens used for output of a
 #'   `get_completion_from_messages` call
-#' @param what (chr) one of "total" (default), "prompt", or "completion"
+#' @param what (chr) one of "total" (default), "prompt", "completion",
+#'   or "all"
 #' @describeIn get_completion_from_messages
 #'
-#' @return (int) number of token used in completion for prompt or completion part, or overall (total)
+#' @return (int) number of token used in completion for prompt or
+#'   completion part, or overall (total)
 #' @export
 get_tokens <- function(
   completion,
-  what = c("total", "prompt", "completion")
+  what = c("total", "prompt", "completion", "all")
 ) {
   what <- match.arg(what)
-  sel <- paste0(what, "_tokens")
 
-  completion[["tokens"]][[sel]]
+  if (what == "all") {
+    completion[["tokens"]] |> unlist()
+  } else {
+    completion[["tokens"]][[paste0(what, "_tokens")]]
+  }
 }

@@ -135,4 +135,3 @@ test_that("query_gpt_on_column works", {
   expect_tibble(res_not_simplified, ncols = 2, nrows = 2)
   expect_tibble(res_without_source_text, ncols = 1, nrows = 2)
 })
-

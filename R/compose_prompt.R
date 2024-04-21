@@ -1,11 +1,11 @@
 #' Create a prompt to ChatGPT
 #'
-#' Questa funzione è un semplice wrapper per comporre un buon prompt per
-#' ChatGPT. L'output non è altro che la giustapposizione su righe separate delle
-#' varie componenti (con il testo addizionale racchiuso tra i delimitatori in
-#' fondo al prompt). Dunque il suo utilizzo è più che altro focalizzato è utile
-#' per ricordare e prendere l'abitudine di inserire le componenti utili per un
-#' buon prompt.
+#' This function is a simple wrapper to compose a good prompt for
+#' ChatGPT. The output is nothing more than the juxtaposition on
+#' separate lines of the various components (with the additional text
+#' enclosed between the delimiters at the bottom of the prompt). So its
+#' use is more focused and useful for remembering and getting used to
+#' entering the components useful for a good prompt.
 #'
 #' @param role (chr) The role that ChatGPT should play
 #' @param context (chr) The context behind the task required
@@ -15,8 +15,8 @@
 #' @param style (chr) The style ChatGPT should use in the output
 #' @param examples (chr) Some examples of correct output
 #' @param text (chr) Additional text to embed in the prompt
-#' @param delimiter (chr) delimiters for the `text` to embed, a sequence of
-#'   three identical symbols is suggested
+#' @param delimiter (chr) delimiters for the `text` to embed, a sequence
+#'   of three identical symbols is suggested
 #'
 #' @return (chr) the glue of all the prompts components
 #' @export
@@ -116,6 +116,52 @@ compose_prompt_user <- function(
 }
 
 
+#' Create a function to prompt the user for data
+#'
+#' This function create a function that can be used to prompt the user
+#' for data in a specific context. Given the interested context, the
+#' function created will accept a string of text as input and return the
+#' complete prompt based on the desired context.
+#'
+#' @param task (chr) The task ChatGPT should assess
+#' @param instructions (chr) Description of steps ChatGPT should follow
+#' @param output (chr) The type/kind of output required
+#' @param style (chr) The style ChatGPT should use in the output
+#' @param examples (chr) Some examples of correct output
+#'
+#' @return (function) a function that can be used to prompt the user,
+#'   accepting a string of text as input and returning the complete
+#'   prompt based on the desired context.
+#'
+#' @export
+#'
+#' @examples
+#' prompter <- create_usr_data_prompter(
+#'   task = "Your task is to extract information from a text provided.",
+#'   instructions = "
+#'     You should extract the first and last words of the text.",
+#'   output = "
+#'     Return the first and last words of the text separated by a dash,
+#'      i.e., `first - last`.",
+#'   style = "
+#'     Do not add any additional information, return only the requested
+#'     information.",
+#'   examples = "
+#'     text: 'This is an example text.'
+#'     output: 'This - text'
+#'     text: 'Another example text!!!'
+#'     output: 'Another - text'"
+#' )
+#' prompter("This is an example text.")
+#' prompter("Another example text!!!")
+#'
+#' # You can also use it with a data frame to programmaically create
+#' # prompts for each row of a data frame's column.
+#' db <- data.frame(
+#'   text = c("This is an example text.", "Another example text!!!")
+#' )
+#' db$text |> purrr::map_chr(prompter)
+#'
 create_usr_data_prompter <- function(
   task = "", instructions = "", output = "", style = "", examples = ""
 ) {

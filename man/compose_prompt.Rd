@@ -47,8 +47,8 @@ compose_prompt_user(
 
 \item{text}{(chr) Additional text to embed in the prompt}
 
-\item{delimiter}{(chr) delimiters for the \code{text} to embed, a sequence of
-three identical symbols is suggested}
+\item{delimiter}{(chr) delimiters for the \code{text} to embed, a sequence
+of three identical symbols is suggested}
 }
 \value{
 (chr) the glue of all the prompts components
@@ -58,12 +58,12 @@ three identical symbols is suggested}
 (chr) The complete user prompt
 }
 \description{
-Questa funzione è un semplice wrapper per comporre un buon prompt per
-ChatGPT. L'output non è altro che la giustapposizione su righe separate delle
-varie componenti (con il testo addizionale racchiuso tra i delimitatori in
-fondo al prompt). Dunque il suo utilizzo è più che altro focalizzato è utile
-per ricordare e prendere l'abitudine di inserire le componenti utili per un
-buon prompt.
+This function is a simple wrapper to compose a good prompt for
+ChatGPT. The output is nothing more than the juxtaposition on
+separate lines of the various components (with the additional text
+enclosed between the delimiters at the bottom of the prompt). So its
+use is more focused and useful for remembering and getting used to
+entering the components useful for a good prompt.
 }
 \section{Functions}{
 \itemize{

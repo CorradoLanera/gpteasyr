@@ -58,7 +58,8 @@ query_gpt <- function(
         get_completion_from_messages(
           model = model,
           temperature = temperature,
-          max_tokens = max_tokens
+          max_tokens = max_tokens,
+          quiet = quiet
         )
       done <- TRUE
       aux

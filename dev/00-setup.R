@@ -18,4 +18,5 @@ usethis::use_github_action("check-standard", badge = TRUE)
 
 usethis::use_package("checkmate", type = "Suggests")
 usethis::use_package("lintr", type = "Suggests")
+usethis::use_package("withr", type = "Suggests")
 usethis::use_tidy_description()

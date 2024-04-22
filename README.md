@@ -42,23 +42,16 @@ tokens of the prompt and the response using the `get_tokens` function.
 
 ``` r
 library(ubep.gpt)
-#> ℹ Wellcome to ubep.gpt!
-#> ℹ OPENAI_API_KEY environment variable is not set.
-#> ℹ it is required to use OpenAI APIs with `ubep.gpt`.
-#> ℹ To set the OPENAI_API_KEY environment variable,
-#>   you can call `usethis::edit_r_environ("project")`,
-#>   and add the line `OPENAI_API_KEY=<your_api_key>`.
-#> ℹ REMIND:
-#>   Never share your API key with others.
-#>   Keep it safe and secure.
-#>   If you need an API key, you can generate it in the OpenAI-API website
-#>   (https://platform.openai.com/api-keys).
-#>   Remind to assign it to the correct project
-#>   (i.e., NOT to the 'default' one).
-#>   If you need to be added to the organization and/or to a project,
-#>   please, contact your project's referent.
-#> • Please, set the OPENAI_API_KEY environment variable with your key.
-#> • And than, restart your R session.
+#> Wellcome to ubep.gpt!
+#> The OPENAI_API_KEY environment variable is set
+#> You are ready to use the package `ubep.gpt`.
+#> Just, double check if the key is the correct one.
+#> REMIND: Never share your API key with others.
+#>       Keep it safe and secure.
+#>       If you think that your API key was compromised,
+#>       you can regenerate it in the OpenAI-API website
+#>       (https://platform.openai.com/api-keys).
+#> Enjoy the package!
 prompt <- compose_prompt_api(
   sys_prompt = "You are the assistant of a university professor.",
   usr_prompt = "Tell me about the last course you provided."
@@ -100,13 +93,13 @@ res <- query_gpt(
 
 str(res)
 #> List of 2
-#>  $ content: chr "The professor's last course was on evolutionary psychology, a topic that explores how human behavior has evolve"| __truncated__
+#>  $ content: chr "Our last course focused on the topic of Digital Marketing in the Age of Social Media. It covered various aspect"| __truncated__
 #>  $ tokens :List of 3
 #>   ..$ prompt_tokens    : int 29
 #>   ..$ completion_tokens: int 100
 #>   ..$ total_tokens     : int 129
 get_content(res)
-#> [1] "The professor's last course was on evolutionary psychology, a topic that explores how human behavior has evolved over time in response to genetic and environmental factors. The course covered various theories and research findings in the field, and encouraged students to critically evaluate evidence and apply the concepts to real-world scenarios.\n\nStudents participated in discussions, group activities, and wrote essays to demonstrate their understanding of the material. The professor also incorporated guest lectures from experts in the field to provide diverse perspectives.\n\nOverall, the course was well-received"
+#> [1] "Our last course focused on the topic of Digital Marketing in the Age of Social Media. It covered various aspects of online marketing such as social media strategies, content creation, paid advertising, email marketing, and search engine optimization. The course combined theoretical knowledge with hands-on practical experience such as creating social media campaigns and analyzing digital marketing analytics data. Students also had the opportunity to work on a real-world project for a local business, implementing the skills they learned throughout the course. Overall, it was a well-re"
 get_tokens(res)
 #> [1] 129
 get_tokens(res, "prompt")

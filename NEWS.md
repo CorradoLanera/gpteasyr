@@ -1,4 +1,4 @@
-# ubep.gpt (development version)
+# ubep.gpt 0.1.0
 
 * All functions tested.
 * Prompt compositors (i.e., `compose_prompt`, `compose_usr_prompt`, `compose_sys_prompt`, and `create_usr_data_prompter`) now always return a character vector (possibly of length 0).

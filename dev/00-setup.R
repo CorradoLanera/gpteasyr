@@ -11,7 +11,7 @@ usethis::use_spell_check()
 usethis::use_git()
 usethis::git_vaccinate()
 usethis::use_github(organisation = "UBESP-DCTV", protocol = "ssh")
-usethis::use_coverage()
+usethis::use_coverage(repo_spec = "UBESP-DCTV/ubep.gpt")
 usethis::use_github_action("test-coverage", badge = TRUE)
 usethis::use_github_action("check-standard", badge = TRUE)
 

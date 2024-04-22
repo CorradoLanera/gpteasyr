@@ -1,3 +1,7 @@
+# ubep.gpt (development version)
+
+* Now compose_prompt_api correctly manage empty prompts.
+
 # ubep.gpt 0.1.1
 
 * 100% coverage passed

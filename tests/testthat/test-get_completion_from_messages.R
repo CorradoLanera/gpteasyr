@@ -19,7 +19,8 @@ test_that("get_completion_from_messages works", {
   res <- get_completion_from_messages(
     model = model,
     messages = messages
-  )
+  ) |>
+    suppressMessages()
 
   # expectation
   expect_list(res, c("character", "list"), len = 2)

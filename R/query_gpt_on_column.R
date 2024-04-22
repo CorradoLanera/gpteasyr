@@ -44,16 +44,15 @@
 #'  commento_2: 'Non mi è piaciuto per niente; una noia mortale'
 #'  classificazione_2: 'insoddisfatto'
 #'  "
+#'
+#'  sys_prompt <- compose_sys_prompt(role = role, context = context)
+#'  usr_prompt <- compose_usr_prompt(
+#'    task = task, instructions = instructions, output = output,
+#'    style = style, examples = examples
+#'  )
 #'  res <- db |>
 #'   query_gpt_on_column(
-#'     "commenti",
-#'     role = role,
-#'     context = context,
-#'     task = task,
-#'     instructions = instructions,
-#'     output = output,
-#'     style = style,
-#'     examples = examples
+#'     "commenti", sys_prompt = sys_prompt, usr_prompt = usr_prompt
 #'   )
 #'  res
 #' }

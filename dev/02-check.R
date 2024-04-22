@@ -8,5 +8,6 @@ lintr::lint_package()
 
 ## CTRL + SHIFT + T: run all project's tests
 ## CTRL + SHIFT + E: run all CRAN tests
+covr::package_coverage()
 
 usethis::use_version()

@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(ubep.gpt)
+library(ubep.gpt) |> suppressPackageStartupMessages()
 
 test_check("ubep.gpt")

@@ -20,3 +20,5 @@ usethis::use_package("checkmate", type = "Suggests")
 usethis::use_package("lintr", type = "Suggests")
 usethis::use_package("withr", type = "Suggests")
 usethis::use_tidy_description()
+
+usethis::use_pkgdown_github_pages()

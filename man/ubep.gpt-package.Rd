@@ -12,6 +12,7 @@ What the package does (one paragraph).
 Useful links:
 \itemize{
   \item \url{https://github.com/UBESP-DCTV/ubep.gpt}
+  \item \url{https://ubesp-dctv.github.io/ubep.gpt/}
   \item Report bugs at \url{https://github.com/UBESP-DCTV/ubep.gpt/issues}
 }
 

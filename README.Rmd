@@ -43,8 +43,8 @@ Once you have queried the API, you can extract the content of the response using
 ```{r}
 library(ubep.gpt)
 prompt <- compose_prompt_api(
-  sys_msg = "You are the assistant of a university professor.",
-  usr_msg = "Tell me about the last course you provided."
+  sys_prompt = "You are the assistant of a university professor.",
+  usr_prompt = "Tell me about the last course you provided."
 )
 prompt
 
@@ -67,16 +67,16 @@ get_tokens(res, "all")
 
 ## Easy prompt-assisted creation
 
-You can use the `compose_prompt_system` and `compose_prompt_user` functions to create the system and user prompts, respectively. These functions are useful because they help you to compose the prompts following best practices in composing prompt. In fact the arguments are just the main components every prompt should have. They do just that, composing the prompt for you juxtaposing the components in the right order.
+You can use the `compose_sys_prompt` and `compose_usr_prompt` functions to create the system and user prompts, respectively. These functions are useful because they help you to compose the prompts following best practices in composing prompt. In fact the arguments are just the main components every prompt should have. They do just that, composing the prompt for you juxtaposing the components in the right order.
 
 ```{r}
-sys_prompt <- compose_prompt_system(
+sys_prompt <- compose_sys_prompt(
   role = "You are the assistant of a university professor.",
   context = "You are analyzing the comments of the students of the last course."
 )
 sys_prompt
 
-usr_prompt <- compose_prompt_user(
+usr_prompt <- compose_usr_prompt(
   task = "Your task is to extract information from a text provided.",
   instructions = "You should extract the first and last words of the text.",
   output = "Return the first and last words of the text separated by a dash, i.e., `first - last`.",

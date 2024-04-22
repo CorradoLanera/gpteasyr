@@ -2,8 +2,8 @@
 
 export(compose_prompt)
 export(compose_prompt_api)
-export(compose_prompt_system)
-export(compose_prompt_user)
+export(compose_sys_prompt)
+export(compose_usr_prompt)
 export(create_usr_data_prompter)
 export(get_completion_from_messages)
 export(get_content)

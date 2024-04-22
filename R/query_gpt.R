@@ -13,13 +13,13 @@
 #' @examples
 #' if (FALSE) {
 #'  prompt <- compose_prompt_api(
-#'    sys_msg = compose_prompt_system(
+#'    sys_prompt = compose_sys_prompt(
 #'      role = "Sei l'assistente di un docente universitario.",
 #'      context = "
 #'        Tu e lui state preparando un workshop sull'utilizzo di ChatGPT
 #'        per biostatisitci ed epidemiologi."
 #'    ),
-#'    usr_msg = compose_prompt_user(
+#'    usr_prompt = compose_usr_prompt(
 #'      task = "
 #'        Il tuo compito è trovare cosa dire per spiegare cosa sia una
 #'        chat di ChatGPT agli studenti, considerando che potrebbe
@@ -166,7 +166,7 @@ query_gpt_on_column <- function(
 ) {
   model <- match.arg(model)
 
-  sys_prompt <- compose_prompt_system(
+  sys_prompt <- compose_sys_prompt(
     role = role,
     context = context
   )

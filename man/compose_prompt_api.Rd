@@ -4,12 +4,12 @@
 \alias{compose_prompt_api}
 \title{Create a prompt to OpenAI API}
 \usage{
-compose_prompt_api(sys_msg, usr_msg)
+compose_prompt_api(sys_prompt, usr_prompt)
 }
 \arguments{
-\item{sys_msg}{(chr) messaggio da usare per impostare il sistema}
+\item{sys_prompt}{(chr) messaggio da usare per impostare il sistema}
 
-\item{usr_msg}{(chr) messaggio da usare come richiesta al sistema
+\item{usr_prompt}{(chr) messaggio da usare come richiesta al sistema
 passata dall'utente}
 }
 \value{
@@ -42,14 +42,14 @@ le risposte precedenti dell'assistente, ma possono anche essere
 scritti dall'utente per fornire esempi del comportamento desiderato.
 }
 \examples{
-msg_sys <- compose_prompt_system(
+msg_sys <- compose_sys_prompt(
   role = "Sei l'assistente di un docente universitario.",
   context = "
     Tu e lui state preparando un workshop sull'utilizzo di ChatGPT
     per biostatisitci ed epidemiologi."
  )
 
-msg_usr <- compose_prompt_user(
+msg_usr <- compose_usr_prompt(
   task = "
     Il tuo compito è trovare cosa dire per spiegare cosa sia una
     chat di ChatGPT agli studenti, considerando che potrebbe

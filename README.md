@@ -42,9 +42,26 @@ tokens of the prompt and the response using the `get_tokens` function.
 
 ``` r
 library(ubep.gpt)
+#> ℹ Wellcome to ubep.gpt!
+#> ℹ OPENAI_API_KEY environment variable is not set.
+#> ℹ it is required to use OpenAI APIs with `ubep.gpt`.
+#> ℹ To set the OPENAI_API_KEY environment variable,
+#>   you can call `usethis::edit_r_environ("project")`,
+#>   and add the line `OPENAI_API_KEY=<your_api_key>`.
+#> ℹ REMIND:
+#>   Never share your API key with others.
+#>   Keep it safe and secure.
+#>   If you need an API key, you can generate it in the OpenAI-API website
+#>   (https://platform.openai.com/api-keys).
+#>   Remind to assign it to the correct project
+#>   (i.e., NOT to the 'default' one).
+#>   If you need to be added to the organization and/or to a project,
+#>   please, contact your project's referent.
+#> • Please, set the OPENAI_API_KEY environment variable with your OpenAI API key.
+#> • And than, restart your R session.
 prompt <- compose_prompt_api(
-  sys_msg = "You are the assistant of a university professor.",
-  usr_msg = "Tell me about the last course you provided."
+  sys_prompt = "You are the assistant of a university professor.",
+  usr_prompt = "Tell me about the last course you provided."
 )
 prompt
 #> [[1]]
@@ -83,13 +100,13 @@ res <- query_gpt(
 
 str(res)
 #> List of 2
-#>  $ content: chr "Certainly! The last course our professor provided was a seminar on environmental ethics for senior undergraduat"| __truncated__
+#>  $ content: chr "The last course I provided was on the topic of \"Global Issues in Social Justice\". The course explored various"| __truncated__
 #>  $ tokens :List of 3
 #>   ..$ prompt_tokens    : int 29
 #>   ..$ completion_tokens: int 100
 #>   ..$ total_tokens     : int 129
 get_content(res)
-#> [1] "Certainly! The last course our professor provided was a seminar on environmental ethics for senior undergraduate students. The course explored key issues at the intersection of environmental philosophy and ethics, considering perspectives from diverse thinkers such as Aldo Leopold, Rachel Carson, and Arne Naess. Students had the opportunity to read and discuss foundational texts in the field, engage in critical analysis of case studies, and develop their own perspectives on environmental ethics issues. The course culminated in a final research project where students took a"
+#> [1] "The last course I provided was on the topic of \"Global Issues in Social Justice\". The course explored various social justice issues on both a local and global scale, discussing topics such as income inequality, racial equity, environmental sustainability, and human rights. Students engaged in critical discussions, group projects, and research assignments to deepen their understanding of the complexities of these issues and identifying possible solutions. The course also incorporated guest speakers from diverse backgrounds to provide different perspectives on social justice topics. Overall, it was a thought"
 get_tokens(res)
 #> [1] 129
 get_tokens(res, "prompt")
@@ -101,16 +118,15 @@ get_tokens(res, "all")
 
 ## Easy prompt-assisted creation
 
-You can use the `compose_prompt_system` and `compose_prompt_user`
-functions to create the system and user prompts, respectively. These
-functions are useful because they help you to compose the prompts
-following best practices in composing prompt. In fact the arguments are
-just the main components every prompt should have. They do just that,
-composing the prompt for you juxtaposing the components in the right
-order.
+You can use the `compose_sys_prompt` and `compose_usr_prompt` functions
+to create the system and user prompts, respectively. These functions are
+useful because they help you to compose the prompts following best
+practices in composing prompt. In fact the arguments are just the main
+components every prompt should have. They do just that, composing the
+prompt for you juxtaposing the components in the right order.
 
 ``` r
-sys_prompt <- compose_prompt_system(
+sys_prompt <- compose_sys_prompt(
   role = "You are the assistant of a university professor.",
   context = "You are analyzing the comments of the students of the last course."
 )
@@ -118,7 +134,7 @@ sys_prompt
 #>   You are the assistant of a university professor.
 #>   You are analyzing the comments of the students of the last course.
 
-usr_prompt <- compose_prompt_user(
+usr_prompt <- compose_usr_prompt(
   task = "Your task is to extract information from a text provided.",
   instructions = "You should extract the first and last words of the text.",
   output = "Return the first and last words of the text separated by a dash, i.e., `first - last`.",
@@ -215,7 +231,7 @@ db |>
 #> 2 I didn't like it at all; it was deadly boring.                         unsati…
 #> 3 The best course I've ever attended.                                    satisf…
 #> 4 The course was a waste of time.                                        unsati…
-#> 5 blah blah blah                                                         satisf…
+#> 5 blah blah blah                                                         <NA>   
 #> 6 woow                                                                   <NA>   
 #> 7 bim bum bam                                                            <NA>
 ```

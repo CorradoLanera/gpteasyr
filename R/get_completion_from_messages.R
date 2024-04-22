@@ -49,14 +49,14 @@
 #' }
 #'
 #' if (FALSE) {
-#'   msg_sys <- compose_prompt_system(
+#'   msg_sys <- compose_sys_prompt(
 #'     role = "Sei l'assistente di un docente universitario.",
 #'     context = "
 #'       Tu e lui state preparando un workshop sull'utilizzo di ChatGPT
 #'       per biostatisitci ed epidemiologi.",
 #'   )
 #'
-#'   msg_usr <- compose_prompt_user(
+#'   msg_usr <- compose_usr_prompt(
 #'     task = "
 #'       Il tuo compito è trovare cosa dire per spiegare cosa sia una
 #'       chat di ChatGPT agli studenti, considerando che potrebbe

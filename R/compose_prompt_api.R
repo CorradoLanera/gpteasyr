@@ -23,8 +23,8 @@
 #' scritti dall'utente per fornire esempi del comportamento desiderato.
 #'
 #'
-#' @param sys_msg (chr) messaggio da usare per impostare il sistema
-#' @param usr_msg (chr) messaggio da usare come richiesta al sistema
+#' @param sys_prompt (chr) messaggio da usare per impostare il sistema
+#' @param usr_prompt (chr) messaggio da usare come richiesta al sistema
 #'   passata dall'utente
 #'
 #' @return (chr) una lista di due lista, la prima con il messaggio da
@@ -33,14 +33,14 @@
 #' @export
 #'
 #' @examples
-#' msg_sys <- compose_prompt_system(
+#' msg_sys <- compose_sys_prompt(
 #'   role = "Sei l'assistente di un docente universitario.",
 #'   context = "
 #'     Tu e lui state preparando un workshop sull'utilizzo di ChatGPT
 #'     per biostatisitci ed epidemiologi."
 #'  )
 #'
-#' msg_usr <- compose_prompt_user(
+#' msg_usr <- compose_usr_prompt(
 #'   task = "
 #'     Il tuo compito è trovare cosa dire per spiegare cosa sia una
 #'     chat di ChatGPT agli studenti, considerando che potrebbe
@@ -55,15 +55,15 @@
 #' compose_prompt_api(msg_sys, msg_usr)
 #'
 #'
-compose_prompt_api <- function(sys_msg, usr_msg) {
+compose_prompt_api <- function(sys_prompt, usr_prompt) {
   list(
     list(
       role = "system",
-      content = sys_msg
+      content = sys_prompt
     ),
     list(
       role = "user",
-      content = usr_msg
+      content = usr_prompt
     )
   )
 }

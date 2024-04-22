@@ -44,8 +44,8 @@ compose_prompt <- function(
   style = "", examples = "", text = "",
   delimiter = if (text == "") "" else '""""'
 ) {
-  msg_sys <- compose_prompt_system(role, context)
-  msg_usr <- compose_prompt_user(
+  msg_sys <- compose_sys_prompt(role, context)
+  msg_usr <- compose_usr_prompt(
     task, instructions, output, style, examples, text, delimiter
   )
   glue::glue(
@@ -64,14 +64,14 @@ compose_prompt <- function(
 #' @export
 #' @examples
 #' if (FALSE) {
-#'   msg_sys <- compose_prompt_system(
+#'   msg_sys <- compose_sys_prompt(
 #'     role = "Sei l'assistente di un docente universitario.",
 #'     context = "
 #'       Tu e lui state preparando un workshop sull'utilizzo di ChatGPT
 #'       per biostatisitci ed epidemiologi."
 #'  )
 #' }
-compose_prompt_system <- function(role = "", context = "") {
+compose_sys_prompt <- function(role = "", context = "") {
   glue::glue("
     {role}
     {context}
@@ -86,7 +86,7 @@ compose_prompt_system <- function(role = "", context = "") {
 #' @export
 #' @examples
 #' if (FALSE) {
-#'   msg_usr <- compose_prompt_user(
+#'   msg_usr <- compose_usr_prompt(
 #'     task = "
 #'       Il tuo compito è trovare cosa dire per spiegare cosa sia una
 #'       chat di ChatGPT agli studenti, considerando che potrebbe
@@ -98,7 +98,7 @@ compose_prompt_system <- function(role = "", context = "") {
 #'    style = "Usa un tono amichevole, colloquiale, ma preciso."
 #'  )
 #' }
-compose_prompt_user <- function(
+compose_usr_prompt <- function(
   task = "", instructions = "", output = "", style = "", examples = "",
   text = "", delimiter = if (text == "") "" else '""""'
 ) {
@@ -166,7 +166,7 @@ create_usr_data_prompter <- function(
   task = "", instructions = "", output = "", style = "", examples = ""
 ) {
   function(text) {
-    compose_prompt_user(
+    compose_usr_prompt(
       task = task, instructions = instructions, output = output,
       style = style, examples = examples, text = text
     )

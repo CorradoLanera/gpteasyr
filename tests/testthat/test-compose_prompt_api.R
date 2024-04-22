@@ -5,8 +5,8 @@ test_that("compose_prompt_api works", {
   task <- "task"
   instructions <- "instructions"
 
-  sys_prompt <- compose_prompt_system(role = role, context = context)
-  usr_prompt <- compose_prompt_user(
+  sys_prompt <- compose_sys_prompt(role = role, context = context)
+  usr_prompt <- compose_usr_prompt(
     task = task, instructions = instructions
   )
 

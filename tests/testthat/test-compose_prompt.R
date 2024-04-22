@@ -1,16 +1,16 @@
-test_that("compose_prompt_system works", {
+test_that("compose_sys_prompt works", {
   # setup
   role <- "role"
   context <- "context"
 
   # execution
-  res <- compose_prompt_system(role = role, context = context)
+  res <- compose_sys_prompt(role = role, context = context)
 
   # expectation
   expect_string(res)
 })
 
-test_that("compose_prompt_user works", {
+test_that("compose_usr_prompt works", {
   # setup
   task <- "task"
   instructions <- "instructions"
@@ -20,7 +20,7 @@ test_that("compose_prompt_user works", {
   text <- "text"
 
   # execution
-  res <- compose_prompt_user(
+  res <- compose_usr_prompt(
     task = task, instructions = instructions, output = output,
     style = style, examples = examples, text = text
   )

@@ -2,8 +2,8 @@
 % Please edit documentation in R/compose_prompt.R
 \name{compose_prompt}
 \alias{compose_prompt}
-\alias{compose_prompt_system}
-\alias{compose_prompt_user}
+\alias{compose_sys_prompt}
+\alias{compose_usr_prompt}
 \title{Create a prompt to ChatGPT}
 \usage{
 compose_prompt(
@@ -18,9 +18,9 @@ compose_prompt(
   delimiter = if (text == "") "" else "\\"\\"\\"\\""
 )
 
-compose_prompt_system(role = "", context = "")
+compose_sys_prompt(role = "", context = "")
 
-compose_prompt_user(
+compose_usr_prompt(
   task = "",
   instructions = "",
   output = "",
@@ -67,9 +67,9 @@ entering the components useful for a good prompt.
 }
 \section{Functions}{
 \itemize{
-\item \code{compose_prompt_system()}: 
+\item \code{compose_sys_prompt()}: 
 
-\item \code{compose_prompt_user()}: 
+\item \code{compose_usr_prompt()}: 
 
 }}
 \examples{
@@ -91,7 +91,7 @@ if (FALSE) {
  )
 }
 if (FALSE) {
-  msg_sys <- compose_prompt_system(
+  msg_sys <- compose_sys_prompt(
     role = "Sei l'assistente di un docente universitario.",
     context = "
       Tu e lui state preparando un workshop sull'utilizzo di ChatGPT
@@ -99,7 +99,7 @@ if (FALSE) {
  )
 }
 if (FALSE) {
-  msg_usr <- compose_prompt_user(
+  msg_usr <- compose_usr_prompt(
     task = "
       Il tuo compito è trovare cosa dire per spiegare cosa sia una
       chat di ChatGPT agli studenti, considerando che potrebbe

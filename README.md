@@ -12,9 +12,9 @@ coverage](https://codecov.io/gh/UBESP-DCTV/ubep.gpt/branch/main/graph/badge.svg)
 [![R-CMD-check](https://github.com/UBESP-DCTV/ubep.gpt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/UBESP-DCTV/ubep.gpt/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of `{ubep.gpt}` is to provide a simple interface to OpenAI’s
-GPT API. The package is designed to work with dataframes/tibbles and to
-simplify the process of querying the API.
+The goal of `{ubep.gpt}` is to provide a basic/simple interface to
+OpenAI’s GPT API. The package is designed to work with
+dataframes/tibbles and to simplify the process of querying the API.
 
 ## Installation
 
@@ -86,27 +86,27 @@ res <- query_gpt(
 #> ✔ Parse the response
 #> • Check whether request failed and return parsed
 #> ✔ Check whether request failed and return parsed
-#> ℹ Tries: 1.
+#> ℹ Total tries: 1.
 #> ℹ Prompt token used: 29.
-#> ℹ Response token used: 90.
-#> ℹ Total token used: 119.
+#> ℹ Response token used: 100.
+#> ℹ Total token used: 129.
 
 str(res)
 #> List of 2
-#>  $ content: chr "The last course taught by Professor [Name] was \"Advanced Topics in Environmental Science.\" This course focuse"| __truncated__
+#>  $ content: chr "The last course that the professor conducted was a graduate-level seminar on \"Post-Colonial Literature and The"| __truncated__
 #>  $ tokens :List of 3
 #>   ..$ prompt_tokens    : int 29
-#>   ..$ completion_tokens: int 90
-#>   ..$ total_tokens     : int 119
+#>   ..$ completion_tokens: int 100
+#>   ..$ total_tokens     : int 129
 get_content(res)
-#> [1] "The last course taught by Professor [Name] was \"Advanced Topics in Environmental Science.\" This course focused on leading-edge issues in the field, such as climate change mitigation strategies, sustainable resource management, and emerging technologies for environmental conservation. The students engaged in lively discussions, hands-on fieldwork, and research projects to explore the latest scientific and policy developments in environmental studies. The course received positive feedback from students, who appreciated its relevance to current environmental challenges."
+#> [1] "The last course that the professor conducted was a graduate-level seminar on \"Post-Colonial Literature and Theory.\" The course explored post-colonial literature from various regions and examined the ways in which authors have tackled issues of identity, power dynamics, and societal change in the aftermath of colonization. The students engaged with both theoretical texts and literary works in order to analyze and discuss important themes related to post-colonialism. The course culminated in a final research project where students could pursue more in-depth"
 get_tokens(res)
-#> [1] 119
+#> [1] 129
 get_tokens(res, "prompt")
 #> [1] 29
 get_tokens(res, "all")
 #>     prompt_tokens completion_tokens      total_tokens 
-#>                29                90               119
+#>                29               100               129
 ```
 
 ## Easy prompt-assisted creation

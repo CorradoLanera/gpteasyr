@@ -21,4 +21,3 @@ test_that("zzz works with API_KEY set", {
     suppressPackageStartupMessages(ubep.gpt:::.onAttach())
   )
 })
-

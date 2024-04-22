@@ -4,7 +4,7 @@
 \alias{compose_prompt_api}
 \title{Create a prompt to OpenAI API}
 \usage{
-compose_prompt_api(sys_prompt, usr_prompt)
+compose_prompt_api(sys_prompt = NULL, usr_prompt = NULL)
 }
 \arguments{
 \item{sys_prompt}{(chr) messaggio da usare per impostare il sistema}

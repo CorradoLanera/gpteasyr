@@ -1,4 +1,4 @@
-#' Compose the ChatGPT System prompt
+#' Query GPT on a dataframe's column
 #'
 #' @param db (data.frame) the data to use
 #' @param text_column (chr) the name of the column containing the text
@@ -57,17 +57,17 @@
 #'  res
 #' }
 query_gpt_on_column <- function(
-    db,
-    text_column,
-    sys_prompt = "",
-    usr_prompt = "",
-    model = c("gpt-3.5-turbo", "gpt-4-turbo"),
-    quiet = TRUE,
-    max_try = 10,
-    temperature = 0,
-    max_tokens = 1000,
-    include_source_text = TRUE,
-    simplify = TRUE
+  db,
+  text_column,
+  sys_prompt = NULL,
+  usr_prompt = NULL,
+  model = c("gpt-3.5-turbo", "gpt-4-turbo"),
+  quiet = TRUE,
+  max_try = 10,
+  temperature = 0,
+  max_tokens = 1000,
+  include_source_text = TRUE,
+  simplify = TRUE
 ) {
   model <- match.arg(model)
 

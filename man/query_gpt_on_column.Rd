@@ -2,13 +2,13 @@
 % Please edit documentation in R/query_gpt_on_column.R
 \name{query_gpt_on_column}
 \alias{query_gpt_on_column}
-\title{Compose the ChatGPT System prompt}
+\title{Query GPT on a dataframe's column}
 \usage{
 query_gpt_on_column(
   db,
   text_column,
-  sys_prompt = "",
-  usr_prompt = "",
+  sys_prompt = NULL,
+  usr_prompt = NULL,
   model = c("gpt-3.5-turbo", "gpt-4-turbo"),
   quiet = TRUE,
   max_try = 10,
@@ -47,7 +47,7 @@ the source text}
 (tibble) the result of the query
 }
 \description{
-Compose the ChatGPT System prompt
+Query GPT on a dataframe's column
 }
 \examples{
 if (FALSE) {

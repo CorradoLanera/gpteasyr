@@ -55,15 +55,16 @@
 #' compose_prompt_api(msg_sys, msg_usr)
 #'
 #'
-compose_prompt_api <- function(sys_prompt, usr_prompt) {
+compose_prompt_api <- function(sys_prompt = NULL, usr_prompt = NULL) {
+
   list(
     list(
       role = "system",
-      content = sys_prompt
+      content = sys_prompt %||% ""
     ),
     list(
       role = "user",
-      content = usr_prompt
+      content = usr_prompt %||% ""
     )
   )
 }

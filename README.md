@@ -93,13 +93,13 @@ res <- query_gpt(
 
 str(res)
 #> List of 2
-#>  $ content: chr "The last course that the professor conducted was a graduate-level seminar on \"Post-Colonial Literature and The"| __truncated__
+#>  $ content: chr "The last course that was provided was titled \"Advanced Machine Learning Techniques in Healthcare\". It covered"| __truncated__
 #>  $ tokens :List of 3
 #>   ..$ prompt_tokens    : int 29
 #>   ..$ completion_tokens: int 100
 #>   ..$ total_tokens     : int 129
 get_content(res)
-#> [1] "The last course that the professor conducted was a graduate-level seminar on \"Post-Colonial Literature and Theory.\" The course explored post-colonial literature from various regions and examined the ways in which authors have tackled issues of identity, power dynamics, and societal change in the aftermath of colonization. The students engaged with both theoretical texts and literary works in order to analyze and discuss important themes related to post-colonialism. The course culminated in a final research project where students could pursue more in-depth"
+#> [1] "The last course that was provided was titled \"Advanced Machine Learning Techniques in Healthcare\". It covered advanced machine learning algorithms and their applications in healthcare, with a focus on predictive modeling, time series analysis, and deep learning. The course also included case studies and practical hands-on exercises using real-world healthcare datasets. Students were able to develop their data analysis and predictive modeling skills in the context of an important and growing industry sector. Guest speakers from the healthcare industry also shared their insights and experiences with the application of machine"
 get_tokens(res)
 #> [1] 129
 get_tokens(res, "prompt")

@@ -4,9 +4,9 @@
 \name{ubep.gpt-package}
 \alias{ubep.gpt}
 \alias{ubep.gpt-package}
-\title{ubep.gpt: What the Package Does (One Line, Title Case)}
+\title{ubep.gpt: A basic/simple interface to OpenAI’s GPT API}
 \description{
-What the package does (one paragraph).
+The goal of `{ubep.gpt}` is to provide a basic/simple interface to OpenAI's GPT API. The package is designed to work with (i.e., to query on) dataframes/tibbles, and to simplify the process of querying the API.
 }
 \seealso{
 Useful links:
@@ -18,7 +18,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: First Last \email{first.last@example.com} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
+\strong{Maintainer}: Corrado Lanera \email{corrado.lanera@ubep.unipd.it} (\href{https://orcid.org/0000-0002-0520-7428}{ORCID})
 
 }
 \keyword{internal}

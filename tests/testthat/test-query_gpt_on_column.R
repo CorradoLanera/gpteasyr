@@ -1,5 +1,4 @@
 test_that("query_gpt_on_column works", {
-  skip_on_ci()
   skip_on_cran()
 
   # setup

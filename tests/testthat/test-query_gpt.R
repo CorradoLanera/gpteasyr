@@ -1,5 +1,4 @@
 test_that("query_gpt works", {
-  skip_on_ci()
   skip_on_cran()
 
   # setup

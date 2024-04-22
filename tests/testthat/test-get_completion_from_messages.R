@@ -1,5 +1,4 @@
 test_that("get_completion_from_messages works", {
-  skip_on_ci()
   skip_on_cran()
 
   # setup

@@ -9,11 +9,11 @@ License: MIT + file LICENSE
 URL: https://github.com/UBESP-DCTV/ubep.gpt
 BugReports: https://github.com/UBESP-DCTV/ubep.gpt/issues
 Imports: 
-    glue,
     lifecycle,
     openai,
     purrr,
     rlang,
+    stringr,
     tibble,
     usethis
 Suggests: 

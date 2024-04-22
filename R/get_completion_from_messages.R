@@ -88,8 +88,10 @@ get_completion_from_messages <- function(
   )
 
   get_chat_completion <- if (quiet) {
-    \(...) openai::create_chat_completion(...) |>
-      suppressMessages()
+    \(...) {
+      openai::create_chat_completion(...) |>
+        suppressMessages()
+    }
   } else {
     openai::create_chat_completion
   }

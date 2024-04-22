@@ -40,20 +40,32 @@
 #'  )
 #' }
 compose_prompt <- function(
-  role = "", context = "", task = "", instructions = "", output = "",
-  style = "", examples = "", text = "",
-  delimiter = if (text == "") "" else '""""'
+  role = NULL, context = NULL, task = NULL, instructions = NULL,
+  output = NULL, style = NULL, examples = NULL, text = NULL,
+  delimiter = if (is.null(text)) NULL else '""""'
 ) {
-  msg_sys <- compose_sys_prompt(role, context)
-  msg_usr <- compose_usr_prompt(
+  all_sys_null <- list(role, context) |>
+    purrr::map_lgl(is.null) |>
+    all()
+  all_usr_null <- list(
     task, instructions, output, style, examples, text, delimiter
-  )
-  glue::glue(
-    "
-    {msg_sys}
-    {msg_usr}
-    "
-  )
+  ) |>
+    purrr::map_lgl(is.null) |>
+    all()
+
+  msg_sys <- if (all_sys_null) {
+    NULL
+  } else {
+    compose_sys_prompt(role, context)
+  }
+  msg_usr <- if (all_usr_null) {
+    NULL
+  } else {
+    compose_usr_prompt(
+      task, instructions, output, style, examples, text, delimiter
+    )
+  }
+  stringr::str_c(msg_sys, msg_usr, sep = "\n")
 }
 
 #' Compose the ChatGPT System prompt
@@ -71,11 +83,11 @@ compose_prompt <- function(
 #'       per biostatisitci ed epidemiologi."
 #'  )
 #' }
-compose_sys_prompt <- function(role = "", context = "") {
-  glue::glue("
-    {role}
-    {context}
-  ")
+compose_sys_prompt <- function(
+  role =  NULL,
+  context = NULL
+) {
+  stringr::str_c(role, context, sep = "\n")
 }
 
 #' Compose the ChatGPT User prompt
@@ -85,7 +97,6 @@ compose_sys_prompt <- function(role = "", context = "") {
 #' @return (chr) The complete user prompt
 #' @export
 #' @examples
-#' if (FALSE) {
 #'   msg_usr <- compose_usr_prompt(
 #'     task = "
 #'       Il tuo compito è trovare cosa dire per spiegare cosa sia una
@@ -97,22 +108,23 @@ compose_sys_prompt <- function(role = "", context = "") {
 #'       che assolva ed esemplifichi lo scopo descritto.",
 #'    style = "Usa un tono amichevole, colloquiale, ma preciso."
 #'  )
-#' }
 compose_usr_prompt <- function(
-  task = "", instructions = "", output = "", style = "", examples = "",
-  text = "", delimiter = if (text == "") "" else '""""'
+  task = NULL, instructions = NULL, output = NULL, style = NULL,
+  examples = NULL, text = NULL,
+  delimiter = if (is.null(text)) NULL else '""""'
 ) {
-  glue::glue("
-    {task}
-    {instructions}
-    {output}
-    {style}
-    {examples}
+  stringr::str_c(
+    task,
+    instructions,
+    output,
+    style,
+    examples,
+    delimiter,
+    text,
+    delimiter,
+    sep = "\n"
+  )
 
-    {delimiter}
-    {text}
-    {delimiter}
-  ")
 }
 
 
@@ -123,11 +135,8 @@ compose_usr_prompt <- function(
 #' function created will accept a string of text as input and return the
 #' complete prompt based on the desired context.
 #'
-#' @param task (chr) The task ChatGPT should assess
-#' @param instructions (chr) Description of steps ChatGPT should follow
-#' @param output (chr) The type/kind of output required
-#' @param style (chr) The style ChatGPT should use in the output
-#' @param examples (chr) Some examples of correct output
+#' @param usr_prompt (chr) The user prompt to use as a template to which
+#'   the text will be added.
 #'
 #' @return (function) a function that can be used to prompt the user,
 #'   accepting a string of text as input and returning the complete
@@ -136,21 +145,28 @@ compose_usr_prompt <- function(
 #' @export
 #'
 #' @examples
-#' prompter <- create_usr_data_prompter(
+#' usr_prmpt <- compose_prompt(
+#'   role = "You are the assistant of a university professor.",
+#'   context = "
+#'     You are analyzing the comments of the students of the last course.",
 #'   task = "Your task is to extract information from a text provided.",
 #'   instructions = "
 #'     You should extract the first and last words of the text.",
 #'   output = "
 #'     Return the first and last words of the text separated by a dash,
-#'      i.e., `first - last`.",
+#'     i.e., `first - last`.",
 #'   style = "
-#'     Do not add any additional information, return only the requested
-#'     information.",
+#'     Do not add any additional information,
+#'     return only the requested information.",
 #'   examples = "
-#'     text: 'This is an example text.'
-#'     output: 'This - text'
-#'     text: 'Another example text!!!'
-#'     output: 'Another - text'"
+#'       # Examples:
+#'       text: 'This is an example text.'
+#'       output: 'This - text'
+#'       text: 'Another example text!!!'
+#'       output: 'Another - text'"
+#'   )
+#' prompter <- create_usr_data_prompter(
+#'   usr_prompt = usr_prmpt
 #' )
 #' prompter("This is an example text.")
 #' prompter("Another example text!!!")
@@ -162,13 +178,8 @@ compose_usr_prompt <- function(
 #' )
 #' db$text |> purrr::map_chr(prompter)
 #'
-create_usr_data_prompter <- function(
-  task = "", instructions = "", output = "", style = "", examples = ""
-) {
-  function(text) {
-    compose_usr_prompt(
-      task = task, instructions = instructions, output = output,
-      style = style, examples = examples, text = text
-    )
+create_usr_data_prompter <- function(usr_prompt = NULL) {
+  function(text = NULL) {
+    compose_usr_prompt(task = usr_prompt, text = text)
   }
 }

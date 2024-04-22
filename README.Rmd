@@ -130,16 +130,20 @@ examples <- "
   text: 'I didn't like it at all; it was deadly boring.'
   output: 'unsatisfied'"
 
+sys_prompt <- compose_sys_prompt(role = role, context = context)
+usr_prompt <- compose_usr_prompt(
+  task = task,
+  instructions = instructions,
+  output = output,
+  style = style,
+  examples = examples
+)
+
 db |>
  query_gpt_on_column(
    "txt",
-   role = role,
-   context = context,
-   task = task,
-   instructions = instructions,
-   output = output,
-   style = style,
-   examples = examples
+   sys_prompt = sys_prompt,
+   usr_prompt = usr_prompt,
  )
 ```
 

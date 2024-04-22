@@ -57,7 +57,7 @@ library(ubep.gpt)
 #>   (i.e., NOT to the 'default' one).
 #>   If you need to be added to the organization and/or to a project,
 #>   please, contact your project's referent.
-#> • Please, set the OPENAI_API_KEY environment variable with your OpenAI API key.
+#> • Please, set the OPENAI_API_KEY environment variable with your key.
 #> • And than, restart your R session.
 prompt <- compose_prompt_api(
   sys_prompt = "You are the assistant of a university professor.",
@@ -100,13 +100,13 @@ res <- query_gpt(
 
 str(res)
 #> List of 2
-#>  $ content: chr "The last course I provided was on the topic of \"Global Issues in Social Justice\". The course explored various"| __truncated__
+#>  $ content: chr "The professor's last course was on evolutionary psychology, a topic that explores how human behavior has evolve"| __truncated__
 #>  $ tokens :List of 3
 #>   ..$ prompt_tokens    : int 29
 #>   ..$ completion_tokens: int 100
 #>   ..$ total_tokens     : int 129
 get_content(res)
-#> [1] "The last course I provided was on the topic of \"Global Issues in Social Justice\". The course explored various social justice issues on both a local and global scale, discussing topics such as income inequality, racial equity, environmental sustainability, and human rights. Students engaged in critical discussions, group projects, and research assignments to deepen their understanding of the complexities of these issues and identifying possible solutions. The course also incorporated guest speakers from diverse backgrounds to provide different perspectives on social justice topics. Overall, it was a thought"
+#> [1] "The professor's last course was on evolutionary psychology, a topic that explores how human behavior has evolved over time in response to genetic and environmental factors. The course covered various theories and research findings in the field, and encouraged students to critically evaluate evidence and apply the concepts to real-world scenarios.\n\nStudents participated in discussions, group activities, and wrote essays to demonstrate their understanding of the material. The professor also incorporated guest lectures from experts in the field to provide diverse perspectives.\n\nOverall, the course was well-received"
 get_tokens(res)
 #> [1] 129
 get_tokens(res, "prompt")
@@ -131,8 +131,7 @@ sys_prompt <- compose_sys_prompt(
   context = "You are analyzing the comments of the students of the last course."
 )
 sys_prompt
-#>   You are the assistant of a university professor.
-#>   You are analyzing the comments of the students of the last course.
+#> [1] "You are the assistant of a university professor.\nYou are analyzing the comments of the students of the last course."
 
 usr_prompt <- compose_usr_prompt(
   task = "Your task is to extract information from a text provided.",
@@ -148,20 +147,7 @@ usr_prompt <- compose_usr_prompt(
   text = "Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura"
 )
 usr_prompt
-#>   Your task is to extract information from a text provided.
-#>   You should extract the first and last words of the text.
-#>   Return the first and last words of the text separated by a dash, i.e., `first - last`.
-#>   Do not add any additional information, return only the requested information.
-#>   
-#>     # Examples:
-#>     text: 'This is an example text.'
-#>     output: 'This - text'
-#>     text: 'Another example text!!!'
-#>     output: 'Another - text'
-#> 
-#>   """"
-#>   Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura
-#>   """"
+#> [1] "Your task is to extract information from a text provided.\nYou should extract the first and last words of the text.\nReturn the first and last words of the text separated by a dash, i.e., `first - last`.\nDo not add any additional information, return only the requested information.\n\n    # Examples:\n    text: 'This is an example text.'\n    output: 'This - text'\n    text: 'Another example text!!!'\n    output: 'Another - text'\n\"\"\"\"\nNel mezzo del cammin di nostra vita mi ritrovai per una selva oscura\n\"\"\"\""
 
 compose_prompt_api(sys_prompt, usr_prompt) |> 
   query_gpt() |> 
@@ -213,16 +199,20 @@ examples <- "
   text: 'I didn't like it at all; it was deadly boring.'
   output: 'unsatisfied'"
 
+sys_prompt <- compose_sys_prompt(role = role, context = context)
+usr_prompt <- compose_usr_prompt(
+  task = task,
+  instructions = instructions,
+  output = output,
+  style = style,
+  examples = examples
+)
+
 db |>
  query_gpt_on_column(
    "txt",
-   role = role,
-   context = context,
-   task = task,
-   instructions = instructions,
-   output = output,
-   style = style,
-   examples = examples
+   sys_prompt = sys_prompt,
+   usr_prompt = usr_prompt,
  )
 #> # A tibble: 7 × 2
 #>   txt                                                                    gpt_res
@@ -263,22 +253,7 @@ compose_prompt(
     output: 'Another - text'",
   text = "Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura"
 )
-#>   You are the assistant of a university professor.
-#>   You are analyzing the comments of the students of the last course.
-#>   Your task is to extract information from a text provided.
-#>   You should extract the first and last words of the text.
-#>   Return the first and last words of the text separated by a dash, i.e., `first - last`.
-#>   Do not add any additional information, return only the requested information.
-#>   
-#>     # Examples:
-#>     text: 'This is an example text.'
-#>     output: 'This - text'
-#>     text: 'Another example text!!!'
-#>     output: 'Another - text'
-#> 
-#>   """"
-#>   Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura
-#>   """"
+#> [1] "You are the assistant of a university professor.\nYou are analyzing the comments of the students of the last course.\nYour task is to extract information from a text provided.\nYou should extract the first and last words of the text.\nReturn the first and last words of the text separated by a dash, i.e., `first - last`.\nDo not add any additional information, return only the requested information.\n\n    # Examples:\n    text: 'This is an example text.'\n    output: 'This - text'\n    text: 'Another example text!!!'\n    output: 'Another - text'\n\"\"\"\"\nNel mezzo del cammin di nostra vita mi ritrovai per una selva oscura\n\"\"\"\""
 ```
 
 <figure>

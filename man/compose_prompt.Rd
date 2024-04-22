@@ -7,27 +7,27 @@
 \title{Create a prompt to ChatGPT}
 \usage{
 compose_prompt(
-  role = "",
-  context = "",
-  task = "",
-  instructions = "",
-  output = "",
-  style = "",
-  examples = "",
-  text = "",
-  delimiter = if (text == "") "" else "\\"\\"\\"\\""
+  role = NULL,
+  context = NULL,
+  task = NULL,
+  instructions = NULL,
+  output = NULL,
+  style = NULL,
+  examples = NULL,
+  text = NULL,
+  delimiter = if (is.null(text)) NULL else "\\"\\"\\"\\""
 )
 
-compose_sys_prompt(role = "", context = "")
+compose_sys_prompt(role = NULL, context = NULL)
 
 compose_usr_prompt(
-  task = "",
-  instructions = "",
-  output = "",
-  style = "",
-  examples = "",
-  text = "",
-  delimiter = if (text == "") "" else "\\"\\"\\"\\""
+  task = NULL,
+  instructions = NULL,
+  output = NULL,
+  style = NULL,
+  examples = NULL,
+  text = NULL,
+  delimiter = if (is.null(text)) NULL else "\\"\\"\\"\\""
 )
 }
 \arguments{
@@ -98,7 +98,6 @@ if (FALSE) {
       per biostatisitci ed epidemiologi."
  )
 }
-if (FALSE) {
   msg_usr <- compose_usr_prompt(
     task = "
       Il tuo compito è trovare cosa dire per spiegare cosa sia una
@@ -110,5 +109,4 @@ if (FALSE) {
       che assolva ed esemplifichi lo scopo descritto.",
    style = "Usa un tono amichevole, colloquiale, ma preciso."
  )
-}
 }

@@ -1,5 +1,5 @@
 # packages --------------------------------------------------------
-usethis::use_package("glue")
+usethis::use_package("stringr")
 usethis::use_package("openai")
 usethis::use_package("usethis")
 usethis::use_package("purrr")

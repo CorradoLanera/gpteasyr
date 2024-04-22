@@ -7,13 +7,8 @@
 query_gpt_on_column(
   db,
   text_column,
-  role = role,
-  context = context,
-  task = task,
-  instructions = instructions,
-  output = output,
-  style = style,
-  examples = examples,
+  sys_prompt = "",
+  usr_prompt = "",
   model = c("gpt-3.5-turbo", "gpt-4-turbo"),
   quiet = TRUE,
   max_try = 10,
@@ -29,19 +24,9 @@ query_gpt_on_column(
 \item{text_column}{(chr) the name of the column containing the text
 data}
 
-\item{role}{(chr) the role of the assistant in the context}
+\item{sys_prompt}{(chr) the system prompt to use}
 
-\item{context}{(chr) the context of the assistant in the context}
-
-\item{task}{(chr) the task to perform}
-
-\item{instructions}{(chr) the instructions to follow}
-
-\item{output}{(chr) the output required}
-
-\item{style}{(chr) the style to use in the output}
-
-\item{examples}{(chr) some examples of correct output}
+\item{usr_prompt}{(chr) the user prompt to use}
 
 \item{model}{(chr, default = "gpt-3.5-turbo") the model to use}
 

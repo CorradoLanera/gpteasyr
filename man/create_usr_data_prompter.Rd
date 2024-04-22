@@ -4,24 +4,11 @@
 \alias{create_usr_data_prompter}
 \title{Create a function to prompt the user for data}
 \usage{
-create_usr_data_prompter(
-  task = "",
-  instructions = "",
-  output = "",
-  style = "",
-  examples = ""
-)
+create_usr_data_prompter(usr_prompt = NULL)
 }
 \arguments{
-\item{task}{(chr) The task ChatGPT should assess}
-
-\item{instructions}{(chr) Description of steps ChatGPT should follow}
-
-\item{output}{(chr) The type/kind of output required}
-
-\item{style}{(chr) The style ChatGPT should use in the output}
-
-\item{examples}{(chr) Some examples of correct output}
+\item{usr_prompt}{(chr) The user prompt to use as a template to which
+the text will be added.}
 }
 \value{
 (function) a function that can be used to prompt the user,
@@ -35,21 +22,28 @@ function created will accept a string of text as input and return the
 complete prompt based on the desired context.
 }
 \examples{
-prompter <- create_usr_data_prompter(
+usr_prmpt <- compose_prompt(
+  role = "You are the assistant of a university professor.",
+  context = "
+    You are analyzing the comments of the students of the last course.",
   task = "Your task is to extract information from a text provided.",
   instructions = "
     You should extract the first and last words of the text.",
   output = "
     Return the first and last words of the text separated by a dash,
-     i.e., `first - last`.",
+    i.e., `first - last`.",
   style = "
-    Do not add any additional information, return only the requested
-    information.",
+    Do not add any additional information,
+    return only the requested information.",
   examples = "
-    text: 'This is an example text.'
-    output: 'This - text'
-    text: 'Another example text!!!'
-    output: 'Another - text'"
+      # Examples:
+      text: 'This is an example text.'
+      output: 'This - text'
+      text: 'Another example text!!!'
+      output: 'Another - text'"
+  )
+prompter <- create_usr_data_prompter(
+  usr_prompt = usr_prmpt
 )
 prompter("This is an example text.")
 prompter("Another example text!!!")

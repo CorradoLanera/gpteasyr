@@ -1,3 +1,8 @@
+# ubep.gpt 0.1.1
+
+* 100% coverage passed
+* Activated all tests on CI
+
 # ubep.gpt 0.1.0
 
 * All functions tested.

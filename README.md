@@ -88,25 +88,25 @@ res <- query_gpt(
 #> ✔ Check whether request failed and return parsed
 #> ℹ Tries: 1.
 #> ℹ Prompt token used: 29.
-#> ℹ Response token used: 100.
-#> ℹ Total token used: 129.
+#> ℹ Response token used: 90.
+#> ℹ Total token used: 119.
 
 str(res)
 #> List of 2
-#>  $ content: chr "Our last course focused on the topic of Digital Marketing in the Age of Social Media. It covered various aspect"| __truncated__
+#>  $ content: chr "The last course taught by Professor [Name] was \"Advanced Topics in Environmental Science.\" This course focuse"| __truncated__
 #>  $ tokens :List of 3
 #>   ..$ prompt_tokens    : int 29
-#>   ..$ completion_tokens: int 100
-#>   ..$ total_tokens     : int 129
+#>   ..$ completion_tokens: int 90
+#>   ..$ total_tokens     : int 119
 get_content(res)
-#> [1] "Our last course focused on the topic of Digital Marketing in the Age of Social Media. It covered various aspects of online marketing such as social media strategies, content creation, paid advertising, email marketing, and search engine optimization. The course combined theoretical knowledge with hands-on practical experience such as creating social media campaigns and analyzing digital marketing analytics data. Students also had the opportunity to work on a real-world project for a local business, implementing the skills they learned throughout the course. Overall, it was a well-re"
+#> [1] "The last course taught by Professor [Name] was \"Advanced Topics in Environmental Science.\" This course focused on leading-edge issues in the field, such as climate change mitigation strategies, sustainable resource management, and emerging technologies for environmental conservation. The students engaged in lively discussions, hands-on fieldwork, and research projects to explore the latest scientific and policy developments in environmental studies. The course received positive feedback from students, who appreciated its relevance to current environmental challenges."
 get_tokens(res)
-#> [1] 129
+#> [1] 119
 get_tokens(res, "prompt")
 #> [1] 29
 get_tokens(res, "all")
 #>     prompt_tokens completion_tokens      total_tokens 
-#>                29               100               129
+#>                29                90               119
 ```
 
 ## Easy prompt-assisted creation
@@ -123,8 +123,9 @@ sys_prompt <- compose_sys_prompt(
   role = "You are the assistant of a university professor.",
   context = "You are analyzing the comments of the students of the last course."
 )
-sys_prompt
-#> [1] "You are the assistant of a university professor.\nYou are analyzing the comments of the students of the last course."
+cat(sys_prompt)
+#> You are the assistant of a university professor.
+#> You are analyzing the comments of the students of the last course.
 
 usr_prompt <- compose_usr_prompt(
   task = "Your task is to extract information from a text provided.",
@@ -139,8 +140,20 @@ usr_prompt <- compose_usr_prompt(
     output: 'Another - text'",
   text = "Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura"
 )
-usr_prompt
-#> [1] "Your task is to extract information from a text provided.\nYou should extract the first and last words of the text.\nReturn the first and last words of the text separated by a dash, i.e., `first - last`.\nDo not add any additional information, return only the requested information.\n\n    # Examples:\n    text: 'This is an example text.'\n    output: 'This - text'\n    text: 'Another example text!!!'\n    output: 'Another - text'\n\"\"\"\"\nNel mezzo del cammin di nostra vita mi ritrovai per una selva oscura\n\"\"\"\""
+cat(usr_prompt)
+#> Your task is to extract information from a text provided.
+#> You should extract the first and last words of the text.
+#> Return the first and last words of the text separated by a dash, i.e., `first - last`.
+#> Do not add any additional information, return only the requested information.
+#> 
+#>     # Examples:
+#>     text: 'This is an example text.'
+#>     output: 'This - text'
+#>     text: 'Another example text!!!'
+#>     output: 'Another - text'
+#> """"
+#> Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura
+#> """"
 
 compose_prompt_api(sys_prompt, usr_prompt) |> 
   query_gpt() |> 
@@ -231,7 +244,7 @@ not to be used with API calls, i.e., it cannot be used with the
 `query_gpt` function!!
 
 ``` r
-compose_prompt(
+prompt <- compose_prompt(
   role = "You are the assistant of a university professor.",
   context = "You are analyzing the comments of the students of the last course.",
   task = "Your task is to extract information from a text provided.",
@@ -246,7 +259,23 @@ compose_prompt(
     output: 'Another - text'",
   text = "Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura"
 )
-#> [1] "You are the assistant of a university professor.\nYou are analyzing the comments of the students of the last course.\nYour task is to extract information from a text provided.\nYou should extract the first and last words of the text.\nReturn the first and last words of the text separated by a dash, i.e., `first - last`.\nDo not add any additional information, return only the requested information.\n\n    # Examples:\n    text: 'This is an example text.'\n    output: 'This - text'\n    text: 'Another example text!!!'\n    output: 'Another - text'\n\"\"\"\"\nNel mezzo del cammin di nostra vita mi ritrovai per una selva oscura\n\"\"\"\""
+
+cat(prompt)
+#> You are the assistant of a university professor.
+#> You are analyzing the comments of the students of the last course.
+#> Your task is to extract information from a text provided.
+#> You should extract the first and last words of the text.
+#> Return the first and last words of the text separated by a dash, i.e., `first - last`.
+#> Do not add any additional information, return only the requested information.
+#> 
+#>     # Examples:
+#>     text: 'This is an example text.'
+#>     output: 'This - text'
+#>     text: 'Another example text!!!'
+#>     output: 'Another - text'
+#> """"
+#> Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura
+#> """"
 ```
 
 <figure>

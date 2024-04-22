@@ -74,7 +74,7 @@ sys_prompt <- compose_sys_prompt(
   role = "You are the assistant of a university professor.",
   context = "You are analyzing the comments of the students of the last course."
 )
-sys_prompt
+cat(sys_prompt)
 
 usr_prompt <- compose_usr_prompt(
   task = "Your task is to extract information from a text provided.",
@@ -89,7 +89,7 @@ usr_prompt <- compose_usr_prompt(
     output: 'Another - text'",
   text = "Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura"
 )
-usr_prompt
+cat(usr_prompt)
 
 compose_prompt_api(sys_prompt, usr_prompt) |> 
   query_gpt() |> 
@@ -152,7 +152,7 @@ db |>
 You can use the `compose_prompt` function to create a prompt for ChatGPT. This function is useful because it helps you to compose the prompt following best practices in composing prompt. In fact the arguments are just the main components every prompt should have. They do just that, composing the prompt for you juxtaposing the components in the right order. The result is suitable to be copy-pasted on ChatGPT, not to be used with API calls, i.e., it cannot be used with the `query_gpt` function!!
 
 ```{r}
-compose_prompt(
+prompt <- compose_prompt(
   role = "You are the assistant of a university professor.",
   context = "You are analyzing the comments of the students of the last course.",
   task = "Your task is to extract information from a text provided.",
@@ -167,6 +167,8 @@ compose_prompt(
     output: 'Another - text'",
   text = "Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura"
 )
+
+cat(prompt)
 
 ```
 

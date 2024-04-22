@@ -46,10 +46,10 @@ query_gpt <- function(
   model <- match.arg(model)
   done <- FALSE
   tries <- 0L
-  while (!done && tries <= max_try) {
+  while (!done && tries < max_try) {
     tries[[1]] <- tries[[1]] + 1L
     if (tries > 1 && !quiet) {
-      usethis::ui_info("Error: {res}.")
+      usethis::ui_info("{res}.")
       usethis::ui_info("Try: {tries}...")
       Sys.sleep(0.2 * 2^tries)
     }
@@ -66,13 +66,13 @@ query_gpt <- function(
     }, error = function(e) e)
   }
 
-  if (tries > max_try) {
+  if (tries == max_try && !done) {
     usethis::ui_info("Max unsucessfully tries ({tries}) reached.")
-    usethis::ui_stop("Last error: {res}")
+    usethis::ui_stop("Last {res}")
   }
 
   if (!quiet) {
-    usethis::ui_info("Tries: {tries}.")
+    usethis::ui_info("Total tries: {tries}.")
     usethis::ui_info("Prompt token used: {get_tokens(res, 'prompt')}.")
     usethis::ui_info("Response token used: {get_tokens(res, 'completion')}.")
     usethis::ui_info("Total token used: {get_tokens(res)}.")

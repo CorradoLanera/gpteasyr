@@ -1,6 +1,4 @@
 test_that("query_gpt_on_column works", {
-  skip_on_cran()
-
   # setup
   db <- tibble::tibble(commenti = c("commento1", "commento2"))
   role <- "role"

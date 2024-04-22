@@ -1,6 +1,4 @@
 test_that("get_completion_from_messages works", {
-  skip_on_cran()
-
   # setup
   model <- "gpt-3.5-turbo"
   messages <- compose_prompt_api(

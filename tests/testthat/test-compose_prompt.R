@@ -110,4 +110,3 @@ test_that("create_usr_data_prompter works", {
   expect_string(prompt_text_only, n.chars = 14)
   expect_character(prompt_full_empty, len = 0)
 })
-

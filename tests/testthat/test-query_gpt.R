@@ -1,4 +1,7 @@
 test_that("query_gpt works", {
+  skip_on_ci()
+  skip_on_cran()
+
   # setup
   prompt <- compose_prompt_api(
     sys_prompt = compose_sys_prompt("role", "context"),

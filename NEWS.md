@@ -1,5 +1,6 @@
 # ubep.gpt (development version)
 
+* create_usr_data_prompter now works with empty characters (treated as NULL).
 * Now compose_prompt_api correctly manage empty prompts.
 
 # ubep.gpt 0.1.1

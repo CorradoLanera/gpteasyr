@@ -110,3 +110,18 @@ test_that("create_usr_data_prompter works", {
   expect_string(prompt_text_only, n.chars = 14)
   expect_character(prompt_full_empty, len = 0)
 })
+
+
+test_that("create_usr_data_prompt works with empty or NULL usr", {
+  # setup
+  prompter_null <- create_usr_data_prompter(NULL)
+  prompter_empty <- create_usr_data_prompter(character(0))
+
+  # execution
+  res_null <- prompter_null("text")
+  res_empty <- prompter_empty("text")
+
+  # expectation
+  expect_character(res_null, len = 1)
+  expect_character(res_empty, len = 1)
+})

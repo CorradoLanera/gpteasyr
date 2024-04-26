@@ -179,6 +179,9 @@ compose_usr_prompt <- function(
 #' db$text |> purrr::map_chr(prompter)
 #'
 create_usr_data_prompter <- function(usr_prompt = NULL) {
+  if (length(usr_prompt) == 0) {
+    usr_prompt <- NULL
+  }
   function(text = NULL) {
     compose_usr_prompt(task = usr_prompt, text = text)
   }

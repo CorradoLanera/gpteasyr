@@ -49,7 +49,6 @@ query_gpt <- function(
   quiet = TRUE,
   na_if_error = FALSE
 ) {
-  model <- match.arg(model)
   done <- FALSE
   tries <- 0L
   while (!done && tries < max_try) {

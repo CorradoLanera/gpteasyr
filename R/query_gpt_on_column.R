@@ -76,8 +76,6 @@ query_gpt_on_column <- function(
   simplify = TRUE,
   na_if_error = FALSE
 ) {
-  model <- match.arg(model)
-
   usr_data_prompter <- create_usr_data_prompter(usr_prompt = usr_prompt)
 
   gpt_answers <- db[[text_column]] |>

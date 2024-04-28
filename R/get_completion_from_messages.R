@@ -12,7 +12,9 @@
 #' @param max_tokens (dbl, default = 500) a value greater than 0. The
 #'   maximum number of tokens to generate in the chat completion. (see:
 #'   https://platform.openai.com/docs/api-reference/chat/create#chat/create-max_tokens)
-#' @param quiet (lgl, default = FALSE) whether to suppress messages
+#' @param endpoint (chr, default =
+#'   "https://api.openai.com/v1/chat/completions", i.e. the OpenAI API)
+#'   the endpoint to use for the request.
 #'
 #' @details For argument description, please refer to the [official
 #'   documentation](https://platform.openai.com/docs/api-reference/chat/create).
@@ -53,7 +55,7 @@
 #'     role = "Sei l'assistente di un docente universitario.",
 #'     context = "
 #'       Tu e lui state preparando un workshop sull'utilizzo di ChatGPT
-#'       per biostatisitci ed epidemiologi.",
+#'       per biostatisitci ed epidemiologi."
 #'   )
 #'
 #'   msg_usr <- compose_usr_prompt(
@@ -69,44 +71,48 @@
 #'   )
 #'
 #'   prompt <- compose_prompt_api(msg_sys, msg_usr)
-#'   res <- get_completion_from_messages(prompt, "4-turbo")
+#'   res <- get_completion_from_messages(prompt, "gpt-4-turbo")
 #'   answer <- get_content(res)
-#'   token_used <- get_tokens(res) # 957
+#'   token_used <- get_tokens(res)
 #' }
 get_completion_from_messages <- function(
-  messages,
-  model = c("gpt-3.5-turbo", "gpt-4-turbo"),
-  temperature = 0,
-  max_tokens = 1000,
-  quiet = FALSE
+    messages,
+    model = "gpt-3.5-turbo",
+    temperature = 0,
+    max_tokens = NULL,
+    endpoint = "https://api.openai.com/v1/chat/completions"
 ) {
 
-  model <- match.arg(model)
-  model <- switch(model,
-    "gpt-3.5-turbo" = "gpt-3.5-turbo",
-    "gpt-4-turbo" = "gpt-4-1106-preview"
+  response <- httr::POST(
+    endpoint,
+    httr::add_headers(
+      "Authorization" = paste("Bearer", Sys.getenv("OPENAI_API_KEY"))
+    ),
+    httr::content_type_json(),
+    encode = "json",
+    body = list(
+      model = model,
+      messages = messages,
+      temperature = temperature,
+      max_tokens = max_tokens
+    )
   )
 
-  get_chat_completion <- if (quiet) {
-    \(...) {
-      openai::create_chat_completion(...) |>
-        suppressMessages()
-    }
-  } else {
-    openai::create_chat_completion
+  parsed <- response |>
+    httr::content(as = "text", encoding = "UTF-8") |>
+    jsonlite::fromJSON(flatten = TRUE)
+
+  if (httr::http_error(response)) {
+    stringr::str_c(
+      "API request failed [",
+      httr::status_code(response),
+      "]:\n\n",
+      parsed[["error"]][["message"]]
+    ) |>
+      usethis::ui_stop()
   }
 
-  res <- get_chat_completion(
-    model = model,
-    messages = messages,
-    temperature = temperature,
-    max_tokens = max_tokens,
-  )
-
-  list(
-    content = res[["choices"]][["message.content"]],
-    tokens = res[["usage"]]
-  )
+  parsed
 }
 
 
@@ -118,7 +124,7 @@ get_completion_from_messages <- function(
 #' @return (chr) the output message returned by the assistant
 #' @export
 get_content <- function(completion) {
-  completion[["content"]]
+  completion[["choices"]][["message.content"]]
 }
 
 #' Get the number of token of a chat completion
@@ -139,8 +145,8 @@ get_tokens <- function(
   what <- match.arg(what)
 
   if (what == "all") {
-    completion[["tokens"]] |> unlist()
+    completion[["usage"]] |> unlist()
   } else {
-    completion[["tokens"]][[paste0(what, "_tokens")]]
+    completion[["usage"]][[paste0(what, "_tokens")]]
   }
 }

@@ -1,8 +1,9 @@
 ## CTRL + SHIFT + D: update project documentation
-devtools::build_readme()
-
 spelling::spell_check_package()
 ## spelling::update_wordlist()
+
+devtools::build_readme()
+
 
 lintr::lint_package()
 

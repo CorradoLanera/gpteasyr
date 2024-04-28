@@ -6,6 +6,9 @@
 #' @param max_try (int) the maximum number of tries
 #' @param temperature (dbl) the temperature to use
 #' @param max_tokens (dbl) the maximum number of tokens
+#' @param endpoint (chr, default =
+#'   "https://api.openai.com/v1/chat/completions", i.e. the OpenAI API)
+#'   the endpoint to use for the request.
 #'
 #' @return (list) the result of the query
 #' @export
@@ -37,11 +40,12 @@
 #' }
 query_gpt <- function(
   prompt,
-  model = c("gpt-3.5-turbo", "gpt-4-turbo"),
-  quiet = TRUE,
-  max_try = 10,
+  model = "gpt-3.5-turbo",
   temperature = 0,
-  max_tokens = 1000
+  max_tokens = NULL,
+  endpoint = "https://api.openai.com/v1/chat/completions",
+  max_try = 10,
+  quiet = TRUE
 ) {
   model <- match.arg(model)
   done <- FALSE
@@ -59,7 +63,7 @@ query_gpt <- function(
           model = model,
           temperature = temperature,
           max_tokens = max_tokens,
-          quiet = quiet
+          endpoint = endpoint
         )
       done <- TRUE
       aux

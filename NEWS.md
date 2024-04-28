@@ -1,5 +1,7 @@
-# ubep.gpt (development version)
+# ubep.gpt 0.2.0
 
+* Removed dependency from `{openai}` in favour of `{httr}` and `{jsonlite}` directly
+* Now queries can be made to personalized endpoints.
 * create_usr_data_prompter now works with empty characters (treated as NULL).
 * Now compose_prompt_api correctly manage empty prompts.
 

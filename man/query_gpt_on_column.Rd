@@ -9,11 +9,12 @@ query_gpt_on_column(
   text_column,
   sys_prompt = NULL,
   usr_prompt = NULL,
-  model = c("gpt-3.5-turbo", "gpt-4-turbo"),
+  model = "gpt-3.5-turbo",
   quiet = TRUE,
   max_try = 10,
   temperature = 0,
-  max_tokens = 1000,
+  max_tokens = NULL,
+  endpoint = "https://api.openai.com/v1/chat/completions",
   include_source_text = TRUE,
   simplify = TRUE
 )
@@ -37,6 +38,10 @@ data}
 \item{temperature}{(dbl, default = 0) the temperature to use}
 
 \item{max_tokens}{(dbl, default = 1000) the maximum number of tokens}
+
+\item{endpoint}{(chr, default =
+"https://api.openai.com/v1/chat/completions", i.e. the OpenAI API)
+the endpoint to use for the request.}
 
 \item{include_source_text}{(lgl, default = TRUE) whether to include
 the source text}

@@ -6,11 +6,12 @@
 \usage{
 query_gpt(
   prompt,
-  model = c("gpt-3.5-turbo", "gpt-4-turbo"),
-  quiet = TRUE,
-  max_try = 10,
+  model = "gpt-3.5-turbo",
   temperature = 0,
-  max_tokens = 1000
+  max_tokens = NULL,
+  endpoint = "https://api.openai.com/v1/chat/completions",
+  max_try = 10,
+  quiet = TRUE
 )
 }
 \arguments{
@@ -18,13 +19,17 @@ query_gpt(
 
 \item{model}{(chr) the model to use}
 
-\item{quiet}{(lgl) whether to print information}
-
-\item{max_try}{(int) the maximum number of tries}
-
 \item{temperature}{(dbl) the temperature to use}
 
 \item{max_tokens}{(dbl) the maximum number of tokens}
+
+\item{endpoint}{(chr, default =
+"https://api.openai.com/v1/chat/completions", i.e. the OpenAI API)
+the endpoint to use for the request.}
+
+\item{max_try}{(int) the maximum number of tries}
+
+\item{quiet}{(lgl) whether to print information}
 }
 \value{
 (list) the result of the query

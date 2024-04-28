@@ -1,6 +1,6 @@
 Package: ubep.gpt
 Title: A basic/simple interface to OpenAI’s GPT API
-Version: 0.1.1.9001
+Version: 0.2.0
 Authors@R: 
     person("Corrado", "Lanera", , "corrado.lanera@ubep.unipd.it", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-0520-7428"))
@@ -13,8 +13,9 @@ URL: https://github.com/UBESP-DCTV/ubep.gpt,
     https://ubesp-dctv.github.io/ubep.gpt/
 BugReports: https://github.com/UBESP-DCTV/ubep.gpt/issues
 Imports: 
+    httr,
+    jsonlite,
     lifecycle,
-    openai,
     purrr,
     rlang,
     stringr,

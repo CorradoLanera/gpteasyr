@@ -80,26 +80,30 @@ res <- query_gpt(
   temperature = 1.5, # default 0 [0-2]
   max_tokens = 100 # default 1000
 )
-#> • POST the query
-#> ✔ POST the query
-#> • Parse the response
-#> ✔ Parse the response
-#> • Check whether request failed and return parsed
-#> ✔ Check whether request failed and return parsed
 #> ℹ Total tries: 1.
 #> ℹ Prompt token used: 29.
 #> ℹ Response token used: 100.
 #> ℹ Total token used: 129.
 
 str(res)
-#> List of 2
-#>  $ content: chr "The last course that was provided was titled \"Advanced Machine Learning Techniques in Healthcare\". It covered"| __truncated__
-#>  $ tokens :List of 3
+#> List of 7
+#>  $ id                : chr "chatcmpl-9IqTC7CEErC0eZyGBfuCqAph0YROG"
+#>  $ object            : chr "chat.completion"
+#>  $ created           : int 1714278626
+#>  $ model             : chr "gpt-3.5-turbo-0125"
+#>  $ choices           :'data.frame':  1 obs. of  5 variables:
+#>   ..$ index          : int 0
+#>   ..$ logprobs       : logi NA
+#>   ..$ finish_reason  : chr "length"
+#>   ..$ message.role   : chr "assistant"
+#>   ..$ message.content: chr "Sure! The course was titled \"Advanced Topics in Neuroscience\" and it was a graduate-level seminar course that"| __truncated__
+#>  $ usage             :List of 3
 #>   ..$ prompt_tokens    : int 29
 #>   ..$ completion_tokens: int 100
 #>   ..$ total_tokens     : int 129
+#>  $ system_fingerprint: chr "fp_3b956da36b"
 get_content(res)
-#> [1] "The last course that was provided was titled \"Advanced Machine Learning Techniques in Healthcare\". It covered advanced machine learning algorithms and their applications in healthcare, with a focus on predictive modeling, time series analysis, and deep learning. The course also included case studies and practical hands-on exercises using real-world healthcare datasets. Students were able to develop their data analysis and predictive modeling skills in the context of an important and growing industry sector. Guest speakers from the healthcare industry also shared their insights and experiences with the application of machine"
+#> [1] "Sure! The course was titled \"Advanced Topics in Neuroscience\" and it was a graduate-level seminar course that covered cutting-edge research in the field of neuroscience. Students delved into recent neuroscientific articles, discussed topics such as brain connectivity, neural circuit function, and the role of various neurotransmitters in behavior. The course concluded with each student giving a presentation on a specific topic of their choice, showcasing their understanding and ability to critically analyze research findings in the field. Many students found the course challenging and engaging"
 get_tokens(res)
 #> [1] 129
 get_tokens(res, "prompt")

@@ -13,6 +13,9 @@
 #' @param include_source_text (lgl, default = TRUE) whether to include
 #'   the source text
 #' @param simplify (lgl, default = TRUE) whether to simplify the output
+#' @param endpoint (chr, default =
+#'   "https://api.openai.com/v1/chat/completions", i.e. the OpenAI API)
+#'   the endpoint to use for the request.
 #'
 #' @return (tibble) the result of the query
 #'
@@ -61,11 +64,12 @@ query_gpt_on_column <- function(
   text_column,
   sys_prompt = NULL,
   usr_prompt = NULL,
-  model = c("gpt-3.5-turbo", "gpt-4-turbo"),
+  model = "gpt-3.5-turbo",
   quiet = TRUE,
   max_try = 10,
   temperature = 0,
-  max_tokens = 1000,
+  max_tokens = NULL,
+  endpoint = "https://api.openai.com/v1/chat/completions",
   include_source_text = TRUE,
   simplify = TRUE
 ) {
@@ -80,10 +84,11 @@ query_gpt_on_column <- function(
       query_gpt(
         prompt = prompt,
         model = model,
-        quiet = quiet,
         max_try = max_try,
         temperature = temperature,
-        max_tokens = max_tokens
+        max_tokens = max_tokens,
+        endpoint = endpoint,
+        quiet = quiet
       )
     })
 

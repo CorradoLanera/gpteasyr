@@ -12,7 +12,11 @@ test_that("query_gpt works", {
     suppressMessages()
 
   # expectation
-  expect_list(res, c("character", "list"), len = 2)
+  expect_list(
+    res,
+    c("character", "integer", "data.frame", "list"),
+    len = 7
+    )
   expect_string(get_content(res))
   expect_integerish(get_tokens(res), len = 1)
   expect_integerish(get_tokens(res, what = "prompt"), len = 1)
@@ -35,16 +39,6 @@ test_that("query_gpt restarts", {
 
   query_gpt(prompt, max_try = 2, quiet = FALSE) |>
     suppressMessages() |>
-    expect_error(regexp = "messages is not a list")
+    expect_error(regexp = "is not of type 'array' - 'messages'")
 })
 
-test_that("query_gpt throws error on unsupported models", {
-  # setup
-  prompt <- "prompt"
-  model <- "abc"
-
-  # expectation
-  expect_error({
-    query_gpt(prompt, model = model)
-  }, regexp = "'arg' should be one of")
-})

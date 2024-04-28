@@ -8,10 +8,10 @@
 \usage{
 get_completion_from_messages(
   messages,
-  model = c("gpt-3.5-turbo", "gpt-4-turbo"),
+  model = "gpt-3.5-turbo",
   temperature = 0,
-  max_tokens = 1000,
-  quiet = FALSE
+  max_tokens = NULL,
+  endpoint = "https://api.openai.com/v1/chat/completions"
 )
 
 get_content(completion)
@@ -34,7 +34,9 @@ https://platform.openai.com/docs/api-reference/chat/create#chat/create-temperatu
 maximum number of tokens to generate in the chat completion. (see:
 https://platform.openai.com/docs/api-reference/chat/create#chat/create-max_tokens)}
 
-\item{quiet}{(lgl, default = FALSE) whether to suppress messages}
+\item{endpoint}{(chr, default =
+"https://api.openai.com/v1/chat/completions", i.e. the OpenAI API)
+the endpoint to use for the request.}
 
 \item{completion}{the number of tokens used for output of a
 \code{get_completion_from_messages} call}
@@ -100,7 +102,7 @@ if (FALSE) {
     role = "Sei l'assistente di un docente universitario.",
     context = "
       Tu e lui state preparando un workshop sull'utilizzo di ChatGPT
-      per biostatisitci ed epidemiologi.",
+      per biostatisitci ed epidemiologi."
   )
 
   msg_usr <- compose_usr_prompt(
@@ -116,8 +118,8 @@ if (FALSE) {
   )
 
   prompt <- compose_prompt_api(msg_sys, msg_usr)
-  res <- get_completion_from_messages(prompt, "4-turbo")
+  res <- get_completion_from_messages(prompt, "gpt-4-turbo")
   answer <- get_content(res)
-  token_used <- get_tokens(res) # 957
+  token_used <- get_tokens(res)
 }
 }

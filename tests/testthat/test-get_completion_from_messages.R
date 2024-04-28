@@ -20,7 +20,11 @@ test_that("get_completion_from_messages works", {
     suppressMessages()
 
   # expectation
-  expect_list(res, c("character", "list"), len = 2)
+  expect_list(
+    res,
+    c("character", "integer", "data.frame", "list"),
+    len = 7
+  )
   expect_string(get_content(res))
   expect_integerish(get_tokens(res))
   expect_integerish(get_tokens(res, what = "prompt"))

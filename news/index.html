@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ubep.gpt</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,6 +44,12 @@
       <small>Source: <a href="https://github.com/UBESP-DCTV/ubep.gpt/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.3" id="ubepgpt-023">ubep.gpt 0.2.3<a class="anchor" aria-label="anchor" href="#ubepgpt-023"></a></h2>
+<ul><li>column name for results in <code>gpt_query_on_columns</code> is now customizable.</li>
+<li>Now <code>gpt_query_on_columns</code> returns the original tibble with the column added to it, including an option <code>add</code> to return the result as a new tibble with a single column only (when <code>add = FALSE</code>).</li>
+<li>Add progressbar to <code>gpt_query_on_column</code> functions.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.2" id="ubepgpt-022">ubep.gpt 0.2.2<a class="anchor" aria-label="anchor" href="#ubepgpt-022"></a></h2>
 <ul><li>hotfix old calls to <code>match.arg(model)</code> in <code>gpt_query</code> and <code>gpt_query_on_column</code> functions.</li>

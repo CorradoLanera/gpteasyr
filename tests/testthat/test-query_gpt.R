@@ -60,3 +60,26 @@ test_that("na_if_error works", {
   expect_integerish(get_tokens(res, what = "completion"), len = 1)
   expect_integer(get_tokens(res, what = "all"), len = 3)
 })
+
+
+test_that("query_gpt without or empty sys_prompt works", {
+  # setup
+  messages <- compose_prompt_api(usr_prompt = "usr")
+
+  # execution
+  res <- get_completion_from_messages(
+    messages,
+    endpoint = "http://93.44.129.9:4321/v1/chat/completions",
+    model = "lmstudio-community/Meta-Llama-3-8B-Instruct-GGUF"
+  )
+
+  # expectation
+  expect_list(
+    res, c("character", "integer", "data.frame", "list")
+  )
+  expect_string(get_content(res))
+  expect_integerish(get_tokens(res), len = 1)
+  expect_integerish(get_tokens(res, what = "prompt"), len = 1)
+  expect_integerish(get_tokens(res, what = "completion"), len = 1)
+  expect_integer(get_tokens(res, what = "all"), len = 3)
+})

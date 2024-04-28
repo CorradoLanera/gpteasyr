@@ -1,6 +1,9 @@
 test_that("query_gpt_on_column works", {
   # setup
-  db <- tibble::tibble(commenti = c("commento1", "commento2"))
+  db <- tibble::tibble(
+    foo = 1:2,
+    commenti = c("commento1", "commento2")
+  )
   role <- "role"
   context <- "context"
   task <- "task"
@@ -13,7 +16,7 @@ test_that("query_gpt_on_column works", {
   max_try <- 10
   temperature <- 0
   max_tokens <- 1000
-  include_source_text <- TRUE
+  add <- TRUE
   simplify <- TRUE
 
   sys_prompt <- compose_sys_prompt(role = role, context = context)
@@ -33,7 +36,7 @@ test_that("query_gpt_on_column works", {
     max_try = max_try,
     temperature = temperature,
     max_tokens = max_tokens,
-    include_source_text = include_source_text,
+    add = add,
     simplify = simplify
   ) |>
     suppressMessages()
@@ -48,7 +51,7 @@ test_that("query_gpt_on_column works", {
     max_try = max_try,
     temperature = temperature,
     max_tokens = max_tokens,
-    include_source_text = include_source_text,
+    add = add,
     simplify = FALSE
   ) |>
     suppressMessages()
@@ -63,13 +66,13 @@ test_that("query_gpt_on_column works", {
     max_try = max_try,
     temperature = temperature,
     max_tokens = max_tokens,
-    include_source_text = FALSE,
+    add = FALSE,
     simplify = simplify
   ) |>
     suppressMessages()
 
   # expectation
-  expect_tibble(res, ncols = 2, nrows = 2)
-  expect_tibble(res_not_simplified, ncols = 2, nrows = 2)
+  expect_tibble(res, ncols = 3, nrows = 2)
+  expect_tibble(res_not_simplified, ncols = 3, nrows = 2)
   expect_tibble(res_without_source_text, ncols = 1, nrows = 2)
 })

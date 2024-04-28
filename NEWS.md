@@ -1,3 +1,11 @@
+# ubep.gpt 0.2.3
+
+* column name for results in `gpt_query_on_columns` is now customizable.
+* Now `gpt_query_on_columns` returns the original tibble with the column added
+  to it, including an option `add` to return the result as a new tibble
+  with a single column only (when `add = FALSE`).
+* Add progressbar to `gpt_query_on_column` functions.
+
 # ubep.gpt 0.2.2
 
 * hotfix old calls to `match.arg(model)` in `gpt_query` and `gpt_query_on_column` functions.

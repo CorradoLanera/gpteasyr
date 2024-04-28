@@ -57,7 +57,7 @@
 #'
 compose_prompt_api <- function(sys_prompt = NULL, usr_prompt = NULL) {
 
-  list(
+  res <- list(
     list(
       role = "system",
       content = sys_prompt %||% ""
@@ -67,4 +67,18 @@ compose_prompt_api <- function(sys_prompt = NULL, usr_prompt = NULL) {
       content = usr_prompt %||% ""
     )
   )
+
+  # check the second and remove if empty
+  if (res[[2]]$content == "") {
+    res <- res[-2]
+  }
+  # Check this after the second one to be sure it will "the" first!
+  if (res[[1]]$content == "") {
+    res <- res[-1]
+  }
+  if (length(res) == 0) {
+    usethis::ui_stop("Both sys and usr prompts are NULL or empty")
+  }
+
+  res
 }

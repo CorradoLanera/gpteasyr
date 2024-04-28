@@ -103,11 +103,13 @@ get_completion_from_messages <- function(
     jsonlite::fromJSON(flatten = TRUE)
 
   if (httr::http_error(response)) {
+    err <- parsed[["error"]]
+    err <- if (is.character(err)) err else err[["message"]]
     stringr::str_c(
       "API request failed [",
       httr::status_code(response),
       "]:\n\n",
-      parsed[["error"]][["message"]]
+      err
     ) |>
       usethis::ui_stop()
   }

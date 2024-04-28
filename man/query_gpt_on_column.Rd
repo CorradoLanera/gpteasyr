@@ -15,9 +15,11 @@ query_gpt_on_column(
   temperature = 0,
   max_tokens = NULL,
   endpoint = "https://api.openai.com/v1/chat/completions",
-  include_source_text = TRUE,
+  add = TRUE,
   simplify = TRUE,
-  na_if_error = FALSE
+  na_if_error = FALSE,
+  res_name = "gpt_res",
+  .progress = TRUE
 )
 }
 \arguments{
@@ -44,13 +46,20 @@ data}
 "https://api.openai.com/v1/chat/completions", i.e. the OpenAI API)
 the endpoint to use for the request.}
 
-\item{include_source_text}{(lgl, default = TRUE) whether to include
-the source text}
+\item{add}{(lgl, default = TRUE) whether to add the result to the
+original dataframe. If FALSE, it returns a tibble with the result
+only.}
 
 \item{simplify}{(lgl, default = TRUE) whether to simplify the output}
 
 \item{na_if_error}{(lgl, default = FALSE) whether to return NA if an
 error occurs}
+
+\item{res_name}{(chr, default = "gpt_res") the name of the column
+containing the result}
+
+\item{.progress}{(lgl, default = TRUE) whether to show a progress bar
+or not}
 }
 \value{
 (tibble) the result of the query

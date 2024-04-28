@@ -10,14 +10,19 @@
 #' @param max_try (int, default = 10) the maximum number of tries
 #' @param temperature (dbl, default = 0) the temperature to use
 #' @param max_tokens (dbl, default = 1000) the maximum number of tokens
-#' @param include_source_text (lgl, default = TRUE) whether to include
-#'   the source text
 #' @param simplify (lgl, default = TRUE) whether to simplify the output
 #' @param endpoint (chr, default =
 #'   "https://api.openai.com/v1/chat/completions", i.e. the OpenAI API)
 #'   the endpoint to use for the request.
+#' @param add (lgl, default = TRUE) whether to add the result to the
+#'   original dataframe. If FALSE, it returns a tibble with the result
+#'   only.
 #' @param na_if_error (lgl, default = FALSE) whether to return NA if an
 #'   error occurs
+#' @param res_name (chr, default = "gpt_res") the name of the column
+#'   containing the result
+#' @param .progress (lgl, default = TRUE) whether to show a progress bar
+#'   or not
 #'
 #' @return (tibble) the result of the query
 #'
@@ -72,9 +77,11 @@ query_gpt_on_column <- function(
   temperature = 0,
   max_tokens = NULL,
   endpoint = "https://api.openai.com/v1/chat/completions",
-  include_source_text = TRUE,
+  add = TRUE,
   simplify = TRUE,
-  na_if_error = FALSE
+  na_if_error = FALSE,
+  res_name = "gpt_res",
+  .progress = TRUE
 ) {
   usr_data_prompter <- create_usr_data_prompter(usr_prompt = usr_prompt)
 
@@ -92,7 +99,7 @@ query_gpt_on_column <- function(
         quiet = quiet,
         na_if_error = na_if_error
       )
-    })
+    }, .progress = .progress)
 
   answers <- if (simplify) {
     purrr::map_chr(gpt_answers, get_content)
@@ -100,12 +107,10 @@ query_gpt_on_column <- function(
     gpt_answers
   }
 
-  if (include_source_text) {
-    tibble::tibble(
-      {{text_column}} := db[[text_column]],
-      gpt_res = answers
-    )
+  if (add) {
+    db[[res_name]] <- answers
+    db
   } else {
-    tibble::tibble(gpt_res = answers)
+    tibble::tibble({{res_name}} := answers)
   }
 }

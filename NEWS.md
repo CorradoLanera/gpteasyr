@@ -1,3 +1,7 @@
+# ubep.gpt 0.2.1
+
+* Add option to return NA when the API returns an error; this apply on `gpt_query` and `gpt_query_on_column` functions only (i.e., not to the base `get_completion_from_messages` function).
+
 # ubep.gpt 0.2.0
 
 * Removed dependency from `{openai}` in favour of `{httr}` and `{jsonlite}` directly

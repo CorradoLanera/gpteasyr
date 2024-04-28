@@ -9,6 +9,7 @@
 #' @param endpoint (chr, default =
 #'   "https://api.openai.com/v1/chat/completions", i.e. the OpenAI API)
 #'   the endpoint to use for the request.
+#' @param na_if_error (lgl) whether to return NA if an error occurs
 #'
 #' @return (list) the result of the query
 #' @export
@@ -45,7 +46,8 @@ query_gpt <- function(
   max_tokens = NULL,
   endpoint = "https://api.openai.com/v1/chat/completions",
   max_try = 10,
-  quiet = TRUE
+  quiet = TRUE,
+  na_if_error = FALSE
 ) {
   model <- match.arg(model)
   done <- FALSE
@@ -71,8 +73,14 @@ query_gpt <- function(
   }
 
   if (tries == max_try && !done) {
+    signal <- if (na_if_error) {
+      usethis::ui_warn
+    } else {
+      usethis::ui_stop
+    }
     usethis::ui_info("Max unsucessfully tries ({tries}) reached.")
-    usethis::ui_stop("Last {res}")
+    signal("Last {res}")
+    return(NA)
   }
 
   if (!quiet) {

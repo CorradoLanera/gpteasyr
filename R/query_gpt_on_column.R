@@ -16,6 +16,8 @@
 #' @param endpoint (chr, default =
 #'   "https://api.openai.com/v1/chat/completions", i.e. the OpenAI API)
 #'   the endpoint to use for the request.
+#' @param na_if_error (lgl, default = FALSE) whether to return NA if an
+#'   error occurs
 #'
 #' @return (tibble) the result of the query
 #'
@@ -71,7 +73,8 @@ query_gpt_on_column <- function(
   max_tokens = NULL,
   endpoint = "https://api.openai.com/v1/chat/completions",
   include_source_text = TRUE,
-  simplify = TRUE
+  simplify = TRUE,
+  na_if_error = FALSE
 ) {
   model <- match.arg(model)
 
@@ -88,7 +91,8 @@ query_gpt_on_column <- function(
         temperature = temperature,
         max_tokens = max_tokens,
         endpoint = endpoint,
-        quiet = quiet
+        quiet = quiet,
+        na_if_error = na_if_error
       )
     })
 

@@ -16,7 +16,8 @@ query_gpt_on_column(
   max_tokens = NULL,
   endpoint = "https://api.openai.com/v1/chat/completions",
   include_source_text = TRUE,
-  simplify = TRUE
+  simplify = TRUE,
+  na_if_error = FALSE
 )
 }
 \arguments{
@@ -47,6 +48,9 @@ the endpoint to use for the request.}
 the source text}
 
 \item{simplify}{(lgl, default = TRUE) whether to simplify the output}
+
+\item{na_if_error}{(lgl, default = FALSE) whether to return NA if an
+error occurs}
 }
 \value{
 (tibble) the result of the query

@@ -42,3 +42,21 @@ test_that("query_gpt restarts", {
     expect_error(regexp = "is not of type 'array' - 'messages'")
 })
 
+test_that("na_if_error works", {
+  # setup
+  prompt <- "prompt"
+
+  # execution
+  expect_warning({
+    res <- query_gpt(prompt, max_try = 1, na_if_error = TRUE)
+  }, "is not of type 'array' - 'messages'") |>
+    suppressMessages()
+
+  # expectation
+  expect_scalar_na(res)
+  expect_string(get_content(res), na.ok = TRUE)
+  expect_integerish(get_tokens(res), len = 1)
+  expect_integerish(get_tokens(res, what = "prompt"), len = 1)
+  expect_integerish(get_tokens(res, what = "completion"), len = 1)
+  expect_integer(get_tokens(res, what = "all"), len = 3)
+})

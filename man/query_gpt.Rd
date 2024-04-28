@@ -11,7 +11,8 @@ query_gpt(
   max_tokens = NULL,
   endpoint = "https://api.openai.com/v1/chat/completions",
   max_try = 10,
-  quiet = TRUE
+  quiet = TRUE,
+  na_if_error = FALSE
 )
 }
 \arguments{
@@ -30,6 +31,8 @@ the endpoint to use for the request.}
 \item{max_try}{(int) the maximum number of tries}
 
 \item{quiet}{(lgl) whether to print information}
+
+\item{na_if_error}{(lgl) whether to return NA if an error occurs}
 }
 \value{
 (list) the result of the query

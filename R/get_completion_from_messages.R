@@ -124,6 +124,7 @@ get_completion_from_messages <- function(
 #' @return (chr) the output message returned by the assistant
 #' @export
 get_content <- function(completion) {
+  if (all(is.na(completion))) return(NA_character_)
   completion[["choices"]][["message.content"]]
 }
 
@@ -143,6 +144,15 @@ get_tokens <- function(
   what = c("total", "prompt", "completion", "all")
 ) {
   what <- match.arg(what)
+
+  if (all(is.na(completion))) {
+    completion <- list()
+    completion[["usage"]] <- list(
+      total_tokens = NA_integer_,
+      prompt_tokens = NA_integer_,
+      completion_tokens = NA_integer_
+    )
+  }
 
   if (what == "all") {
     completion[["usage"]] |> unlist()

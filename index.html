@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="index.html">ubep.gpt</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -119,26 +119,30 @@
 <span>  temperature <span class="op">=</span> <span class="fl">1.5</span>, <span class="co"># default 0 [0-2]</span></span>
 <span>  max_tokens <span class="op">=</span> <span class="fl">100</span> <span class="co"># default 1000</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; • POST the query</span></span>
-<span><span class="co">#&gt; ✔ POST the query</span></span>
-<span><span class="co">#&gt; • Parse the response</span></span>
-<span><span class="co">#&gt; ✔ Parse the response</span></span>
-<span><span class="co">#&gt; • Check whether request failed and return parsed</span></span>
-<span><span class="co">#&gt; ✔ Check whether request failed and return parsed</span></span>
 <span><span class="co">#&gt; ℹ Total tries: 1.</span></span>
 <span><span class="co">#&gt; ℹ Prompt token used: 29.</span></span>
 <span><span class="co">#&gt; ℹ Response token used: 100.</span></span>
 <span><span class="co">#&gt; ℹ Total token used: 129.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt; List of 2</span></span>
-<span><span class="co">#&gt;  $ content: chr "The last course that was provided was titled \"Advanced Machine Learning Techniques in Healthcare\". It covered"| __truncated__</span></span>
-<span><span class="co">#&gt;  $ tokens :List of 3</span></span>
+<span><span class="co">#&gt; List of 7</span></span>
+<span><span class="co">#&gt;  $ id                : chr "chatcmpl-9IqTC7CEErC0eZyGBfuCqAph0YROG"</span></span>
+<span><span class="co">#&gt;  $ object            : chr "chat.completion"</span></span>
+<span><span class="co">#&gt;  $ created           : int 1714278626</span></span>
+<span><span class="co">#&gt;  $ model             : chr "gpt-3.5-turbo-0125"</span></span>
+<span><span class="co">#&gt;  $ choices           :'data.frame':  1 obs. of  5 variables:</span></span>
+<span><span class="co">#&gt;   ..$ index          : int 0</span></span>
+<span><span class="co">#&gt;   ..$ logprobs       : logi NA</span></span>
+<span><span class="co">#&gt;   ..$ finish_reason  : chr "length"</span></span>
+<span><span class="co">#&gt;   ..$ message.role   : chr "assistant"</span></span>
+<span><span class="co">#&gt;   ..$ message.content: chr "Sure! The course was titled \"Advanced Topics in Neuroscience\" and it was a graduate-level seminar course that"| __truncated__</span></span>
+<span><span class="co">#&gt;  $ usage             :List of 3</span></span>
 <span><span class="co">#&gt;   ..$ prompt_tokens    : int 29</span></span>
 <span><span class="co">#&gt;   ..$ completion_tokens: int 100</span></span>
 <span><span class="co">#&gt;   ..$ total_tokens     : int 129</span></span>
+<span><span class="co">#&gt;  $ system_fingerprint: chr "fp_3b956da36b"</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "The last course that was provided was titled \"Advanced Machine Learning Techniques in Healthcare\". It covered advanced machine learning algorithms and their applications in healthcare, with a focus on predictive modeling, time series analysis, and deep learning. The course also included case studies and practical hands-on exercises using real-world healthcare datasets. Students were able to develop their data analysis and predictive modeling skills in the context of an important and growing industry sector. Guest speakers from the healthcare industry also shared their insights and experiences with the application of machine"</span></span>
+<span><span class="co">#&gt; [1] "Sure! The course was titled \"Advanced Topics in Neuroscience\" and it was a graduate-level seminar course that covered cutting-edge research in the field of neuroscience. Students delved into recent neuroscientific articles, discussed topics such as brain connectivity, neural circuit function, and the role of various neurotransmitters in behavior. The course concluded with each student giving a presentation on a specific topic of their choice, showcasing their understanding and ability to critically analyze research findings in the field. Many students found the course challenging and engaging"</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 129</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"prompt"</span><span class="op">)</span></span>

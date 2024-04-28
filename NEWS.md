@@ -1,5 +1,6 @@
 # ubep.gpt 0.2.3
 
+* `stream = FALSE` hard coded (for the moment) on `get_completion_from_messages`.
 * column name for results in `gpt_query_on_columns` is now customizable.
 * Now `gpt_query_on_columns` returns the original tibble with the column added
   to it, including an option `add` to return the result as a new tibble

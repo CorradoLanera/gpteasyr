@@ -94,7 +94,8 @@ get_completion_from_messages <- function(
       model = model,
       messages = messages,
       temperature = temperature,
-      max_tokens = max_tokens
+      max_tokens = max_tokens,
+      stream = FALSE # hard coded for the moment
     )
   )
 

@@ -27,7 +27,7 @@ compose_usr_prompt(
   style = NULL,
   examples = NULL,
   text = NULL,
-  delimiter = if (is.null(text)) NULL else "\\"\\"\\"\\""
+  delimiter = if (is.null(text)) NULL else "\\"\\"\\""
 )
 }
 \arguments{

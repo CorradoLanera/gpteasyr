@@ -1,3 +1,8 @@
+# ubep.gpt 0.2.4
+
+* Now `create_usr_data_prompter` can accept a custom delimiter.
+* Default delimiter changed from four quotes (`""""`) to three quotes (`"""`).
+
 # ubep.gpt 0.2.3
 
 * `stream = FALSE` hard coded (for the moment) on `get_completion_from_messages`.

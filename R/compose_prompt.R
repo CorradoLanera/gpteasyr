@@ -111,7 +111,7 @@ compose_sys_prompt <- function(
 compose_usr_prompt <- function(
   task = NULL, instructions = NULL, output = NULL, style = NULL,
   examples = NULL, text = NULL,
-  delimiter = if (is.null(text)) NULL else '""""'
+  delimiter = if (is.null(text)) NULL else '"""'
 ) {
   stringr::str_c(
     task,
@@ -137,6 +137,8 @@ compose_usr_prompt <- function(
 #'
 #' @param usr_prompt (chr) The user prompt to use as a template to which
 #'   the text will be added.
+#' @param delimiter (chr) delimiters for the `text` to embed, a sequence
+#'   of four identical symbols is suggested.
 #'
 #' @return (function) a function that can be used to prompt the user,
 #'   accepting a string of text as input and returning the complete
@@ -178,11 +180,19 @@ compose_usr_prompt <- function(
 #' )
 #' db$text |> purrr::map_chr(prompter)
 #'
-create_usr_data_prompter <- function(usr_prompt = NULL) {
+create_usr_data_prompter <- function(
+    usr_prompt = NULL, delimiter = NULL
+) {
   if (length(usr_prompt) == 0) {
     usr_prompt <- NULL
   }
+
+  delimiter <- delimiter %||% '"""'
   function(text = NULL) {
-    compose_usr_prompt(task = usr_prompt, text = text)
+    compose_usr_prompt(
+      task = usr_prompt,
+      text = text,
+      delimiter = if (is.null(text)) NULL else delimiter
+      )
   }
 }

@@ -10,11 +10,11 @@
 * Now `gpt_query_on_columns` returns the original tibble with the column added
   to it, including an option `add` to return the result as a new tibble
   with a single column only (when `add = FALSE`).
-* Add progressbar to `gpt_query_on_column` functions.
+* Add progress bar to `gpt_query_on_column` functions.
 
 # ubep.gpt 0.2.2
 
-* hotfix old calls to `match.arg(model)` in `gpt_query` and `gpt_query_on_column` functions.
+* hot-fix old calls to `match.arg(model)` in `gpt_query` and `gpt_query_on_column` functions.
 
 # ubep.gpt 0.2.1
 
@@ -22,7 +22,7 @@
 
 # ubep.gpt 0.2.0
 
-* Removed dependency from `{openai}` in favour of `{httr}` and `{jsonlite}` directly
+* Removed dependency from `{openai}` in favor of `{httr}` and `{jsonlite}` directly
 * Now queries can be made to personalized endpoints.
 * create_usr_data_prompter now works with empty characters (treated as NULL).
 * Now compose_prompt_api correctly manage empty prompts.

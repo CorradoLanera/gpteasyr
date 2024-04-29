@@ -87,23 +87,23 @@ res <- query_gpt(
 
 str(res)
 #> List of 7
-#>  $ id                : chr "chatcmpl-9IqTC7CEErC0eZyGBfuCqAph0YROG"
+#>  $ id                : chr "chatcmpl-9JIqHdOGBZoInBaVbNejc2FuxeLRG"
 #>  $ object            : chr "chat.completion"
-#>  $ created           : int 1714278626
+#>  $ created           : int 1714387689
 #>  $ model             : chr "gpt-3.5-turbo-0125"
 #>  $ choices           :'data.frame':  1 obs. of  5 variables:
 #>   ..$ index          : int 0
 #>   ..$ logprobs       : logi NA
 #>   ..$ finish_reason  : chr "length"
 #>   ..$ message.role   : chr "assistant"
-#>   ..$ message.content: chr "Sure! The course was titled \"Advanced Topics in Neuroscience\" and it was a graduate-level seminar course that"| __truncated__
+#>   ..$ message.content: chr "Our professor recently taught a course on \"Ethics in Science and Technology.\" This course explored ethical is"| __truncated__
 #>  $ usage             :List of 3
 #>   ..$ prompt_tokens    : int 29
 #>   ..$ completion_tokens: int 100
 #>   ..$ total_tokens     : int 129
 #>  $ system_fingerprint: chr "fp_3b956da36b"
 get_content(res)
-#> [1] "Sure! The course was titled \"Advanced Topics in Neuroscience\" and it was a graduate-level seminar course that covered cutting-edge research in the field of neuroscience. Students delved into recent neuroscientific articles, discussed topics such as brain connectivity, neural circuit function, and the role of various neurotransmitters in behavior. The course concluded with each student giving a presentation on a specific topic of their choice, showcasing their understanding and ability to critically analyze research findings in the field. Many students found the course challenging and engaging"
+#> [1] "Our professor recently taught a course on \"Ethics in Science and Technology.\" This course explored ethical issues that arise in different domains of science and technology, examining case studies and debating ethical dilemmas. Students actively discussed topics such as responsible innovation, privacy concerns, diversity and inclusion in research, and ethical considerations in emerging technologies like artificial intelligence. Special guests were invited to share their perspective and engage in dialogues with students, creating a dynamic learning environment. Feedback was positive, and students appreciated the opportunity to deepen"
 get_tokens(res)
 #> [1] 129
 get_tokens(res, "prompt")
@@ -155,9 +155,9 @@ cat(usr_prompt)
 #>     output: 'This - text'
 #>     text: 'Another example text!!!'
 #>     output: 'Another - text'
-#> """"
+#> """
 #> Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura
-#> """"
+#> """
 
 compose_prompt_api(sys_prompt, usr_prompt) |> 
   query_gpt() |> 
@@ -220,20 +220,89 @@ usr_prompt <- compose_usr_prompt(
 
 db |>
  query_gpt_on_column(
-   "txt",
+   text_column = "txt",  # the name of the column containing the text to
+                         # analyze after being embedded in the prompt.
    sys_prompt = sys_prompt,
    usr_prompt = usr_prompt,
+   na_if_error = TRUE,  # dafault is FALSE, and in case of error the
+                        # the error will be signaled and computation 
+                        # stopped.
+   .progress = FALSE  # default is TRUE, and progress bar will be shown.
  )
-#> # A tibble: 7 × 2
-#>   txt                                                                    gpt_res
-#>   <chr>                                                                  <chr>  
-#> 1 I'm very satisfied with the course; it was very interesting and usefu… satisf…
-#> 2 I didn't like it at all; it was deadly boring.                         unsati…
-#> 3 The best course I've ever attended.                                    satisf…
-#> 4 The course was a waste of time.                                        unsati…
-#> 5 blah blah blah                                                         <NA>   
-#> 6 woow                                                                   <NA>   
-#> 7 bim bum bam                                                            <NA>
+#>                                                                       txt
+#> 1 I'm very satisfied with the course; it was very interesting and useful.
+#> 2                          I didn't like it at all; it was deadly boring.
+#> 3                                     The best course I've ever attended.
+#> 4                                         The course was a waste of time.
+#> 5                                                          blah blah blah
+#> 6                                                                    woow
+#> 7                                                             bim bum bam
+#>       gpt_res
+#> 1   satisfied
+#> 2 unsatisfied
+#> 3   satisfied
+#> 4 unsatisfied
+#> 5        <NA>
+#> 6        <NA>
+#> 7        <NA>
+```
+
+## Robust example with for loops and error handling
+
+This example is useful for long computation in which errors from the
+server-side can happened (maybe after days of querying). The following
+script will save each result one-by one, so that in case of error the
+evaluated results won’t be lost.
+
+In case of any error, the error message(s) will be reported as a
+warning, but it does not stop the computation. Moreover, re-executing
+the loop will evaluate the queries only where they were failed or not
+performed yet.
+
+``` r
+# This is a function that take a text and attach it at the end of the
+# original provided prompt
+
+# install.packages("depigner")
+library(depigner) # for progress bar `pb_len()` and `tick()`
+#> Welcome to depigner: we are here to un-stress you!
+usr_prompter <- create_usr_data_prompter(usr_prompt)
+
+n <- nrow(db)
+db[["gpt_res"]] <- NA_character_
+
+pb <- pb_len(n)
+for (i in seq_len(n)) {
+  if (checkmate::test_scalar_na(db[["gpt_res"]][[i]])) {
+    db[["gpt_res"]][[i]] <- query_gpt(
+      prompt = compose_prompt_api(
+        sys_prompt = sys_prompt,
+        usr_prompt = usr_prompter(db[["txt"]][[i]])
+      ),
+      na_if_error = TRUE
+    ) |> 
+      get_content()
+  }
+  tick(pb, paste("Row", i, "of", n))
+}
+
+db
+#>                                                                       txt
+#> 1 I'm very satisfied with the course; it was very interesting and useful.
+#> 2                          I didn't like it at all; it was deadly boring.
+#> 3                                     The best course I've ever attended.
+#> 4                                         The course was a waste of time.
+#> 5                                                          blah blah blah
+#> 6                                                                    woow
+#> 7                                                             bim bum bam
+#>       gpt_res
+#> 1   satisfied
+#> 2 unsatisfied
+#> 3   satisfied
+#> 4 unsatisfied
+#> 5        <NA>
+#> 6        <NA>
+#> 7        <NA>
 ```
 
 ## Base ChatGPT prompt creation (NOT for API)

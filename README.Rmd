@@ -141,11 +141,52 @@ usr_prompt <- compose_usr_prompt(
 
 db |>
  query_gpt_on_column(
-   "txt",
+   text_column = "txt",  # the name of the column containing the text to
+                         # analyze after being embedded in the prompt.
    sys_prompt = sys_prompt,
    usr_prompt = usr_prompt,
+   na_if_error = TRUE,  # dafault is FALSE, and in case of error the
+                        # the error will be signaled and computation 
+                        # stopped.
+   .progress = FALSE  # default is TRUE, and progress bar will be shown.
  )
 ```
+
+
+## Robust example with for loops and error handling
+This example is useful for long computation in which errors from the server-side can happened (maybe after days of querying). The following script will save each result one-by one, so that in case of error the evaluated results won't be lost.
+
+In case of any error, the error message(s) will be reported as a warning, but it does not stop the computation. Moreover, re-executing the loop will evaluate the queries only where they were failed or not performed yet.
+
+```{r}
+# This is a function that take a text and attach it at the end of the
+# original provided prompt
+
+# install.packages("depigner")
+library(depigner) # for progress bar `pb_len()` and `tick()`
+usr_prompter <- create_usr_data_prompter(usr_prompt)
+
+n <- nrow(db)
+db[["gpt_res"]] <- NA_character_
+
+pb <- pb_len(n)
+for (i in seq_len(n)) {
+  if (checkmate::test_scalar_na(db[["gpt_res"]][[i]])) {
+    db[["gpt_res"]][[i]] <- query_gpt(
+      prompt = compose_prompt_api(
+        sys_prompt = sys_prompt,
+        usr_prompt = usr_prompter(db[["txt"]][[i]])
+      ),
+      na_if_error = TRUE
+    ) |> 
+      get_content()
+  }
+  tick(pb, paste("Row", i, "of", n))
+}
+
+db
+```
+
 
 ## Base ChatGPT prompt creation (NOT for API)
 
@@ -173,6 +214,7 @@ cat(prompt)
 ```
 
 ![https://chat.openai.com/share/394a008b-d463-42dc-9361-1bd745bcad6d](dev/img/gpt-example.png)
+
 
 ## Code of Conduct
 

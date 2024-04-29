@@ -76,11 +76,11 @@
 #'   token_used <- get_tokens(res)
 #' }
 get_completion_from_messages <- function(
-    messages,
-    model = "gpt-3.5-turbo",
-    temperature = 0,
-    max_tokens = NULL,
-    endpoint = "https://api.openai.com/v1/chat/completions"
+  messages,
+  model = "gpt-3.5-turbo",
+  temperature = 0,
+  max_tokens = NULL,
+  endpoint = "https://api.openai.com/v1/chat/completions"
 ) {
 
   response <- httr::POST(

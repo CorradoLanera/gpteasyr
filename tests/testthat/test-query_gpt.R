@@ -16,7 +16,7 @@ test_that("query_gpt works", {
     res,
     c("character", "integer", "data.frame", "list"),
     len = 7
-    )
+  )
   expect_string(get_content(res))
   expect_integerish(get_tokens(res), len = 1)
   expect_integerish(get_tokens(res, what = "prompt"), len = 1)

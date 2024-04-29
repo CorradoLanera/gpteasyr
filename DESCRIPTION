@@ -23,6 +23,7 @@ Imports:
     usethis
 Suggests: 
     checkmate,
+    depigner,
     lintr,
     spelling,
     testthat (>= 3.0.0),

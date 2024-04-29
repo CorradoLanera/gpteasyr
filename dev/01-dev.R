@@ -6,7 +6,7 @@ usethis::use_package("tibble")
 usethis::use_package("rlang")
 usethis::use_package("httr")
 usethis::use_package("jsonlite")
-
+usethis::use_package("depigner", type = "Suggests")
 usethis::use_tidy_description()
 
 

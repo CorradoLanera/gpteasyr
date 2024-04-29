@@ -126,23 +126,23 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 7</span></span>
-<span><span class="co">#&gt;  $ id                : chr "chatcmpl-9IqTC7CEErC0eZyGBfuCqAph0YROG"</span></span>
+<span><span class="co">#&gt;  $ id                : chr "chatcmpl-9JIqHdOGBZoInBaVbNejc2FuxeLRG"</span></span>
 <span><span class="co">#&gt;  $ object            : chr "chat.completion"</span></span>
-<span><span class="co">#&gt;  $ created           : int 1714278626</span></span>
+<span><span class="co">#&gt;  $ created           : int 1714387689</span></span>
 <span><span class="co">#&gt;  $ model             : chr "gpt-3.5-turbo-0125"</span></span>
 <span><span class="co">#&gt;  $ choices           :'data.frame':  1 obs. of  5 variables:</span></span>
 <span><span class="co">#&gt;   ..$ index          : int 0</span></span>
 <span><span class="co">#&gt;   ..$ logprobs       : logi NA</span></span>
 <span><span class="co">#&gt;   ..$ finish_reason  : chr "length"</span></span>
 <span><span class="co">#&gt;   ..$ message.role   : chr "assistant"</span></span>
-<span><span class="co">#&gt;   ..$ message.content: chr "Sure! The course was titled \"Advanced Topics in Neuroscience\" and it was a graduate-level seminar course that"| __truncated__</span></span>
+<span><span class="co">#&gt;   ..$ message.content: chr "Our professor recently taught a course on \"Ethics in Science and Technology.\" This course explored ethical is"| __truncated__</span></span>
 <span><span class="co">#&gt;  $ usage             :List of 3</span></span>
 <span><span class="co">#&gt;   ..$ prompt_tokens    : int 29</span></span>
 <span><span class="co">#&gt;   ..$ completion_tokens: int 100</span></span>
 <span><span class="co">#&gt;   ..$ total_tokens     : int 129</span></span>
 <span><span class="co">#&gt;  $ system_fingerprint: chr "fp_3b956da36b"</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Sure! The course was titled \"Advanced Topics in Neuroscience\" and it was a graduate-level seminar course that covered cutting-edge research in the field of neuroscience. Students delved into recent neuroscientific articles, discussed topics such as brain connectivity, neural circuit function, and the role of various neurotransmitters in behavior. The course concluded with each student giving a presentation on a specific topic of their choice, showcasing their understanding and ability to critically analyze research findings in the field. Many students found the course challenging and engaging"</span></span>
+<span><span class="co">#&gt; [1] "Our professor recently taught a course on \"Ethics in Science and Technology.\" This course explored ethical issues that arise in different domains of science and technology, examining case studies and debating ethical dilemmas. Students actively discussed topics such as responsible innovation, privacy concerns, diversity and inclusion in research, and ethical considerations in emerging technologies like artificial intelligence. Special guests were invited to share their perspective and engage in dialogues with students, creating a dynamic learning environment. Feedback was positive, and students appreciated the opportunity to deepen"</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 129</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"prompt"</span><span class="op">)</span></span>
@@ -188,9 +188,9 @@
 <span><span class="co">#&gt;     output: 'This - text'</span></span>
 <span><span class="co">#&gt;     text: 'Another example text!!!'</span></span>
 <span><span class="co">#&gt;     output: 'Another - text'</span></span>
-<span><span class="co">#&gt; """"</span></span>
+<span><span class="co">#&gt; """</span></span>
 <span><span class="co">#&gt; Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura</span></span>
-<span><span class="co">#&gt; """"</span></span>
+<span><span class="co">#&gt; """</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/compose_prompt_api.html">compose_prompt_api</a></span><span class="op">(</span><span class="va">sys_prompt</span>, <span class="va">usr_prompt</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="reference/query_gpt.html">query_gpt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -242,26 +242,87 @@
 <span></span>
 <span><span class="va">db</span> <span class="op">|&gt;</span></span>
 <span> <span class="fu"><a href="reference/query_gpt_on_column.html">query_gpt_on_column</a></span><span class="op">(</span></span>
-<span>   <span class="st">"txt"</span>,</span>
+<span>   text_column <span class="op">=</span> <span class="st">"txt"</span>,  <span class="co"># the name of the column containing the text to</span></span>
+<span>                         <span class="co"># analyze after being embedded in the prompt.</span></span>
 <span>   sys_prompt <span class="op">=</span> <span class="va">sys_prompt</span>,</span>
 <span>   usr_prompt <span class="op">=</span> <span class="va">usr_prompt</span>,</span>
+<span>   na_if_error <span class="op">=</span> <span class="cn">TRUE</span>,  <span class="co"># dafault is FALSE, and in case of error the</span></span>
+<span>                        <span class="co"># the error will be signaled and computation </span></span>
+<span>                        <span class="co"># stopped.</span></span>
+<span>   .progress <span class="op">=</span> <span class="cn">FALSE</span>  <span class="co"># default is TRUE, and progress bar will be shown.</span></span>
 <span> <span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 7 × 2</span></span>
-<span><span class="co">#&gt;   txt                                                                    gpt_res</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;                                                                  &lt;chr&gt;  </span></span>
-<span><span class="co">#&gt; 1 I'm very satisfied with the course; it was very interesting and usefu… satisf…</span></span>
-<span><span class="co">#&gt; 2 I didn't like it at all; it was deadly boring.                         unsati…</span></span>
-<span><span class="co">#&gt; 3 The best course I've ever attended.                                    satisf…</span></span>
-<span><span class="co">#&gt; 4 The course was a waste of time.                                        unsati…</span></span>
-<span><span class="co">#&gt; 5 blah blah blah                                                         &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt; 6 woow                                                                   &lt;NA&gt;   </span></span>
-<span><span class="co">#&gt; 7 bim bum bam                                                            &lt;NA&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt;                                                                       txt</span></span>
+<span><span class="co">#&gt; 1 I'm very satisfied with the course; it was very interesting and useful.</span></span>
+<span><span class="co">#&gt; 2                          I didn't like it at all; it was deadly boring.</span></span>
+<span><span class="co">#&gt; 3                                     The best course I've ever attended.</span></span>
+<span><span class="co">#&gt; 4                                         The course was a waste of time.</span></span>
+<span><span class="co">#&gt; 5                                                          blah blah blah</span></span>
+<span><span class="co">#&gt; 6                                                                    woow</span></span>
+<span><span class="co">#&gt; 7                                                             bim bum bam</span></span>
+<span><span class="co">#&gt;       gpt_res</span></span>
+<span><span class="co">#&gt; 1   satisfied</span></span>
+<span><span class="co">#&gt; 2 unsatisfied</span></span>
+<span><span class="co">#&gt; 3   satisfied</span></span>
+<span><span class="co">#&gt; 4 unsatisfied</span></span>
+<span><span class="co">#&gt; 5        &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 6        &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 7        &lt;NA&gt;</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="robust-example-with-for-loops-and-error-handling">Robust example with for loops and error handling<a class="anchor" aria-label="anchor" href="#robust-example-with-for-loops-and-error-handling"></a>
+</h2>
+<p>This example is useful for long computation in which errors from the server-side can happened (maybe after days of querying). The following script will save each result one-by one, so that in case of error the evaluated results won’t be lost.</p>
+<p>In case of any error, the error message(s) will be reported as a warning, but it does not stop the computation. Moreover, re-executing the loop will evaluate the queries only where they were failed or not performed yet.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># This is a function that take a text and attach it at the end of the</span></span>
+<span><span class="co"># original provided prompt</span></span>
+<span></span>
+<span><span class="co"># install.packages("depigner")</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://corradolanera.github.io/depigner/" class="external-link">depigner</a></span><span class="op">)</span> <span class="co"># for progress bar `pb_len()` and `tick()`</span></span>
+<span><span class="co">#&gt; Welcome to depigner: we are here to un-stress you!</span></span>
+<span><span class="va">usr_prompter</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/create_usr_data_prompter.html">create_usr_data_prompter</a></span><span class="op">(</span><span class="va">usr_prompt</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">db</span><span class="op">)</span></span>
+<span><span class="va">db</span><span class="op">[[</span><span class="st">"gpt_res"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA_character_</span></span>
+<span></span>
+<span><span class="va">pb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://corradolanera.github.io/depigner/reference/pb_len.html" class="external-link">pb_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu">checkmate</span><span class="fu">::</span><span class="fu"><a href="https://mllg.github.io/checkmate/reference/checkScalarNA.html" class="external-link">test_scalar_na</a></span><span class="op">(</span><span class="va">db</span><span class="op">[[</span><span class="st">"gpt_res"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">db</span><span class="op">[[</span><span class="st">"gpt_res"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/query_gpt.html">query_gpt</a></span><span class="op">(</span></span>
+<span>      prompt <span class="op">=</span> <span class="fu"><a href="reference/compose_prompt_api.html">compose_prompt_api</a></span><span class="op">(</span></span>
+<span>        sys_prompt <span class="op">=</span> <span class="va">sys_prompt</span>,</span>
+<span>        usr_prompt <span class="op">=</span> <span class="fu">usr_prompter</span><span class="op">(</span><span class="va">db</span><span class="op">[[</span><span class="st">"txt"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      na_if_error <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    <span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>      <span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="fu"><a href="https://corradolanera.github.io/depigner/reference/pb_len.html" class="external-link">tick</a></span><span class="op">(</span><span class="va">pb</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Row"</span>, <span class="va">i</span>, <span class="st">"of"</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">db</span></span>
+<span><span class="co">#&gt;                                                                       txt</span></span>
+<span><span class="co">#&gt; 1 I'm very satisfied with the course; it was very interesting and useful.</span></span>
+<span><span class="co">#&gt; 2                          I didn't like it at all; it was deadly boring.</span></span>
+<span><span class="co">#&gt; 3                                     The best course I've ever attended.</span></span>
+<span><span class="co">#&gt; 4                                         The course was a waste of time.</span></span>
+<span><span class="co">#&gt; 5                                                          blah blah blah</span></span>
+<span><span class="co">#&gt; 6                                                                    woow</span></span>
+<span><span class="co">#&gt; 7                                                             bim bum bam</span></span>
+<span><span class="co">#&gt;       gpt_res</span></span>
+<span><span class="co">#&gt; 1   satisfied</span></span>
+<span><span class="co">#&gt; 2 unsatisfied</span></span>
+<span><span class="co">#&gt; 3   satisfied</span></span>
+<span><span class="co">#&gt; 4 unsatisfied</span></span>
+<span><span class="co">#&gt; 5        &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 6        &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 7        &lt;NA&gt;</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="base-chatgpt-prompt-creation-not-for-api">Base ChatGPT prompt creation (NOT for API)<a class="anchor" aria-label="anchor" href="#base-chatgpt-prompt-creation-not-for-api"></a>
 </h2>
 <p>You can use the <code>compose_prompt</code> function to create a prompt for ChatGPT. This function is useful because it helps you to compose the prompt following best practices in composing prompt. In fact the arguments are just the main components every prompt should have. They do just that, composing the prompt for you juxtaposing the components in the right order. The result is suitable to be copy-pasted on ChatGPT, not to be used with API calls, i.e., it cannot be used with the <code>query_gpt</code> function!!</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">prompt</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/compose_prompt.html">compose_prompt</a></span><span class="op">(</span></span>
 <span>  role <span class="op">=</span> <span class="st">"You are the assistant of a university professor."</span>,</span>
 <span>  context <span class="op">=</span> <span class="st">"You are analyzing the comments of the students of the last course."</span>,</span>

@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="index.html">ubep.gpt</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -121,35 +121,35 @@
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; ℹ Total tries: 1.</span></span>
 <span><span class="co">#&gt; ℹ Prompt token used: 29.</span></span>
-<span><span class="co">#&gt; ℹ Response token used: 100.</span></span>
-<span><span class="co">#&gt; ℹ Total token used: 129.</span></span>
+<span><span class="co">#&gt; ℹ Response token used: 98.</span></span>
+<span><span class="co">#&gt; ℹ Total token used: 127.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 7</span></span>
-<span><span class="co">#&gt;  $ id                : chr "chatcmpl-9JIqHdOGBZoInBaVbNejc2FuxeLRG"</span></span>
+<span><span class="co">#&gt;  $ id                : chr "chatcmpl-9JhfrcdjMBau5zKoFylZzto4Vt7MX"</span></span>
 <span><span class="co">#&gt;  $ object            : chr "chat.completion"</span></span>
-<span><span class="co">#&gt;  $ created           : int 1714387689</span></span>
+<span><span class="co">#&gt;  $ created           : int 1714483143</span></span>
 <span><span class="co">#&gt;  $ model             : chr "gpt-3.5-turbo-0125"</span></span>
 <span><span class="co">#&gt;  $ choices           :'data.frame':  1 obs. of  5 variables:</span></span>
 <span><span class="co">#&gt;   ..$ index          : int 0</span></span>
 <span><span class="co">#&gt;   ..$ logprobs       : logi NA</span></span>
-<span><span class="co">#&gt;   ..$ finish_reason  : chr "length"</span></span>
+<span><span class="co">#&gt;   ..$ finish_reason  : chr "stop"</span></span>
 <span><span class="co">#&gt;   ..$ message.role   : chr "assistant"</span></span>
-<span><span class="co">#&gt;   ..$ message.content: chr "Our professor recently taught a course on \"Ethics in Science and Technology.\" This course explored ethical is"| __truncated__</span></span>
+<span><span class="co">#&gt;   ..$ message.content: chr "The last course my professor provided was an advanced seminar on environmental policy and implementation. The c"| __truncated__</span></span>
 <span><span class="co">#&gt;  $ usage             :List of 3</span></span>
 <span><span class="co">#&gt;   ..$ prompt_tokens    : int 29</span></span>
-<span><span class="co">#&gt;   ..$ completion_tokens: int 100</span></span>
-<span><span class="co">#&gt;   ..$ total_tokens     : int 129</span></span>
+<span><span class="co">#&gt;   ..$ completion_tokens: int 98</span></span>
+<span><span class="co">#&gt;   ..$ total_tokens     : int 127</span></span>
 <span><span class="co">#&gt;  $ system_fingerprint: chr "fp_3b956da36b"</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Our professor recently taught a course on \"Ethics in Science and Technology.\" This course explored ethical issues that arise in different domains of science and technology, examining case studies and debating ethical dilemmas. Students actively discussed topics such as responsible innovation, privacy concerns, diversity and inclusion in research, and ethical considerations in emerging technologies like artificial intelligence. Special guests were invited to share their perspective and engage in dialogues with students, creating a dynamic learning environment. Feedback was positive, and students appreciated the opportunity to deepen"</span></span>
+<span><span class="co">#&gt; [1] "The last course my professor provided was an advanced seminar on environmental policy and implementation. The course discussed various approaches to crafting, implementing, and evaluating environmental policies at the local, regional, and global levels. The students delved into case studies of successful and unsuccessful policy initiatives, engaged in critical assessments of current environmental challenges, and developed practical skills in creating policy briefs and analysis documents. Overall, the course aimed to deepen students' understanding of the complexities and nuances involved in environmental policymaking processes."</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 129</span></span>
+<span><span class="co">#&gt; [1] 127</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"prompt"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 29</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"all"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     prompt_tokens completion_tokens      total_tokens </span></span>
-<span><span class="co">#&gt;                29               100               129</span></span></code></pre></div>
+<span><span class="co">#&gt;                29                98               127</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="easy-prompt-assisted-creation">Easy prompt-assisted creation<a class="anchor" aria-label="anchor" href="#easy-prompt-assisted-creation"></a>
@@ -299,6 +299,8 @@
 <span>  <span class="op">}</span></span>
 <span>  <span class="fu"><a href="https://corradolanera.github.io/depigner/reference/pb_len.html" class="external-link">tick</a></span><span class="op">(</span><span class="va">pb</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Row"</span>, <span class="va">i</span>, <span class="st">"of"</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; evaluated: Row 7 of 7 [=============================] 100% in  2s [ETA:  0s]</span></span>
 <span></span>
 <span><span class="va">db</span></span>
 <span><span class="co">#&gt;                                                                       txt</span></span>

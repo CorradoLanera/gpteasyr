@@ -87,23 +87,28 @@ res <- query_gpt(
 
 str(res)
 #> List of 7
-#>  $ id                : chr "chatcmpl-9JhfrcdjMBau5zKoFylZzto4Vt7MX"
+#>  $ id                : chr "chatcmpl-9JiI9sPlhGviFIoEXIxtwxdjz7fcL"
 #>  $ object            : chr "chat.completion"
-#>  $ created           : int 1714483143
+#>  $ created           : int 1714485517
 #>  $ model             : chr "gpt-3.5-turbo-0125"
 #>  $ choices           :'data.frame':  1 obs. of  5 variables:
 #>   ..$ index          : int 0
 #>   ..$ logprobs       : logi NA
 #>   ..$ finish_reason  : chr "stop"
 #>   ..$ message.role   : chr "assistant"
-#>   ..$ message.content: chr "The last course my professor provided was an advanced seminar on environmental policy and implementation. The c"| __truncated__
+#>   ..$ message.content: chr "The last course provided by the professor was \"Advanced Topics in Chain Dynamics.\" This course delved into th"| __truncated__
 #>  $ usage             :List of 3
 #>   ..$ prompt_tokens    : int 29
 #>   ..$ completion_tokens: int 98
 #>   ..$ total_tokens     : int 127
 #>  $ system_fingerprint: chr "fp_3b956da36b"
 get_content(res)
-#> [1] "The last course my professor provided was an advanced seminar on environmental policy and implementation. The course discussed various approaches to crafting, implementing, and evaluating environmental policies at the local, regional, and global levels. The students delved into case studies of successful and unsuccessful policy initiatives, engaged in critical assessments of current environmental challenges, and developed practical skills in creating policy briefs and analysis documents. Overall, the course aimed to deepen students' understanding of the complexities and nuances involved in environmental policymaking processes."
+#> [1] "The last course provided by the professor was \"Advanced Topics in Chain Dynamics.\" This course delved into the academic study of dynamics and uncertainties present in supply chains. Students explored various quantitative methods for modeling and analyzing such dynamics, including the application of stochastic processes and mathematical optimization techniques. The course also discussed real-world case studies and industry best practices in managing risks and improving the performance of different types of supply chains. Student engagement in discussions and collaborative problem-solving tasks were integral parts of the course experience."
+
+# for a well formatted output on R, use `cat()`
+get_content(res) |> cat()
+#> The last course provided by the professor was "Advanced Topics in Chain Dynamics." This course delved into the academic study of dynamics and uncertainties present in supply chains. Students explored various quantitative methods for modeling and analyzing such dynamics, including the application of stochastic processes and mathematical optimization techniques. The course also discussed real-world case studies and industry best practices in managing risks and improving the performance of different types of supply chains. Student engagement in discussions and collaborative problem-solving tasks were integral parts of the course experience.
+
 get_tokens(res)
 #> [1] 127
 get_tokens(res, "prompt")
@@ -142,7 +147,8 @@ usr_prompt <- compose_usr_prompt(
     output: 'This - text'
     text: 'Another example text!!!'
     output: 'Another - text'",
-  text = "Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura"
+  text = "Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura",
+  closing = "Take a deep breath and work on the problem step-by-step."
 )
 cat(usr_prompt)
 #> Your task is to extract information from a text provided.
@@ -158,6 +164,7 @@ cat(usr_prompt)
 #> """
 #> Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura
 #> """
+#> Take a deep breath and work on the problem step-by-step.
 
 compose_prompt_api(sys_prompt, usr_prompt) |> 
   query_gpt() |> 
@@ -209,6 +216,8 @@ examples <- "
   text: 'I didn't like it at all; it was deadly boring.'
   output: 'unsatisfied'"
 
+closing <- "Take a deep breath and work on the problem step-by-step." # This will be added AFTER the embedded text
+
 sys_prompt <- compose_sys_prompt(role = role, context = context)
 usr_prompt <- compose_usr_prompt(
   task = task,
@@ -216,6 +225,9 @@ usr_prompt <- compose_usr_prompt(
   output = output,
   style = style,
   examples = examples
+  # don't put the `closing` here if you want to use it on
+  # `query_gpt_on_column` after the embedded text;
+  # if here, it will go after the examples but before the embedded text.
 )
 
 db |>
@@ -224,6 +236,7 @@ db |>
                          # analyze after being embedded in the prompt.
    sys_prompt = sys_prompt,
    usr_prompt = usr_prompt,
+   closing = closing,  # this will be added AFTER the embedded text
    na_if_error = TRUE,  # dafault is FALSE, and in case of error the
                         # the error will be signaled and computation 
                         # stopped.
@@ -266,7 +279,7 @@ performed yet.
 # install.packages("depigner")
 library(depigner) # for progress bar `pb_len()` and `tick()`
 #> Welcome to depigner: we are here to un-stress you!
-usr_prompter <- create_usr_data_prompter(usr_prompt)
+usr_prompter <- create_usr_data_prompter(usr_prompt, closing = closing)
 
 n <- nrow(db)
 db[["gpt_res"]] <- NA_character_
@@ -285,8 +298,6 @@ for (i in seq_len(n)) {
   }
   tick(pb, paste("Row", i, "of", n))
 }
-#> 
-#> evaluated: Row 7 of 7 [=============================] 100% in  2s [ETA:  0s]
 
 db
 #>                                                                       txt

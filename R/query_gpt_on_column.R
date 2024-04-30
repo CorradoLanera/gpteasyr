@@ -24,6 +24,7 @@
 #' @param .progress (lgl, default = TRUE) whether to show a progress bar
 #'   or not
 #' @param seed (chr, default = NULL) a string to seed the random number
+#' @param closing (chr, default = NULL) Text to include at the end of the prompt
 #'
 #' @return (tibble) the result of the query
 #'
@@ -72,6 +73,7 @@ query_gpt_on_column <- function(
   text_column,
   sys_prompt = NULL,
   usr_prompt = NULL,
+  closing = NULL,
   model = "gpt-3.5-turbo",
   quiet = TRUE,
   max_try = 10,
@@ -85,7 +87,10 @@ query_gpt_on_column <- function(
   .progress = TRUE,
   seed = NULL
 ) {
-  usr_data_prompter <- create_usr_data_prompter(usr_prompt = usr_prompt)
+  usr_data_prompter <- create_usr_data_prompter(
+    usr_prompt = usr_prompt,
+    closing = closing
+)
 
   gpt_answers <- db[[text_column]] |>
     purrr::map(\(txt) {

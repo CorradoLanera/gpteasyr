@@ -9,6 +9,7 @@ query_gpt_on_column(
   text_column,
   sys_prompt = NULL,
   usr_prompt = NULL,
+  closing = NULL,
   model = "gpt-3.5-turbo",
   quiet = TRUE,
   max_try = 10,
@@ -32,6 +33,8 @@ data}
 \item{sys_prompt}{(chr) the system prompt to use}
 
 \item{usr_prompt}{(chr) the user prompt to use}
+
+\item{closing}{(chr, default = NULL) Text to include at the end of the prompt}
 
 \item{model}{(chr, default = "gpt-3.5-turbo") the model to use}
 

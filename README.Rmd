@@ -59,6 +59,10 @@ res <- query_gpt(
 
 str(res)
 get_content(res)
+
+# for a well formatted output on R, use `cat()`
+get_content(res) |> cat()
+
 get_tokens(res)
 get_tokens(res, "prompt")
 get_tokens(res, "all")
@@ -87,7 +91,8 @@ usr_prompt <- compose_usr_prompt(
     output: 'This - text'
     text: 'Another example text!!!'
     output: 'Another - text'",
-  text = "Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura"
+  text = "Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura",
+  closing = "Take a deep breath and work on the problem step-by-step."
 )
 cat(usr_prompt)
 
@@ -130,6 +135,8 @@ examples <- "
   text: 'I didn't like it at all; it was deadly boring.'
   output: 'unsatisfied'"
 
+closing <- "Take a deep breath and work on the problem step-by-step." # This will be added AFTER the embedded text
+
 sys_prompt <- compose_sys_prompt(role = role, context = context)
 usr_prompt <- compose_usr_prompt(
   task = task,
@@ -137,6 +144,9 @@ usr_prompt <- compose_usr_prompt(
   output = output,
   style = style,
   examples = examples
+  # don't put the `closing` here if you want to use it on
+  # `query_gpt_on_column` after the embedded text;
+  # if here, it will go after the examples but before the embedded text.
 )
 
 db |>
@@ -145,6 +155,7 @@ db |>
                          # analyze after being embedded in the prompt.
    sys_prompt = sys_prompt,
    usr_prompt = usr_prompt,
+   closing = closing,  # this will be added AFTER the embedded text
    na_if_error = TRUE,  # dafault is FALSE, and in case of error the
                         # the error will be signaled and computation 
                         # stopped.
@@ -164,7 +175,7 @@ In case of any error, the error message(s) will be reported as a warning, but it
 
 # install.packages("depigner")
 library(depigner) # for progress bar `pb_len()` and `tick()`
-usr_prompter <- create_usr_data_prompter(usr_prompt)
+usr_prompter <- create_usr_data_prompter(usr_prompt, closing = closing)
 
 n <- nrow(db)
 db[["gpt_res"]] <- NA_character_

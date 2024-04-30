@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ubep.gpt</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,6 +56,7 @@
 <span>  <span class="va">text_column</span>,</span>
 <span>  sys_prompt <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  usr_prompt <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  closing <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  model <span class="op">=</span> <span class="st">"gpt-3.5-turbo"</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  max_try <span class="op">=</span> <span class="fl">10</span>,</span>
@@ -88,6 +89,10 @@ data</p></dd>
 
 <dt>usr_prompt</dt>
 <dd><p>(chr) the user prompt to use</p></dd>
+
+
+<dt>closing</dt>
+<dd><p>(chr, default = NULL) Text to include at the end of the prompt</p></dd>
 
 
 <dt>model</dt>

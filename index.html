@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="index.html">ubep.gpt</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -126,23 +126,28 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 7</span></span>
-<span><span class="co">#&gt;  $ id                : chr "chatcmpl-9JhfrcdjMBau5zKoFylZzto4Vt7MX"</span></span>
+<span><span class="co">#&gt;  $ id                : chr "chatcmpl-9JiI9sPlhGviFIoEXIxtwxdjz7fcL"</span></span>
 <span><span class="co">#&gt;  $ object            : chr "chat.completion"</span></span>
-<span><span class="co">#&gt;  $ created           : int 1714483143</span></span>
+<span><span class="co">#&gt;  $ created           : int 1714485517</span></span>
 <span><span class="co">#&gt;  $ model             : chr "gpt-3.5-turbo-0125"</span></span>
 <span><span class="co">#&gt;  $ choices           :'data.frame':  1 obs. of  5 variables:</span></span>
 <span><span class="co">#&gt;   ..$ index          : int 0</span></span>
 <span><span class="co">#&gt;   ..$ logprobs       : logi NA</span></span>
 <span><span class="co">#&gt;   ..$ finish_reason  : chr "stop"</span></span>
 <span><span class="co">#&gt;   ..$ message.role   : chr "assistant"</span></span>
-<span><span class="co">#&gt;   ..$ message.content: chr "The last course my professor provided was an advanced seminar on environmental policy and implementation. The c"| __truncated__</span></span>
+<span><span class="co">#&gt;   ..$ message.content: chr "The last course provided by the professor was \"Advanced Topics in Chain Dynamics.\" This course delved into th"| __truncated__</span></span>
 <span><span class="co">#&gt;  $ usage             :List of 3</span></span>
 <span><span class="co">#&gt;   ..$ prompt_tokens    : int 29</span></span>
 <span><span class="co">#&gt;   ..$ completion_tokens: int 98</span></span>
 <span><span class="co">#&gt;   ..$ total_tokens     : int 127</span></span>
 <span><span class="co">#&gt;  $ system_fingerprint: chr "fp_3b956da36b"</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "The last course my professor provided was an advanced seminar on environmental policy and implementation. The course discussed various approaches to crafting, implementing, and evaluating environmental policies at the local, regional, and global levels. The students delved into case studies of successful and unsuccessful policy initiatives, engaged in critical assessments of current environmental challenges, and developed practical skills in creating policy briefs and analysis documents. Overall, the course aimed to deepen students' understanding of the complexities and nuances involved in environmental policymaking processes."</span></span>
+<span><span class="co">#&gt; [1] "The last course provided by the professor was \"Advanced Topics in Chain Dynamics.\" This course delved into the academic study of dynamics and uncertainties present in supply chains. Students explored various quantitative methods for modeling and analyzing such dynamics, including the application of stochastic processes and mathematical optimization techniques. The course also discussed real-world case studies and industry best practices in managing risks and improving the performance of different types of supply chains. Student engagement in discussions and collaborative problem-solving tasks were integral parts of the course experience."</span></span>
+<span></span>
+<span><span class="co"># for a well formatted output on R, use `cat()`</span></span>
+<span><span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; The last course provided by the professor was "Advanced Topics in Chain Dynamics." This course delved into the academic study of dynamics and uncertainties present in supply chains. Students explored various quantitative methods for modeling and analyzing such dynamics, including the application of stochastic processes and mathematical optimization techniques. The course also discussed real-world case studies and industry best practices in managing risks and improving the performance of different types of supply chains. Student engagement in discussions and collaborative problem-solving tasks were integral parts of the course experience.</span></span>
+<span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 127</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"prompt"</span><span class="op">)</span></span>
@@ -175,7 +180,8 @@
 <span><span class="st">    output: 'This - text'</span></span>
 <span><span class="st">    text: 'Another example text!!!'</span></span>
 <span><span class="st">    output: 'Another - text'"</span>,</span>
-<span>  text <span class="op">=</span> <span class="st">"Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura"</span></span>
+<span>  text <span class="op">=</span> <span class="st">"Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura"</span>,</span>
+<span>  closing <span class="op">=</span> <span class="st">"Take a deep breath and work on the problem step-by-step."</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">usr_prompt</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Your task is to extract information from a text provided.</span></span>
@@ -191,6 +197,7 @@
 <span><span class="co">#&gt; """</span></span>
 <span><span class="co">#&gt; Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura</span></span>
 <span><span class="co">#&gt; """</span></span>
+<span><span class="co">#&gt; Take a deep breath and work on the problem step-by-step.</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/compose_prompt_api.html">compose_prompt_api</a></span><span class="op">(</span><span class="va">sys_prompt</span>, <span class="va">usr_prompt</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="reference/query_gpt.html">query_gpt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -231,6 +238,8 @@
 <span><span class="st">  text: 'I didn't like it at all; it was deadly boring.'</span></span>
 <span><span class="st">  output: 'unsatisfied'"</span></span>
 <span></span>
+<span><span class="va">closing</span> <span class="op">&lt;-</span> <span class="st">"Take a deep breath and work on the problem step-by-step."</span> <span class="co"># This will be added AFTER the embedded text</span></span>
+<span></span>
 <span><span class="va">sys_prompt</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/compose_prompt.html">compose_sys_prompt</a></span><span class="op">(</span>role <span class="op">=</span> <span class="va">role</span>, context <span class="op">=</span> <span class="va">context</span><span class="op">)</span></span>
 <span><span class="va">usr_prompt</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/compose_prompt.html">compose_usr_prompt</a></span><span class="op">(</span></span>
 <span>  task <span class="op">=</span> <span class="va">task</span>,</span>
@@ -238,6 +247,9 @@
 <span>  output <span class="op">=</span> <span class="va">output</span>,</span>
 <span>  style <span class="op">=</span> <span class="va">style</span>,</span>
 <span>  examples <span class="op">=</span> <span class="va">examples</span></span>
+<span>  <span class="co"># don't put the `closing` here if you want to use it on</span></span>
+<span>  <span class="co"># `query_gpt_on_column` after the embedded text;</span></span>
+<span>  <span class="co"># if here, it will go after the examples but before the embedded text.</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">db</span> <span class="op">|&gt;</span></span>
@@ -246,6 +258,7 @@
 <span>                         <span class="co"># analyze after being embedded in the prompt.</span></span>
 <span>   sys_prompt <span class="op">=</span> <span class="va">sys_prompt</span>,</span>
 <span>   usr_prompt <span class="op">=</span> <span class="va">usr_prompt</span>,</span>
+<span>   closing <span class="op">=</span> <span class="va">closing</span>,  <span class="co"># this will be added AFTER the embedded text</span></span>
 <span>   na_if_error <span class="op">=</span> <span class="cn">TRUE</span>,  <span class="co"># dafault is FALSE, and in case of error the</span></span>
 <span>                        <span class="co"># the error will be signaled and computation </span></span>
 <span>                        <span class="co"># stopped.</span></span>
@@ -280,7 +293,7 @@
 <span><span class="co"># install.packages("depigner")</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://corradolanera.github.io/depigner/" class="external-link">depigner</a></span><span class="op">)</span> <span class="co"># for progress bar `pb_len()` and `tick()`</span></span>
 <span><span class="co">#&gt; Welcome to depigner: we are here to un-stress you!</span></span>
-<span><span class="va">usr_prompter</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/create_usr_data_prompter.html">create_usr_data_prompter</a></span><span class="op">(</span><span class="va">usr_prompt</span><span class="op">)</span></span>
+<span><span class="va">usr_prompter</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/create_usr_data_prompter.html">create_usr_data_prompter</a></span><span class="op">(</span><span class="va">usr_prompt</span>, closing <span class="op">=</span> <span class="va">closing</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">db</span><span class="op">)</span></span>
 <span><span class="va">db</span><span class="op">[[</span><span class="st">"gpt_res"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA_character_</span></span>
@@ -299,8 +312,6 @@
 <span>  <span class="op">}</span></span>
 <span>  <span class="fu"><a href="https://corradolanera.github.io/depigner/reference/pb_len.html" class="external-link">tick</a></span><span class="op">(</span><span class="va">pb</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Row"</span>, <span class="va">i</span>, <span class="st">"of"</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; evaluated: Row 7 of 7 [=============================] 100% in  2s [ETA:  0s]</span></span>
 <span></span>
 <span><span class="va">db</span></span>
 <span><span class="co">#&gt;                                                                       txt</span></span>

@@ -14,7 +14,7 @@ Get the number of token of a chat completion"><!-- mathjax --><script src="https
     
     <a class="navbar-brand me-2" href="../index.html">ubep.gpt</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,7 +62,8 @@ Get the number of token of a chat completion"><!-- mathjax --><script src="https
 <span>  model <span class="op">=</span> <span class="st">"gpt-3.5-turbo"</span>,</span>
 <span>  temperature <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  max_tokens <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  endpoint <span class="op">=</span> <span class="st">"https://api.openai.com/v1/chat/completions"</span></span>
+<span>  endpoint <span class="op">=</span> <span class="st">"https://api.openai.com/v1/chat/completions"</span>,</span>
+<span>  seed <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">get_content</span><span class="op">(</span><span class="va">completion</span><span class="op">)</span></span>
@@ -99,6 +100,10 @@ https://platform.openai.com/docs/api-reference/chat/create#chat/create-max_token
 <dd><p>(chr, default =
 "https://api.openai.com/v1/chat/completions", i.e. the OpenAI API)
 the endpoint to use for the request.</p></dd>
+
+
+<dt>seed</dt>
+<dd><p>(chr, default = NULL) a string to seed the random number</p></dd>
 
 
 <dt>completion</dt>

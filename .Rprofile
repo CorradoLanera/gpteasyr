@@ -1,3 +1,4 @@
+source("renv/activate.R")
 if (interactive()) {
   if (as.logical(Sys.getenv("ATTACH_STARTUP_PKGS", FALSE))) {
     usethis::ui_todo("Attaching development supporting packages...")

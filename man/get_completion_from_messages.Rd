@@ -11,7 +11,8 @@ get_completion_from_messages(
   model = "gpt-3.5-turbo",
   temperature = 0,
   max_tokens = NULL,
-  endpoint = "https://api.openai.com/v1/chat/completions"
+  endpoint = "https://api.openai.com/v1/chat/completions",
+  seed = NULL
 )
 
 get_content(completion)
@@ -37,6 +38,8 @@ https://platform.openai.com/docs/api-reference/chat/create#chat/create-max_token
 \item{endpoint}{(chr, default =
 "https://api.openai.com/v1/chat/completions", i.e. the OpenAI API)
 the endpoint to use for the request.}
+
+\item{seed}{(chr, default = NULL) a string to seed the random number}
 
 \item{completion}{the number of tokens used for output of a
 \code{get_completion_from_messages} call}

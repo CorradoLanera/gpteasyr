@@ -12,7 +12,8 @@ query_gpt(
   endpoint = "https://api.openai.com/v1/chat/completions",
   max_try = 10,
   quiet = TRUE,
-  na_if_error = FALSE
+  na_if_error = FALSE,
+  seed = NULL
 )
 }
 \arguments{
@@ -33,6 +34,8 @@ the endpoint to use for the request.}
 \item{quiet}{(lgl) whether to print information}
 
 \item{na_if_error}{(lgl) whether to return NA if an error occurs}
+
+\item{seed}{(chr, default = NULL) a string to seed the random number}
 }
 \value{
 (list) the result of the query

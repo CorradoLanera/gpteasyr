@@ -15,6 +15,7 @@
 #' @param endpoint (chr, default =
 #'   "https://api.openai.com/v1/chat/completions", i.e. the OpenAI API)
 #'   the endpoint to use for the request.
+#' @param seed (chr, default = NULL) a string to seed the random number
 #'
 #' @details For argument description, please refer to the [official
 #'   documentation](https://platform.openai.com/docs/api-reference/chat/create).
@@ -80,7 +81,8 @@ get_completion_from_messages <- function(
   model = "gpt-3.5-turbo",
   temperature = 0,
   max_tokens = NULL,
-  endpoint = "https://api.openai.com/v1/chat/completions"
+  endpoint = "https://api.openai.com/v1/chat/completions",
+  seed = NULL
 ) {
 
   response <- httr::POST(
@@ -95,7 +97,8 @@ get_completion_from_messages <- function(
       messages = messages,
       temperature = temperature,
       max_tokens = max_tokens,
-      stream = FALSE # hard coded for the moment
+      stream = FALSE, # hard coded for the moment
+      seed = seed
     )
   )
 

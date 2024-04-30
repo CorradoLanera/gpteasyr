@@ -19,7 +19,8 @@ query_gpt_on_column(
   simplify = TRUE,
   na_if_error = FALSE,
   res_name = "gpt_res",
-  .progress = TRUE
+  .progress = TRUE,
+  seed = NULL
 )
 }
 \arguments{
@@ -60,6 +61,8 @@ containing the result}
 
 \item{.progress}{(lgl, default = TRUE) whether to show a progress bar
 or not}
+
+\item{seed}{(chr, default = NULL) a string to seed the random number}
 }
 \value{
 (tibble) the result of the query

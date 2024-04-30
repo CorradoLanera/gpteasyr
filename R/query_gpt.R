@@ -10,6 +10,7 @@
 #'   "https://api.openai.com/v1/chat/completions", i.e. the OpenAI API)
 #'   the endpoint to use for the request.
 #' @param na_if_error (lgl) whether to return NA if an error occurs
+#' @param seed  (chr, default = NULL) a string to seed the random number
 #'
 #' @return (list) the result of the query
 #' @export
@@ -47,7 +48,8 @@ query_gpt <- function(
   endpoint = "https://api.openai.com/v1/chat/completions",
   max_try = 10,
   quiet = TRUE,
-  na_if_error = FALSE
+  na_if_error = FALSE,
+  seed = NULL
 ) {
   done <- FALSE
   tries <- 0L
@@ -64,7 +66,8 @@ query_gpt <- function(
           model = model,
           temperature = temperature,
           max_tokens = max_tokens,
-          endpoint = endpoint
+          endpoint = endpoint,
+          seed = seed
         )
       done <- TRUE
       aux

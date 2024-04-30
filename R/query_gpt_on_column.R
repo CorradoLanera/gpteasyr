@@ -23,6 +23,7 @@
 #'   containing the result
 #' @param .progress (lgl, default = TRUE) whether to show a progress bar
 #'   or not
+#' @param seed (chr, default = NULL) a string to seed the random number
 #'
 #' @return (tibble) the result of the query
 #'
@@ -81,7 +82,8 @@ query_gpt_on_column <- function(
   simplify = TRUE,
   na_if_error = FALSE,
   res_name = "gpt_res",
-  .progress = TRUE
+  .progress = TRUE,
+  seed = NULL
 ) {
   usr_data_prompter <- create_usr_data_prompter(usr_prompt = usr_prompt)
 
@@ -97,7 +99,8 @@ query_gpt_on_column <- function(
         max_tokens = max_tokens,
         endpoint = endpoint,
         quiet = quiet,
-        na_if_error = na_if_error
+        na_if_error = na_if_error,
+        seed = seed
       )
     }, .progress = .progress)
 

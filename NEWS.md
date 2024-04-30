@@ -1,3 +1,7 @@
+# ubep.gpt 0.2.5
+
+* Added seed argument to `gpt_query`, `gpt_query_on_column`, and `get_completion_from_messages` functions.
+
 # ubep.gpt 0.2.4
 
 * Now `create_usr_data_prompter` can accept a custom delimiter.

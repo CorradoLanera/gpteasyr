@@ -15,6 +15,7 @@
 #' @param style (chr) The style ChatGPT should use in the output
 #' @param examples (chr) Some examples of correct output
 #' @param text (chr) Additional text to embed in the prompt
+#' @param closing (chr) Text to include at the end of the prompt
 #' @param delimiter (chr) delimiters for the `text` to embed, a sequence
 #'   of three identical symbols is suggested
 #'
@@ -42,7 +43,7 @@
 compose_prompt <- function(
   role = NULL, context = NULL, task = NULL, instructions = NULL,
   output = NULL, style = NULL, examples = NULL, text = NULL,
-  delimiter = if (is.null(text)) NULL else '""""'
+  closing = NULL, delimiter = if (is.null(text)) NULL else '""""'
 ) {
   all_sys_null <- list(role, context) |>
     purrr::map_lgl(is.null) |>
@@ -62,7 +63,8 @@ compose_prompt <- function(
     NULL
   } else {
     compose_usr_prompt(
-      task, instructions, output, style, examples, text, delimiter
+      task, instructions, output, style, examples, text,
+      closing, delimiter
     )
   }
   stringr::str_c(msg_sys, msg_usr, sep = "\n")
@@ -92,6 +94,16 @@ compose_sys_prompt <- function(
 
 #' Compose the ChatGPT User prompt
 #'
+#' @param task (chr) The tasks ChatGPT should assess
+#' @param instructions (chr) Description of steps ChatGPT should follow
+#' @param output (chr) The type/kind of output required
+#' @param style (chr) The style ChatGPT should use in the output
+#' @param examples (chr) Some examples of correct output
+#' @param text (chr) Additional text to embed in the prompt
+#' @param closing (chr) Text to include at the end of the prompt
+#' @param delimiter (chr) delimiters for the `text` to embed, a sequence
+#'   of three identical symbols is suggested
+#'
 #' @describeIn compose_prompt
 #'
 #' @return (chr) The complete user prompt
@@ -110,7 +122,7 @@ compose_sys_prompt <- function(
 #'  )
 compose_usr_prompt <- function(
   task = NULL, instructions = NULL, output = NULL, style = NULL,
-  examples = NULL, text = NULL,
+  examples = NULL, text = NULL, closing = NULL,
   delimiter = if (is.null(text)) NULL else '"""'
 ) {
   stringr::str_c(
@@ -122,6 +134,7 @@ compose_usr_prompt <- function(
     delimiter,
     text,
     delimiter,
+    closing,
     sep = "\n"
   )
 
@@ -139,6 +152,7 @@ compose_usr_prompt <- function(
 #'   the text will be added.
 #' @param delimiter (chr) delimiters for the `text` to embed, a sequence
 #'   of four identical symbols is suggested.
+#' @param closing (chr) Text to include at the end of the prompt
 #'
 #' @return (function) a function that can be used to prompt the user,
 #'   accepting a string of text as input and returning the complete
@@ -181,7 +195,7 @@ compose_usr_prompt <- function(
 #' db$text |> purrr::map_chr(prompter)
 #'
 create_usr_data_prompter <- function(
-  usr_prompt = NULL, delimiter = NULL
+  usr_prompt = NULL, delimiter = NULL, closing = NULL
 ) {
   if (length(usr_prompt) == 0) {
     usr_prompt <- NULL
@@ -192,6 +206,7 @@ create_usr_data_prompter <- function(
     compose_usr_prompt(
       task = usr_prompt,
       text = text,
+      closing = closing,
       delimiter = if (is.null(text)) NULL else delimiter
     )
   }

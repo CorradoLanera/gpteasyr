@@ -15,6 +15,7 @@ compose_prompt(
   style = NULL,
   examples = NULL,
   text = NULL,
+  closing = NULL,
   delimiter = if (is.null(text)) NULL else "\\"\\"\\"\\""
 )
 
@@ -27,6 +28,7 @@ compose_usr_prompt(
   style = NULL,
   examples = NULL,
   text = NULL,
+  closing = NULL,
   delimiter = if (is.null(text)) NULL else "\\"\\"\\""
 )
 }
@@ -46,6 +48,8 @@ compose_usr_prompt(
 \item{examples}{(chr) Some examples of correct output}
 
 \item{text}{(chr) Additional text to embed in the prompt}
+
+\item{closing}{(chr) Text to include at the end of the prompt}
 
 \item{delimiter}{(chr) delimiters for the \code{text} to embed, a sequence
 of three identical symbols is suggested}

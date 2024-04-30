@@ -1,3 +1,7 @@
+# ubep.gpt 0.2.6
+
+* Added `closing` argument to `compose_usr_prompt`, `compose_prompt`, and `create_usr_data_prompter` functions, to allow add text at the very end of the prompt, i.e., after the embedded text.
+
 # ubep.gpt 0.2.5
 
 * Added seed argument to `gpt_query`, `gpt_query_on_column`, and `get_completion_from_messages` functions.

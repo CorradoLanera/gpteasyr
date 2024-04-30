@@ -4,7 +4,7 @@
 \alias{create_usr_data_prompter}
 \title{Create a function to prompt the user for data}
 \usage{
-create_usr_data_prompter(usr_prompt = NULL, delimiter = NULL)
+create_usr_data_prompter(usr_prompt = NULL, delimiter = NULL, closing = NULL)
 }
 \arguments{
 \item{usr_prompt}{(chr) The user prompt to use as a template to which
@@ -12,6 +12,8 @@ the text will be added.}
 
 \item{delimiter}{(chr) delimiters for the \code{text} to embed, a sequence
 of four identical symbols is suggested.}
+
+\item{closing}{(chr) Text to include at the end of the prompt}
 }
 \value{
 (function) a function that can be used to prompt the user,

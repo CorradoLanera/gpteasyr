@@ -82,35 +82,35 @@ res <- query_gpt(
 )
 #> ℹ Total tries: 1.
 #> ℹ Prompt token used: 29.
-#> ℹ Response token used: 100.
-#> ℹ Total token used: 129.
+#> ℹ Response token used: 98.
+#> ℹ Total token used: 127.
 
 str(res)
 #> List of 7
-#>  $ id                : chr "chatcmpl-9JIqHdOGBZoInBaVbNejc2FuxeLRG"
+#>  $ id                : chr "chatcmpl-9JhfrcdjMBau5zKoFylZzto4Vt7MX"
 #>  $ object            : chr "chat.completion"
-#>  $ created           : int 1714387689
+#>  $ created           : int 1714483143
 #>  $ model             : chr "gpt-3.5-turbo-0125"
 #>  $ choices           :'data.frame':  1 obs. of  5 variables:
 #>   ..$ index          : int 0
 #>   ..$ logprobs       : logi NA
-#>   ..$ finish_reason  : chr "length"
+#>   ..$ finish_reason  : chr "stop"
 #>   ..$ message.role   : chr "assistant"
-#>   ..$ message.content: chr "Our professor recently taught a course on \"Ethics in Science and Technology.\" This course explored ethical is"| __truncated__
+#>   ..$ message.content: chr "The last course my professor provided was an advanced seminar on environmental policy and implementation. The c"| __truncated__
 #>  $ usage             :List of 3
 #>   ..$ prompt_tokens    : int 29
-#>   ..$ completion_tokens: int 100
-#>   ..$ total_tokens     : int 129
+#>   ..$ completion_tokens: int 98
+#>   ..$ total_tokens     : int 127
 #>  $ system_fingerprint: chr "fp_3b956da36b"
 get_content(res)
-#> [1] "Our professor recently taught a course on \"Ethics in Science and Technology.\" This course explored ethical issues that arise in different domains of science and technology, examining case studies and debating ethical dilemmas. Students actively discussed topics such as responsible innovation, privacy concerns, diversity and inclusion in research, and ethical considerations in emerging technologies like artificial intelligence. Special guests were invited to share their perspective and engage in dialogues with students, creating a dynamic learning environment. Feedback was positive, and students appreciated the opportunity to deepen"
+#> [1] "The last course my professor provided was an advanced seminar on environmental policy and implementation. The course discussed various approaches to crafting, implementing, and evaluating environmental policies at the local, regional, and global levels. The students delved into case studies of successful and unsuccessful policy initiatives, engaged in critical assessments of current environmental challenges, and developed practical skills in creating policy briefs and analysis documents. Overall, the course aimed to deepen students' understanding of the complexities and nuances involved in environmental policymaking processes."
 get_tokens(res)
-#> [1] 129
+#> [1] 127
 get_tokens(res, "prompt")
 #> [1] 29
 get_tokens(res, "all")
 #>     prompt_tokens completion_tokens      total_tokens 
-#>                29               100               129
+#>                29                98               127
 ```
 
 ## Easy prompt-assisted creation
@@ -285,6 +285,8 @@ for (i in seq_len(n)) {
   }
   tick(pb, paste("Row", i, "of", n))
 }
+#> 
+#> evaluated: Row 7 of 7 [=============================] 100% in  2s [ETA:  0s]
 
 db
 #>                                                                       txt

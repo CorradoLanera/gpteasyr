@@ -11,6 +11,7 @@
 #'   the endpoint to use for the request.
 #' @param na_if_error (lgl) whether to return NA if an error occurs
 #' @param seed  (chr, default = NULL) a string to seed the random number
+#' @param use_py (lgl, default = FALSE) whether to use python or not
 #'
 #' @return (list) the result of the query
 #' @export
@@ -49,7 +50,8 @@ query_gpt <- function(
   max_try = 10,
   quiet = TRUE,
   na_if_error = FALSE,
-  seed = NULL
+  seed = NULL,
+  use_py = FALSE
 ) {
   done <- FALSE
   tries <- 0L
@@ -67,7 +69,8 @@ query_gpt <- function(
           temperature = temperature,
           max_tokens = max_tokens,
           endpoint = endpoint,
-          seed = seed
+          seed = seed,
+          use_py = use_py
         )
       done <- TRUE
       aux

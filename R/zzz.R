@@ -48,4 +48,15 @@
     )
     packageStartupMessage("Enjoy the package!\n")
   }
+
+  if (
+    !interactive() ||
+      usethis::ui_yeah(
+        "Do you want to setup a (r-gpt-venv) python environment?"
+      )
+  ) {
+    reticulate::virtualenv_create("r-gpt-venv", packages = "openai")
+    reticulate::use_virtualenv("r-gpt-venv", required = TRUE)
+  }
+
 }

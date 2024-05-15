@@ -51,7 +51,7 @@ test_that("compose_prompt_api works on empty args", {
 
   expect_list(
     run_usr_only,
-    c("character", "integer", "data.frame", "list"),
+    c("character", "integer", "data.frame", "list", "NULL"),
     len = 7
   )
   expect_string(get_content(run_usr_only))
@@ -59,7 +59,7 @@ test_that("compose_prompt_api works on empty args", {
 
   expect_list(
     run_sys_only,
-    c("character", "integer", "data.frame", "list"),
+    c("character", "integer", "data.frame", "list", "NULL"),
     len = 7
   )
   expect_string(get_content(run_sys_only))

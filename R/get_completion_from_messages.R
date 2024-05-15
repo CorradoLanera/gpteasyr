@@ -16,6 +16,9 @@
 #'   "https://api.openai.com/v1/chat/completions", i.e. the OpenAI API)
 #'   the endpoint to use for the request.
 #' @param seed (chr, default = NULL) a string to seed the random number
+#' @param timeout (dbl, default = 60) the number of seconds to wait for
+#'   the request to complete before timing out.
+#' @param use_py (lgl, default = FALSE) whether to use python or not
 #'
 #' @details For argument description, please refer to the [official
 #'   documentation](https://platform.openai.com/docs/api-reference/chat/create).
@@ -82,43 +85,71 @@ get_completion_from_messages <- function(
   temperature = 0,
   max_tokens = NULL,
   endpoint = "https://api.openai.com/v1/chat/completions",
-  seed = NULL
+  seed = NULL,
+  use_py = FALSE
 ) {
-
-  response <- httr::POST(
-    endpoint,
-    httr::add_headers(
-      "Authorization" = paste("Bearer", Sys.getenv("OPENAI_API_KEY"))
-    ),
-    httr::content_type_json(),
-    encode = "json",
-    body = list(
-      model = model,
-      messages = messages,
-      temperature = temperature,
-      max_tokens = max_tokens,
-      stream = FALSE, # hard coded for the moment
-      seed = seed
-    )
+  stopifnot(
+    `At the moment, python can be used with openai API only` = !use_py ||
+      endpoint == "https://api.openai.com/v1/chat/completions"
   )
 
-  parsed <- response |>
-    httr::content(as = "text", encoding = "UTF-8") |>
-    jsonlite::fromJSON(flatten = TRUE)
-
-  if (httr::http_error(response)) {
-    err <- parsed[["error"]]
-    err <- if (is.character(err)) err else err[["message"]]
-    stringr::str_c(
-      "API request failed [",
-      httr::status_code(response),
-      "]:\n\n",
-      err
-    ) |>
-      usethis::ui_stop()
+  seed <- if (is.null(seed)) seed else as.integer(seed)
+  max_tokens <- if (is.null(max_tokens)) {
+    max_tokens
+  } else {
+    as.integer(max_tokens)
   }
 
-  parsed
+
+
+  if (use_py) {
+    openai <- reticulate::import("openai")
+    client <- openai$OpenAI()
+
+    client$chat$completions$create(
+      messages = messages,
+      model = model,
+      temperature = temperature,
+      max_tokens = max_tokens,
+      seed = seed
+    )$to_json() |>
+      jsonlite::fromJSON() |>
+      tryCatch(error = \(e) usethis::ui_stop(e))
+  } else {
+    response <- httr::POST(
+      endpoint,
+      httr::add_headers(
+        "Authorization" = paste("Bearer", Sys.getenv("OPENAI_API_KEY"))
+      ),
+      httr::content_type_json(),
+      encode = "json",
+      body = list(
+        model = model,
+        messages = messages,
+        temperature = temperature,
+        max_tokens = max_tokens,
+        stream = FALSE, # hard coded for the moment
+        seed = seed
+      )
+    )
+
+    parsed <- response |>
+      httr::content(as = "text", encoding = "UTF-8") |>
+      jsonlite::fromJSON(flatten = TRUE)
+
+    if (httr::http_error(response)) {
+      err <- parsed[["error"]]
+      err <- if (is.character(err)) err else err[["message"]]
+      stringr::str_c(
+        "API request failed [",
+        httr::status_code(response),
+        "]:\n\n",
+        err
+      ) |>
+        usethis::ui_stop()
+    }
+    parsed
+  }
 }
 
 
@@ -131,7 +162,13 @@ get_completion_from_messages <- function(
 #' @export
 get_content <- function(completion) {
   if (all(is.na(completion))) return(NA_character_)
-  completion[["choices"]][["message.content"]]
+
+  if ("message" %in% names(completion[["choices"]])) {
+    completion[["choices"]][["message"]][["content"]]
+  } else {
+    completion[["choices"]][["message.content"]]
+  }
+
 }
 
 #' Get the number of token of a chat completion
@@ -159,7 +196,6 @@ get_tokens <- function(
       completion_tokens = NA_integer_
     )
   }
-
   if (what == "all") {
     completion[["usage"]] |> unlist()
   } else {

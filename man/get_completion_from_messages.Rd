@@ -12,7 +12,8 @@ get_completion_from_messages(
   temperature = 0,
   max_tokens = NULL,
   endpoint = "https://api.openai.com/v1/chat/completions",
-  seed = NULL
+  seed = NULL,
+  use_py = FALSE
 )
 
 get_content(completion)
@@ -41,11 +42,16 @@ the endpoint to use for the request.}
 
 \item{seed}{(chr, default = NULL) a string to seed the random number}
 
+\item{use_py}{(lgl, default = FALSE) whether to use python or not}
+
 \item{completion}{the number of tokens used for output of a
 \code{get_completion_from_messages} call}
 
 \item{what}{(chr) one of "total" (default), "prompt", "completion",
 or "all"}
+
+\item{timeout}{(dbl, default = 60) the number of seconds to wait for
+the request to complete before timing out.}
 }
 \value{
 (list) of two element: \code{content}, which contains the chr

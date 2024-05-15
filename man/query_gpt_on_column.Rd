@@ -21,7 +21,8 @@ query_gpt_on_column(
   na_if_error = FALSE,
   res_name = "gpt_res",
   .progress = TRUE,
-  seed = NULL
+  seed = NULL,
+  use_py = FALSE
 )
 }
 \arguments{
@@ -66,6 +67,8 @@ containing the result}
 or not}
 
 \item{seed}{(chr, default = NULL) a string to seed the random number}
+
+\item{use_py}{(lgl, default = FALSE) whether to use python or not}
 }
 \value{
 (tibble) the result of the query

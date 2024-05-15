@@ -25,6 +25,7 @@
 #'   or not
 #' @param seed (chr, default = NULL) a string to seed the random number
 #' @param closing (chr, default = NULL) Text to include at the end of the prompt
+#' @param use_py (lgl, default = FALSE) whether to use python or not
 #'
 #' @return (tibble) the result of the query
 #'
@@ -85,7 +86,8 @@ query_gpt_on_column <- function(
   na_if_error = FALSE,
   res_name = "gpt_res",
   .progress = TRUE,
-  seed = NULL
+  seed = NULL,
+  use_py = FALSE
 ) {
   usr_data_prompter <- create_usr_data_prompter(
     usr_prompt = usr_prompt,

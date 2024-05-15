@@ -13,7 +13,8 @@ query_gpt(
   max_try = 10,
   quiet = TRUE,
   na_if_error = FALSE,
-  seed = NULL
+  seed = NULL,
+  use_py = FALSE
 )
 }
 \arguments{
@@ -36,6 +37,8 @@ the endpoint to use for the request.}
 \item{na_if_error}{(lgl) whether to return NA if an error occurs}
 
 \item{seed}{(chr, default = NULL) a string to seed the random number}
+
+\item{use_py}{(lgl, default = FALSE) whether to use python or not}
 }
 \value{
 (list) the result of the query

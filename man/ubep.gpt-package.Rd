@@ -4,9 +4,9 @@
 \name{ubep.gpt-package}
 \alias{ubep.gpt}
 \alias{ubep.gpt-package}
-\title{ubep.gpt: A basic/simple interface to OpenAI’s GPT API}
+\title{ubep.gpt: A basic and simple interface to OpenAI’s GPT API}
 \description{
-The goal of '{ubep.gpt}' is to provide a basic/simple interface to OpenAI's GPT API. The package is designed to work with (i.e., to query on) dataframes/tibbles, and to simplify the process of querying the API.
+The goal of 'ubep.gpt' is to provide a basic and simple interface to OpenAI's GPT API (and other compatible APIs). The package is also designed to work with (i.e., to query on) dataframes/tibbles, and to simplify the process of querying the API.
 }
 \seealso{
 Useful links:

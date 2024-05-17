@@ -37,7 +37,7 @@ You can use the `query_gpt` function to query the GPT API. You can decide the mo
 
 To use the function you need to compose a prompt. You can use (but it is not necessary!) the `compose_prompt_api` function to compose the prompt properly with an optional (single) system prompt (i.e., gpt's setup) and a (single) user prompt (i.e., the query). This function is useful because it helps you to compose the prompt automatically adopting the required API's structure.
 
-> NOTE: you can still pass a correcly formatted list (of lists) as described in the [official documentation](https://platform.openai.com/docs/api-reference/chat) (<https://platform.openai.com/docs/api-reference/chat>).
+> NOTE: you can still pass a correctly formatted list (of lists) as described in the [official documentation](https://platform.openai.com/docs/api-reference/chat) (<https://platform.openai.com/docs/api-reference/chat>).
 
 Once you have queried the API, you can extract the content of the response using the `get_content` function. You can also extract the tokens of the prompt and the response using the `get_tokens` function.
 
@@ -255,7 +255,7 @@ cat(res) # limited to 30 tokens!
 
 ### Python's backend
 
-Often, for complex prompt it happens that the R environment (everyone we have experiemnted, i.e. `{openai}`, `{httr}`, `{httr2}`, and `curl`) return a timeout error for a certificate validation (see, e.g.: https://github.com/irudnyts/openai/issues/61, and https://github.com/irudnyts/openai/issues/42). The same does not happen with a pure python backend usign the official OpenAI's `{openai}` library. you can setup a Python backend by executing `setup_py()`, and setting `use_py = TRUE` in the functions that send the queries (i.e., `query_gpt`, `query_gpt_on_column`, and `get_completion_from_messages`)
+Often, for complex prompt it happens that the R environment (everyone we have experimented, i.e. `{openai}`, `{httr}`, `{httr2}`, and `curl`) return a timeout error for a certificate validation (see, e.g.: https://github.com/irudnyts/openai/issues/61, and https://github.com/irudnyts/openai/issues/42). The same does not happen with a pure python backend using the official OpenAI's `{openai}` library. you can setup a Python backend by executing `setup_py()`, and setting `use_py = TRUE` in the functions that send the queries (i.e., `query_gpt`, `query_gpt_on_column`, and `get_completion_from_messages`)
 
 > NOTE: using a Python backend can be a little slower, but sometimes necessary.
 
@@ -274,11 +274,11 @@ cat(res)
 
 ### Personalized server's endpoint
 
-If you have a personal server asking for queries using the OpenAI's API format, (e.g. using StudioLM, with open source models), you can set the endpoint to POST the query on your server instead of the OpenaAI one.
+If you have a personal server asking for queries using the OpenAI's API format, (e.g. using LM Studio, with open source models), you can set the endpoint to POST the query on your server instead of the OpenaAI one.
 
-> NOTE: when using personalized server endpoint, you can select the model you would like to use as usual by the `model` option. Clearly, avalilable models depend on your local server configuration.
+> NOTE: when using personalized server endpoint, you can select the model you would like to use as usual by the `model` option. Clearly, available models depend on your local server configuration.
 
-> WARNIGN: this option cannot be select if Python backend is request (i.e., setting `use_py = TRUE`, and a custom `endpoint` won't work)!
+> WARNING: this option cannot be select if Python backend is request (i.e., setting `use_py = TRUE`, and a custom `endpoint` won't work)!
 
 ```{r}
 if (FALSE) { # we do not run this in the README

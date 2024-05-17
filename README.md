@@ -39,7 +39,7 @@ a (single) user prompt (i.e., the query). This function is useful
 because it helps you to compose the prompt automatically adopting the
 required API’s structure.
 
-> NOTE: you can still pass a correcly formatted list (of lists) as
+> NOTE: you can still pass a correctly formatted list (of lists) as
 > described in the [official
 > documentation](https://platform.openai.com/docs/api-reference/chat)
 > (<https://platform.openai.com/docs/api-reference/chat>).
@@ -95,40 +95,40 @@ res <- query_gpt(
 )
 #> ℹ Total tries: 1.
 #> ℹ Prompt token used: 29.
-#> ℹ Response token used: 83.
-#> ℹ Total token used: 112.
+#> ℹ Response token used: 100.
+#> ℹ Total token used: 129.
 
 str(res)
 #> List of 7
-#>  $ id                : chr "chatcmpl-9PpAnZZwHo5hbUew4uUzbm5wsiMG9"
+#>  $ id                : chr "chatcmpl-9PzusvOFD57oVSnHWcp3JKk9Kr75U"
 #>  $ object            : chr "chat.completion"
-#>  $ created           : int 1715941937
+#>  $ created           : int 1715983234
 #>  $ model             : chr "gpt-3.5-turbo-0125"
 #>  $ choices           :'data.frame':  1 obs. of  5 variables:
 #>   ..$ index          : int 0
 #>   ..$ logprobs       : logi NA
-#>   ..$ finish_reason  : chr "stop"
+#>   ..$ finish_reason  : chr "length"
 #>   ..$ message.role   : chr "assistant"
-#>   ..$ message.content: chr "I supported Professor Smith with his advanced mathematics course last semester. The course covered topics such "| __truncated__
+#>   ..$ message.content: chr "The last course that our professor provided was on Advanced Machine Learning. This course delved into more comp"| __truncated__
 #>  $ usage             :List of 3
 #>   ..$ prompt_tokens    : int 29
-#>   ..$ completion_tokens: int 83
-#>   ..$ total_tokens     : int 112
+#>   ..$ completion_tokens: int 100
+#>   ..$ total_tokens     : int 129
 #>  $ system_fingerprint: NULL
 get_content(res)
-#> [1] "I supported Professor Smith with his advanced mathematics course last semester. The course covered topics such as linear algebra, differential equations, and complex analysis. I helped Professor Smith develop homework assignments, review materials, and conduct study sessions to assist students in understanding the challenging concepts in the course. Overall, the course was a great success, and the students were able to delve deep into these complex mathematical topics under Professor Smith's guidance."
+#> [1] "The last course that our professor provided was on Advanced Machine Learning. This course delved into more complex machine learning techniques such as deep learning, reinforcement learning, and unsupervised learning. Students learned about cutting-edge algorithms and applications in areas such as natural language processing, computer vision, and recommendation systems. The course also had a significant practical component with coding assignments and a final project where students applied their knowledge to analyze real-world datasets. It was a challenging yet engaging course that provided students with valuable skills for"
 
 # for a well formatted output on R, use `cat()`
 get_content(res) |> cat()
-#> I supported Professor Smith with his advanced mathematics course last semester. The course covered topics such as linear algebra, differential equations, and complex analysis. I helped Professor Smith develop homework assignments, review materials, and conduct study sessions to assist students in understanding the challenging concepts in the course. Overall, the course was a great success, and the students were able to delve deep into these complex mathematical topics under Professor Smith's guidance.
+#> The last course that our professor provided was on Advanced Machine Learning. This course delved into more complex machine learning techniques such as deep learning, reinforcement learning, and unsupervised learning. Students learned about cutting-edge algorithms and applications in areas such as natural language processing, computer vision, and recommendation systems. The course also had a significant practical component with coding assignments and a final project where students applied their knowledge to analyze real-world datasets. It was a challenging yet engaging course that provided students with valuable skills for
 
 get_tokens(res)
-#> [1] 112
+#> [1] 129
 get_tokens(res, "prompt")
 #> [1] 29
 get_tokens(res, "all")
 #>     prompt_tokens completion_tokens      total_tokens 
-#>                29                83               112
+#>                29               100               129
 ```
 
 ## Easy prompt-assisted creation
@@ -425,11 +425,11 @@ cat(res) # limited to 30 tokens!
 ### Python’s backend
 
 Often, for complex prompt it happens that the R environment (everyone we
-have experiemnted, i.e. `{openai}`, `{httr}`, `{httr2}`, and `curl`)
+have experimented, i.e. `{openai}`, `{httr}`, `{httr2}`, and `curl`)
 return a timeout error for a certificate validation (see, e.g.:
 <https://github.com/irudnyts/openai/issues/61>, and
 <https://github.com/irudnyts/openai/issues/42>). The same does not
-happen with a pure python backend usign the official OpenAI’s `{openai}`
+happen with a pure python backend using the official OpenAI’s `{openai}`
 library. you can setup a Python backend by executing `setup_py()`, and
 setting `use_py = TRUE` in the functions that send the queries (i.e.,
 `query_gpt`, `query_gpt_on_column`, and `get_completion_from_messages`)
@@ -448,20 +448,20 @@ res <- query_gpt(
   get_content() 
 
 cat(res)
-#> The last course provided by the professor was a graduate-level seminar on "Advanced Topics in Artificial Intelligence." The course covered cutting-edge research in areas such as deep learning, natural language processing, and reinforcement learning. Students were required to read and present research papers, participate in discussions, and complete a final project applying the concepts learned in the course. The professor received positive feedback from students for their engaging teaching style and ability to explain complex topics clearly.
+#> The last course that the professor provided was a graduate-level seminar on "Advanced Topics in Artificial Intelligence." The course covered cutting-edge research in areas such as deep learning, natural language processing, and reinforcement learning. Students were required to read and present research papers, participate in discussions, and complete a final project applying the concepts learned in the course. The professor also invited guest speakers from industry and academia to share their expertise and insights with the students. Overall, the course was well-received by the students and provided them with valuable knowledge and skills in the field of artificial intelligence.
 ```
 
 ### Personalized server’s endpoint
 
 If you have a personal server asking for queries using the OpenAI’s API
-format, (e.g. using StudioLM, with open source models), you can set the
+format, (e.g. using LM Studio, with open source models), you can set the
 endpoint to POST the query on your server instead of the OpenaAI one.
 
 > NOTE: when using personalized server endpoint, you can select the
 > model you would like to use as usual by the `model` option. Clearly,
-> avalilable models depend on your local server configuration.
+> available models depend on your local server configuration.
 
-> WARNIGN: this option cannot be select if Python backend is request
+> WARNING: this option cannot be select if Python backend is request
 > (i.e., setting `use_py = TRUE`, and a custom `endpoint` won’t work)!
 
 ``` r

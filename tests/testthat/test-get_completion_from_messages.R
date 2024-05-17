@@ -34,6 +34,7 @@ test_that("get_completion_from_messages works", {
 
 test_that("get_completion_from_messages works w/ py", {
   # setup
+  setup_py()
   model <- "gpt-3.5-turbo"
   messages <- compose_prompt_api(
     sys_prompt = compose_sys_prompt(

@@ -1,3 +1,6 @@
+* Added `setup_py` function to setup python backend.
+* update `README`
+
 # ubep.gpt 0.2.8
 
 * Added `use_py` argument to `gpt_query`, `gpt_query_on_column`, and  `get_completion_from_messages`

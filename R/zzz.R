@@ -48,15 +48,12 @@
     )
     packageStartupMessage("Enjoy the package!\n")
   }
-
-  if (
-    !interactive() ||
-      usethis::ui_yeah(
-        "Do you want to setup a (r-gpt-venv) python environment?"
-      )
-  ) {
-    reticulate::virtualenv_create("r-gpt-venv", packages = "openai")
-    reticulate::use_virtualenv("r-gpt-venv", required = TRUE)
-  }
+  packageStartupMessage(
+    "If you like to use the python backend (working only for GPT's OpenAI requests!),\n",
+    "setup the environmen first by executing:\n",
+    usethis::ui_code("setup_py()"), "(default virtual environment name is 'r-gpt-venv').\n",
+    "If you need to change the default name, run:\n",
+    usethis::ui_code("setup_py(\"<your_custom_environment_name>\")")
+  )
 
 }

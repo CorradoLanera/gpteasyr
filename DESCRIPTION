@@ -4,7 +4,7 @@ Version: 0.2.8
 Authors@R: 
     person("Corrado", "Lanera", , "corrado.lanera@ubep.unipd.it", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-0520-7428"))
-Description: The goal of `{ubep.gpt}` is to provide a basic/simple
+Description: The goal of '{ubep.gpt}' is to provide a basic/simple
     interface to OpenAI's GPT API.  The package is designed to work with
     (i.e., to query on) dataframes/tibbles, and to simplify the process of
     querying the API.

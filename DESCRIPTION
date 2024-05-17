@@ -1,6 +1,6 @@
 Package: ubep.gpt
 Title: A basic/simple interface to OpenAI’s GPT API
-Version: 0.2.8
+Version: 0.2.9
 Authors@R: 
     person("Corrado", "Lanera", , "corrado.lanera@ubep.unipd.it", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-0520-7428"))

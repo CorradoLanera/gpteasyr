@@ -27,14 +27,22 @@ remotes::install_github("UBESP-DCTV/ubep.gpt")
 ## Basic example
 
 You can use the `query_gpt` function to query the GPT API. You can
-decide if use GPT-3.5-turbo or GPT-4-turbo models. This function is
-useful because mainly it iterate the query a decided number of times (10
-by default) in case of error (often caused by server overload).
+decide the model to use (e.g., `gpt-3.5-turbo`, `gpt-4-turbo`, or
+`gpt-4o`). This function is useful because mainly it iterate the query a
+decided number of times (10 by default) in case of error (often caused
+by server overload).
 
-To use the function you need to compose a prompt. You can use the
-`compose_prompt_api` function to compose the prompt. This function is
-useful because it helps you to compose the prompt automatically adopting
-the required API’s structure.
+To use the function you need to compose a prompt. You can use (but it is
+not necessary!) the `compose_prompt_api` function to compose the prompt
+properly with an optional (single) system prompt (i.e., gpt’s setup) and
+a (single) user prompt (i.e., the query). This function is useful
+because it helps you to compose the prompt automatically adopting the
+required API’s structure.
+
+> NOTE: you can still pass a correcly formatted list (of lists) as
+> described in the [official
+> documentation](https://platform.openai.com/docs/api-reference/chat)
+> (<https://platform.openai.com/docs/api-reference/chat>).
 
 Once you have queried the API, you can extract the content of the
 response using the `get_content` function. You can also extract the
@@ -52,6 +60,11 @@ library(ubep.gpt)
 #>       you can regenerate it in the OpenAI-API website
 #>       (https://platform.openai.com/api-keys).
 #> Enjoy the package!
+#> If you like to use the python backend (working only for GPT's OpenAI requests!),
+#> setup the environmen first by executing:
+#> `setup_py()`(default virtual environment name is 'r-gpt-venv').
+#> If you need to change the default name, run:
+#> `setup_py("<your_custom_environment_name>")`
 prompt <- compose_prompt_api(
   sys_prompt = "You are the assistant of a university professor.",
   usr_prompt = "Tell me about the last course you provided."
@@ -82,40 +95,40 @@ res <- query_gpt(
 )
 #> ℹ Total tries: 1.
 #> ℹ Prompt token used: 29.
-#> ℹ Response token used: 98.
-#> ℹ Total token used: 127.
+#> ℹ Response token used: 83.
+#> ℹ Total token used: 112.
 
 str(res)
 #> List of 7
-#>  $ id                : chr "chatcmpl-9JiI9sPlhGviFIoEXIxtwxdjz7fcL"
+#>  $ id                : chr "chatcmpl-9PpAnZZwHo5hbUew4uUzbm5wsiMG9"
 #>  $ object            : chr "chat.completion"
-#>  $ created           : int 1714485517
+#>  $ created           : int 1715941937
 #>  $ model             : chr "gpt-3.5-turbo-0125"
 #>  $ choices           :'data.frame':  1 obs. of  5 variables:
 #>   ..$ index          : int 0
 #>   ..$ logprobs       : logi NA
 #>   ..$ finish_reason  : chr "stop"
 #>   ..$ message.role   : chr "assistant"
-#>   ..$ message.content: chr "The last course provided by the professor was \"Advanced Topics in Chain Dynamics.\" This course delved into th"| __truncated__
+#>   ..$ message.content: chr "I supported Professor Smith with his advanced mathematics course last semester. The course covered topics such "| __truncated__
 #>  $ usage             :List of 3
 #>   ..$ prompt_tokens    : int 29
-#>   ..$ completion_tokens: int 98
-#>   ..$ total_tokens     : int 127
-#>  $ system_fingerprint: chr "fp_3b956da36b"
+#>   ..$ completion_tokens: int 83
+#>   ..$ total_tokens     : int 112
+#>  $ system_fingerprint: NULL
 get_content(res)
-#> [1] "The last course provided by the professor was \"Advanced Topics in Chain Dynamics.\" This course delved into the academic study of dynamics and uncertainties present in supply chains. Students explored various quantitative methods for modeling and analyzing such dynamics, including the application of stochastic processes and mathematical optimization techniques. The course also discussed real-world case studies and industry best practices in managing risks and improving the performance of different types of supply chains. Student engagement in discussions and collaborative problem-solving tasks were integral parts of the course experience."
+#> [1] "I supported Professor Smith with his advanced mathematics course last semester. The course covered topics such as linear algebra, differential equations, and complex analysis. I helped Professor Smith develop homework assignments, review materials, and conduct study sessions to assist students in understanding the challenging concepts in the course. Overall, the course was a great success, and the students were able to delve deep into these complex mathematical topics under Professor Smith's guidance."
 
 # for a well formatted output on R, use `cat()`
 get_content(res) |> cat()
-#> The last course provided by the professor was "Advanced Topics in Chain Dynamics." This course delved into the academic study of dynamics and uncertainties present in supply chains. Students explored various quantitative methods for modeling and analyzing such dynamics, including the application of stochastic processes and mathematical optimization techniques. The course also discussed real-world case studies and industry best practices in managing risks and improving the performance of different types of supply chains. Student engagement in discussions and collaborative problem-solving tasks were integral parts of the course experience.
+#> I supported Professor Smith with his advanced mathematics course last semester. The course covered topics such as linear algebra, differential equations, and complex analysis. I helped Professor Smith develop homework assignments, review materials, and conduct study sessions to assist students in understanding the challenging concepts in the course. Overall, the course was a great success, and the students were able to delve deep into these complex mathematical topics under Professor Smith's guidance.
 
 get_tokens(res)
-#> [1] 127
+#> [1] 112
 get_tokens(res, "prompt")
 #> [1] 29
 get_tokens(res, "all")
 #>     prompt_tokens completion_tokens      total_tokens 
-#>                29                98               127
+#>                29                83               112
 ```
 
 ## Easy prompt-assisted creation
@@ -124,8 +137,8 @@ You can use the `compose_sys_prompt` and `compose_usr_prompt` functions
 to create the system and user prompts, respectively. These functions are
 useful because they help you to compose the prompts following best
 practices in composing prompt. In fact the arguments are just the main
-components every prompt should have. They do just that, composing the
-prompt for you juxtaposing the components in the right order.
+components every good prompt should have. They do just that, composing
+the prompt for you juxtaposing the components in order.
 
 ``` r
 sys_prompt <- compose_sys_prompt(
@@ -323,14 +336,16 @@ db
 You can use the `compose_prompt` function to create a prompt for
 ChatGPT. This function is useful because it helps you to compose the
 prompt following best practices in composing prompt. In fact the
-arguments are just the main components every prompt should have. They do
-just that, composing the prompt for you juxtaposing the components in
-the right order. The result is suitable to be copy-pasted on ChatGPT,
-not to be used with API calls, i.e., it cannot be used with the
-`query_gpt` function!!
+arguments are just the main components every good prompt should have.
+They do just that, composing the prompt for you juxtaposing the
+components in the right order.
+
+> WARNING: The result is suitable to be copy-pasted on ChatGPT, not to
+> be used with API calls, i.e., it cannot be used with the `query_gpt`
+> function!
 
 ``` r
-prompt <- compose_prompt(
+chat_prompt <- compose_prompt(
   role = "You are the assistant of a university professor.",
   context = "You are analyzing the comments of the students of the last course.",
   task = "Your task is to extract information from a text provided.",
@@ -346,7 +361,7 @@ prompt <- compose_prompt(
   text = "Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura"
 )
 
-cat(prompt)
+cat(chat_prompt)
 #> You are the assistant of a university professor.
 #> You are analyzing the comments of the students of the last course.
 #> Your task is to extract information from a text provided.
@@ -371,6 +386,96 @@ alt="https://chat.openai.com/share/394a008b-d463-42dc-9361-1bd745bcad6d" />
 href="https://chat.openai.com/share/394a008b-d463-42dc-9361-1bd745bcad6d"
 class="uri">https://chat.openai.com/share/394a008b-d463-42dc-9361-1bd745bcad6d</a></figcaption>
 </figure>
+
+## Other options and utilities
+
+### Options for `temperature`, `max_tokens`, and `seed`
+
+You cannot use all the option of official APIs
+(<https://platform.openai.com/docs/api-reference/chat/create>), we
+select the following to be available here (please contact the authors if
+you need more):
+
+- `temperature`: “What sampling temperature to use, between 0 and 2.
+  Higher values like 0.8 will make the output more random, while lower
+  values like 0.2 will make it more focused and deterministic.”
+- `max_tokens`: “The maximum number of tokens that can be generated in
+  the chat completion. The total length of input tokens and generated
+  tokens is limited by the model’s context length.”
+- `seed`, “This feature is in Beta. If specified, our system will make a
+  best effort to sample deterministically, such that repeated requests
+  with the same seed and parameters should return the same result.
+  Determinism is not guaranteed, and you should refer to the
+  system_fingerprint response parameter to monitor changes in the
+  backend.”
+
+``` r
+res <- query_gpt(
+    prompt = prompt,
+    temperature = 1.2,
+    max_tokens = 30,
+    seed = 1234
+ ) |> 
+  get_content() 
+
+cat(res) # limited to 30 tokens!
+#> The last course my professor provided was a graduate-level seminar on cutting-edge research topics in environmental science. The course covered a range of interdisciplinary subjects related to
+```
+
+### Python’s backend
+
+Often, for complex prompt it happens that the R environment (everyone we
+have experiemnted, i.e. `{openai}`, `{httr}`, `{httr2}`, and `curl`)
+return a timeout error for a certificate validation (see, e.g.:
+<https://github.com/irudnyts/openai/issues/61>, and
+<https://github.com/irudnyts/openai/issues/42>). The same does not
+happen with a pure python backend usign the official OpenAI’s `{openai}`
+library. you can setup a Python backend by executing `setup_py()`, and
+setting `use_py = TRUE` in the functions that send the queries (i.e.,
+`query_gpt`, `query_gpt_on_column`, and `get_completion_from_messages`)
+
+> NOTE: using a Python backend can be a little slower, but sometimes
+> necessary.
+
+``` r
+setup_py(ask = FALSE)
+#> virtualenv: r-gpt-venv
+
+res <- query_gpt(
+    prompt = prompt,
+    use_py = TRUE
+ ) |> 
+  get_content() 
+
+cat(res)
+#> The last course provided by the professor was a graduate-level seminar on "Advanced Topics in Artificial Intelligence." The course covered cutting-edge research in areas such as deep learning, natural language processing, and reinforcement learning. Students were required to read and present research papers, participate in discussions, and complete a final project applying the concepts learned in the course. The professor received positive feedback from students for their engaging teaching style and ability to explain complex topics clearly.
+```
+
+### Personalized server’s endpoint
+
+If you have a personal server asking for queries using the OpenAI’s API
+format, (e.g. using StudioLM, with open source models), you can set the
+endpoint to POST the query on your server instead of the OpenaAI one.
+
+> NOTE: when using personalized server endpoint, you can select the
+> model you would like to use as usual by the `model` option. Clearly,
+> avalilable models depend on your local server configuration.
+
+> WARNIGN: this option cannot be select if Python backend is request
+> (i.e., setting `use_py = TRUE`, and a custom `endpoint` won’t work)!
+
+``` r
+if (FALSE) { # we do not run this in the README
+  res <- query_gpt(
+    prompt = prompt,
+    endopont = "http://localhost:1234/v1/chat/completions",
+    model = "lmstudio-ai/gemma-2b-it-GGUF"
+ ) |> 
+  get_content() 
+
+cat(res)
+}
+```
 
 ## Code of Conduct
 

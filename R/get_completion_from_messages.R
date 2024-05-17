@@ -16,8 +16,6 @@
 #'   "https://api.openai.com/v1/chat/completions", i.e. the OpenAI API)
 #'   the endpoint to use for the request.
 #' @param seed (chr, default = NULL) a string to seed the random number
-#' @param timeout (dbl, default = 60) the number of seconds to wait for
-#'   the request to complete before timing out.
 #' @param use_py (lgl, default = FALSE) whether to use python or not
 #'
 #' @details For argument description, please refer to the [official

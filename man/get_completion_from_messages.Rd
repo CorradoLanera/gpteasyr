@@ -49,9 +49,6 @@ the endpoint to use for the request.}
 
 \item{what}{(chr) one of "total" (default), "prompt", "completion",
 or "all"}
-
-\item{timeout}{(dbl, default = 60) the number of seconds to wait for
-the request to complete before timing out.}
 }
 \value{
 (list) of two element: \code{content}, which contains the chr

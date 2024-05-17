@@ -4,7 +4,7 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -33,10 +33,11 @@ remotes::install_github("UBESP-DCTV/ubep.gpt")
 
 ## Basic example
 
-You can use the `query_gpt` function to query the GPT API. You can decide
-if use GPT-3.5-turbo or GPT-4-turbo models. This function is useful because mainly it iterate the query a decided number of times (10 by default) in case of error (often caused by server overload).
+You can use the `query_gpt` function to query the GPT API. You can decide the model to use (e.g., `gpt-3.5-turbo`, `gpt-4-turbo`, or `gpt-4o`). This function is useful because mainly it iterate the query a decided number of times (10 by default) in case of error (often caused by server overload).
 
-To use the function you need to compose a prompt. You can use the `compose_prompt_api` function to compose the prompt. This function is useful because it helps you to compose the prompt automatically adopting the required API's structure.
+To use the function you need to compose a prompt. You can use (but it is not necessary!) the `compose_prompt_api` function to compose the prompt properly with an optional (single) system prompt (i.e., gpt's setup) and a (single) user prompt (i.e., the query). This function is useful because it helps you to compose the prompt automatically adopting the required API's structure.
+
+> NOTE: you can still pass a correcly formatted list (of lists) as described in the [official documentation](https://platform.openai.com/docs/api-reference/chat) (<https://platform.openai.com/docs/api-reference/chat>).
 
 Once you have queried the API, you can extract the content of the response using the `get_content` function. You can also extract the tokens of the prompt and the response using the `get_tokens` function.
 
@@ -71,7 +72,7 @@ get_tokens(res, "all")
 
 ## Easy prompt-assisted creation
 
-You can use the `compose_sys_prompt` and `compose_usr_prompt` functions to create the system and user prompts, respectively. These functions are useful because they help you to compose the prompts following best practices in composing prompt. In fact the arguments are just the main components every prompt should have. They do just that, composing the prompt for you juxtaposing the components in the right order.
+You can use the `compose_sys_prompt` and `compose_usr_prompt` functions to create the system and user prompts, respectively. These functions are useful because they help you to compose the prompts following best practices in composing prompt. In fact the arguments are just the main components every good prompt should have. They do just that, composing the prompt for you juxtaposing the components in order.
 
 ```{r}
 sys_prompt <- compose_sys_prompt(
@@ -201,10 +202,13 @@ db
 
 ## Base ChatGPT prompt creation (NOT for API)
 
-You can use the `compose_prompt` function to create a prompt for ChatGPT. This function is useful because it helps you to compose the prompt following best practices in composing prompt. In fact the arguments are just the main components every prompt should have. They do just that, composing the prompt for you juxtaposing the components in the right order. The result is suitable to be copy-pasted on ChatGPT, not to be used with API calls, i.e., it cannot be used with the `query_gpt` function!!
+You can use the `compose_prompt` function to create a prompt for ChatGPT. This function is useful because it helps you to compose the prompt following best practices in composing prompt. In fact the arguments are just the main components every good prompt should have. They do just that, composing the prompt for you juxtaposing the components in the right order.
+
+> WARNING: The result is suitable to be copy-pasted on ChatGPT, not to be used with API calls, i.e., it cannot be used with the `query_gpt` function!
+
 
 ```{r}
-prompt <- compose_prompt(
+chat_prompt <- compose_prompt(
   role = "You are the assistant of a university professor.",
   context = "You are analyzing the comments of the students of the last course.",
   task = "Your task is to extract information from a text provided.",
@@ -220,12 +224,74 @@ prompt <- compose_prompt(
   text = "Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura"
 )
 
-cat(prompt)
+cat(chat_prompt)
 
 ```
 
 ![https://chat.openai.com/share/394a008b-d463-42dc-9361-1bd745bcad6d](dev/img/gpt-example.png)
 
+
+## Other options and utilities
+
+### Options for `temperature`, `max_tokens`, and `seed`
+
+You cannot use all the option of official APIs (https://platform.openai.com/docs/api-reference/chat/create), we select the following to be available here (please contact the authors if you need more):
+
+  - `temperature`: "What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."
+  - `max_tokens`: "The maximum number of tokens that can be generated in the chat completion. The total length of input tokens and generated tokens is limited by the model's context length."
+  - `seed`, "This feature is in Beta. If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result. Determinism is not guaranteed, and you should refer to the system_fingerprint response parameter to monitor changes in the backend."
+
+```{r}
+res <- query_gpt(
+    prompt = prompt,
+    temperature = 1.2,
+    max_tokens = 30,
+    seed = 1234
+ ) |> 
+  get_content() 
+
+cat(res) # limited to 30 tokens!
+```
+
+### Python's backend
+
+Often, for complex prompt it happens that the R environment (everyone we have experiemnted, i.e. `{openai}`, `{httr}`, `{httr2}`, and `curl`) return a timeout error for a certificate validation (see, e.g.: https://github.com/irudnyts/openai/issues/61, and https://github.com/irudnyts/openai/issues/42). The same does not happen with a pure python backend usign the official OpenAI's `{openai}` library. you can setup a Python backend by executing `setup_py()`, and setting `use_py = TRUE` in the functions that send the queries (i.e., `query_gpt`, `query_gpt_on_column`, and `get_completion_from_messages`)
+
+> NOTE: using a Python backend can be a little slower, but sometimes necessary.
+
+```{r}
+setup_py(ask = FALSE)
+
+res <- query_gpt(
+    prompt = prompt,
+    use_py = TRUE
+ ) |> 
+  get_content() 
+
+cat(res)
+
+```
+
+### Personalized server's endpoint
+
+If you have a personal server asking for queries using the OpenAI's API format, (e.g. using StudioLM, with open source models), you can set the endpoint to POST the query on your server instead of the OpenaAI one.
+
+> NOTE: when using personalized server endpoint, you can select the model you would like to use as usual by the `model` option. Clearly, avalilable models depend on your local server configuration.
+
+> WARNIGN: this option cannot be select if Python backend is request (i.e., setting `use_py = TRUE`, and a custom `endpoint` won't work)!
+
+```{r}
+if (FALSE) { # we do not run this in the README
+  res <- query_gpt(
+    prompt = prompt,
+    endopont = "http://localhost:1234/v1/chat/completions",
+    model = "lmstudio-ai/gemma-2b-it-GGUF"
+ ) |> 
+  get_content() 
+
+cat(res)
+}
+```
 
 ## Code of Conduct
 

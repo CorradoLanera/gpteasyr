@@ -125,44 +125,44 @@
 <span>  quiet <span class="op">=</span> <span class="cn">FALSE</span>, <span class="co"># default TRUE</span></span>
 <span>  max_try <span class="op">=</span> <span class="fl">2</span>, <span class="co"># default 10</span></span>
 <span>  temperature <span class="op">=</span> <span class="fl">1.5</span>, <span class="co"># default 0 [0-2]</span></span>
-<span>  max_tokens <span class="op">=</span> <span class="fl">100</span> <span class="co"># default 1000</span></span>
+<span>  max_tokens <span class="op">=</span> <span class="fl">100</span> <span class="co"># default the maximum allowed for the selected model</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; ℹ Total tries: 1.</span></span>
 <span><span class="co">#&gt; ℹ Prompt token used: 29.</span></span>
-<span><span class="co">#&gt; ℹ Response token used: 100.</span></span>
-<span><span class="co">#&gt; ℹ Total token used: 129.</span></span>
+<span><span class="co">#&gt; ℹ Response token used: 68.</span></span>
+<span><span class="co">#&gt; ℹ Total token used: 97.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 7</span></span>
-<span><span class="co">#&gt;  $ id                : chr "chatcmpl-9PzusvOFD57oVSnHWcp3JKk9Kr75U"</span></span>
+<span><span class="co">#&gt;  $ id                : chr "chatcmpl-9QB5XJc6EMtdXz7nEwh2oRSHQ7vaI"</span></span>
 <span><span class="co">#&gt;  $ object            : chr "chat.completion"</span></span>
-<span><span class="co">#&gt;  $ created           : int 1715983234</span></span>
+<span><span class="co">#&gt;  $ created           : int 1716026179</span></span>
 <span><span class="co">#&gt;  $ model             : chr "gpt-3.5-turbo-0125"</span></span>
 <span><span class="co">#&gt;  $ choices           :'data.frame':  1 obs. of  5 variables:</span></span>
 <span><span class="co">#&gt;   ..$ index          : int 0</span></span>
 <span><span class="co">#&gt;   ..$ logprobs       : logi NA</span></span>
-<span><span class="co">#&gt;   ..$ finish_reason  : chr "length"</span></span>
+<span><span class="co">#&gt;   ..$ finish_reason  : chr "stop"</span></span>
 <span><span class="co">#&gt;   ..$ message.role   : chr "assistant"</span></span>
-<span><span class="co">#&gt;   ..$ message.content: chr "The last course that our professor provided was on Advanced Machine Learning. This course delved into more comp"| __truncated__</span></span>
+<span><span class="co">#&gt;   ..$ message.content: chr "Of course! The last course provided focused on the principles of psychology. Topics covered included perception"| __truncated__</span></span>
 <span><span class="co">#&gt;  $ usage             :List of 3</span></span>
 <span><span class="co">#&gt;   ..$ prompt_tokens    : int 29</span></span>
-<span><span class="co">#&gt;   ..$ completion_tokens: int 100</span></span>
-<span><span class="co">#&gt;   ..$ total_tokens     : int 129</span></span>
+<span><span class="co">#&gt;   ..$ completion_tokens: int 68</span></span>
+<span><span class="co">#&gt;   ..$ total_tokens     : int 97</span></span>
 <span><span class="co">#&gt;  $ system_fingerprint: NULL</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "The last course that our professor provided was on Advanced Machine Learning. This course delved into more complex machine learning techniques such as deep learning, reinforcement learning, and unsupervised learning. Students learned about cutting-edge algorithms and applications in areas such as natural language processing, computer vision, and recommendation systems. The course also had a significant practical component with coding assignments and a final project where students applied their knowledge to analyze real-world datasets. It was a challenging yet engaging course that provided students with valuable skills for"</span></span>
+<span><span class="co">#&gt; [1] "Of course! The last course provided focused on the principles of psychology. Topics covered included perception, motivation, emotion, memory, and various theories of personality. Students analyzed real-life case studies and conducted their own research projects to apply their learning. Overall, it was an engaging and informative course that truly delved into the fascinating world of psychology."</span></span>
 <span></span>
 <span><span class="co"># for a well formatted output on R, use `cat()`</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The last course that our professor provided was on Advanced Machine Learning. This course delved into more complex machine learning techniques such as deep learning, reinforcement learning, and unsupervised learning. Students learned about cutting-edge algorithms and applications in areas such as natural language processing, computer vision, and recommendation systems. The course also had a significant practical component with coding assignments and a final project where students applied their knowledge to analyze real-world datasets. It was a challenging yet engaging course that provided students with valuable skills for</span></span>
+<span><span class="co">#&gt; Of course! The last course provided focused on the principles of psychology. Topics covered included perception, motivation, emotion, memory, and various theories of personality. Students analyzed real-life case studies and conducted their own research projects to apply their learning. Overall, it was an engaging and informative course that truly delved into the fascinating world of psychology.</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 129</span></span>
+<span><span class="co">#&gt; [1] 97</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"prompt"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 29</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"all"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     prompt_tokens completion_tokens      total_tokens </span></span>
-<span><span class="co">#&gt;                29               100               129</span></span></code></pre></div>
+<span><span class="co">#&gt;                29                68                97</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="easy-prompt-assisted-creation">Easy prompt-assisted creation<a class="anchor" aria-label="anchor" href="#easy-prompt-assisted-creation"></a>
@@ -428,7 +428,7 @@
 <span>  <span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The last course that the professor provided was a graduate-level seminar on "Advanced Topics in Artificial Intelligence." The course covered cutting-edge research in areas such as deep learning, natural language processing, and reinforcement learning. Students were required to read and present research papers, participate in discussions, and complete a final project applying the concepts learned in the course. The professor also invited guest speakers from industry and academia to share their expertise and insights with the students. Overall, the course was well-received by the students and provided them with valuable knowledge and skills in the field of artificial intelligence.</span></span></code></pre></div>
+<span><span class="co">#&gt; The last course I provided was an advanced seminar on environmental sustainability in urban planning. The course covered topics such as green infrastructure, sustainable transportation, and climate change adaptation strategies in urban areas. Students engaged in discussions, group projects, and case studies to explore real-world applications of sustainable urban planning principles. Overall, it was a very engaging and informative course that challenged students to think critically about how cities can become more environmentally sustainable.</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="personalized-servers-endpoint">Personalized server’s endpoint<a class="anchor" aria-label="anchor" href="#personalized-servers-endpoint"></a>

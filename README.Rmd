@@ -55,7 +55,7 @@ res <- query_gpt(
   quiet = FALSE, # default TRUE
   max_try = 2, # default 10
   temperature = 1.5, # default 0 [0-2]
-  max_tokens = 100 # default 1000
+  max_tokens = 100 # default the maximum allowed for the selected model
 )
 
 str(res)

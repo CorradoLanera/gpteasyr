@@ -91,44 +91,44 @@ res <- query_gpt(
   quiet = FALSE, # default TRUE
   max_try = 2, # default 10
   temperature = 1.5, # default 0 [0-2]
-  max_tokens = 100 # default 1000
+  max_tokens = 100 # default the maximum allowed for the selected model
 )
 #> ℹ Total tries: 1.
 #> ℹ Prompt token used: 29.
-#> ℹ Response token used: 100.
-#> ℹ Total token used: 129.
+#> ℹ Response token used: 68.
+#> ℹ Total token used: 97.
 
 str(res)
 #> List of 7
-#>  $ id                : chr "chatcmpl-9PzusvOFD57oVSnHWcp3JKk9Kr75U"
+#>  $ id                : chr "chatcmpl-9QB5XJc6EMtdXz7nEwh2oRSHQ7vaI"
 #>  $ object            : chr "chat.completion"
-#>  $ created           : int 1715983234
+#>  $ created           : int 1716026179
 #>  $ model             : chr "gpt-3.5-turbo-0125"
 #>  $ choices           :'data.frame':  1 obs. of  5 variables:
 #>   ..$ index          : int 0
 #>   ..$ logprobs       : logi NA
-#>   ..$ finish_reason  : chr "length"
+#>   ..$ finish_reason  : chr "stop"
 #>   ..$ message.role   : chr "assistant"
-#>   ..$ message.content: chr "The last course that our professor provided was on Advanced Machine Learning. This course delved into more comp"| __truncated__
+#>   ..$ message.content: chr "Of course! The last course provided focused on the principles of psychology. Topics covered included perception"| __truncated__
 #>  $ usage             :List of 3
 #>   ..$ prompt_tokens    : int 29
-#>   ..$ completion_tokens: int 100
-#>   ..$ total_tokens     : int 129
+#>   ..$ completion_tokens: int 68
+#>   ..$ total_tokens     : int 97
 #>  $ system_fingerprint: NULL
 get_content(res)
-#> [1] "The last course that our professor provided was on Advanced Machine Learning. This course delved into more complex machine learning techniques such as deep learning, reinforcement learning, and unsupervised learning. Students learned about cutting-edge algorithms and applications in areas such as natural language processing, computer vision, and recommendation systems. The course also had a significant practical component with coding assignments and a final project where students applied their knowledge to analyze real-world datasets. It was a challenging yet engaging course that provided students with valuable skills for"
+#> [1] "Of course! The last course provided focused on the principles of psychology. Topics covered included perception, motivation, emotion, memory, and various theories of personality. Students analyzed real-life case studies and conducted their own research projects to apply their learning. Overall, it was an engaging and informative course that truly delved into the fascinating world of psychology."
 
 # for a well formatted output on R, use `cat()`
 get_content(res) |> cat()
-#> The last course that our professor provided was on Advanced Machine Learning. This course delved into more complex machine learning techniques such as deep learning, reinforcement learning, and unsupervised learning. Students learned about cutting-edge algorithms and applications in areas such as natural language processing, computer vision, and recommendation systems. The course also had a significant practical component with coding assignments and a final project where students applied their knowledge to analyze real-world datasets. It was a challenging yet engaging course that provided students with valuable skills for
+#> Of course! The last course provided focused on the principles of psychology. Topics covered included perception, motivation, emotion, memory, and various theories of personality. Students analyzed real-life case studies and conducted their own research projects to apply their learning. Overall, it was an engaging and informative course that truly delved into the fascinating world of psychology.
 
 get_tokens(res)
-#> [1] 129
+#> [1] 97
 get_tokens(res, "prompt")
 #> [1] 29
 get_tokens(res, "all")
 #>     prompt_tokens completion_tokens      total_tokens 
-#>                29               100               129
+#>                29                68                97
 ```
 
 ## Easy prompt-assisted creation
@@ -448,7 +448,7 @@ res <- query_gpt(
   get_content() 
 
 cat(res)
-#> The last course that the professor provided was a graduate-level seminar on "Advanced Topics in Artificial Intelligence." The course covered cutting-edge research in areas such as deep learning, natural language processing, and reinforcement learning. Students were required to read and present research papers, participate in discussions, and complete a final project applying the concepts learned in the course. The professor also invited guest speakers from industry and academia to share their expertise and insights with the students. Overall, the course was well-received by the students and provided them with valuable knowledge and skills in the field of artificial intelligence.
+#> The last course I provided was an advanced seminar on environmental sustainability in urban planning. The course covered topics such as green infrastructure, sustainable transportation, and climate change adaptation strategies in urban areas. Students engaged in discussions, group projects, and case studies to explore real-world applications of sustainable urban planning principles. Overall, it was a very engaging and informative course that challenged students to think critically about how cities can become more environmentally sustainable.
 ```
 
 ### Personalized server’s endpoint

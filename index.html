@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="The goal of ubep.gpt is to provide a basic and simple interface to OpenAI's GPT API (and other compatible APIs). The package is also designed to work with (i.e., to query on) dataframes/tibbles, and to simplify the process of querying the API.">
-<title>A basic and simple interface to OpenAI’s GPT API • ubep.gpt</title>
+<meta name="description" content="The goal of gpteasyr is to provide a basic and simple interface to OpenAI's GPT API (and other compatible APIs). The package is also designed to work with (i.e., to query on) dataframes/tibbles, and to simplify the process of querying the API.">
+<title>A basic and simple interface to OpenAI’s GPT API • gpteasyr</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="A basic and simple interface to OpenAI’s GPT API">
-<meta property="og:description" content="The goal of ubep.gpt is to provide a basic and simple interface to OpenAI's GPT API (and other compatible APIs). The package is also designed to work with (i.e., to query on) dataframes/tibbles, and to simplify the process of querying the API.">
+<meta property="og:description" content="The goal of gpteasyr is to provide a basic and simple interface to OpenAI's GPT API (and other compatible APIs). The package is also designed to work with (i.e., to query on) dataframes/tibbles, and to simplify the process of querying the API.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -24,9 +24,9 @@
 
     <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
     
-    <a class="navbar-brand me-2" href="index.html">ubep.gpt</a>
+    <a class="navbar-brand me-2" href="index.html">gpteasyr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,7 +48,7 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/UBESP-DCTV/ubep.gpt/" aria-label="github">
+  <a class="external-link nav-link" href="https://github.com/CorradoLanera/gpteasyr/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -61,17 +61,17 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="ubepgpt">ubep.gpt<a class="anchor" aria-label="anchor" href="#ubepgpt"></a>
+<div class="page-header"><h1 id="gpteasyr">gpteasyr<a class="anchor" aria-label="anchor" href="#gpteasyr"></a>
 </h1></div>
 <!-- badges: start -->
 
-<p>The goal of <a href="https://github.com/UBESP-DCTV/ubep.gpt" class="external-link">ubep.gpt</a> is to provide a basic/simple interface to OpenAI’s GPT API. The package is designed to work with dataframes/tibbles and to simplify the process of querying the API.</p>
+<p>The goal of <a href="https://github.com/CorradoLanera/gpteasyr" class="external-link">gpteasyr</a> is to provide a basic/simple interface to OpenAI’s GPT API. The package is designed to work with dataframes/tibbles and to simplify the process of querying the API.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of <a href="https://github.com/UBESP-DCTV/ubep.gpt" class="external-link">ubep.gpt</a> like so:</p>
+<p>You can install the development version of <a href="https://github.com/CorradoLanera/gpteasyr" class="external-link">gpteasyr</a> like so:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"UBESP-DCTV/ubep.gpt"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"CorradoLanera/gpteasyr"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="basic-example">Basic example<a class="anchor" aria-label="anchor" href="#basic-example"></a>
@@ -83,10 +83,10 @@
 </blockquote>
 <p>Once you have queried the API, you can extract the content of the response using the <code>get_content</code> function. You can also extract the tokens of the prompt and the response using the <code>get_tokens</code> function.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/UBESP-DCTV/ubep.gpt" class="external-link">ubep.gpt</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Wellcome to ubep.gpt!</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/CorradoLanera/gpteasyr" class="external-link">gpteasyr</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Wellcome to gpteasyr!</span></span>
 <span><span class="co">#&gt; The OPENAI_API_KEY environment variable is set</span></span>
-<span><span class="co">#&gt; You are ready to use the package `ubep.gpt`.</span></span>
+<span><span class="co">#&gt; You are ready to use the package `gpteasyr`.</span></span>
 <span><span class="co">#&gt; Just, double check if the key is the correct one.</span></span>
 <span><span class="co">#&gt; REMIND: Never share your API key with others.</span></span>
 <span><span class="co">#&gt;       Keep it safe and secure.</span></span>
@@ -129,40 +129,40 @@
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; ℹ Total tries: 1.</span></span>
 <span><span class="co">#&gt; ℹ Prompt token used: 29.</span></span>
-<span><span class="co">#&gt; ℹ Response token used: 68.</span></span>
-<span><span class="co">#&gt; ℹ Total token used: 97.</span></span>
+<span><span class="co">#&gt; ℹ Response token used: 91.</span></span>
+<span><span class="co">#&gt; ℹ Total token used: 120.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 7</span></span>
-<span><span class="co">#&gt;  $ id                : chr "chatcmpl-9QB5XJc6EMtdXz7nEwh2oRSHQ7vaI"</span></span>
+<span><span class="co">#&gt;  $ id                : chr "chatcmpl-9RKY0lxKiWocZTzRHJWCtPTcaH2w9"</span></span>
 <span><span class="co">#&gt;  $ object            : chr "chat.completion"</span></span>
-<span><span class="co">#&gt;  $ created           : int 1716026179</span></span>
+<span><span class="co">#&gt;  $ created           : int 1716300868</span></span>
 <span><span class="co">#&gt;  $ model             : chr "gpt-3.5-turbo-0125"</span></span>
 <span><span class="co">#&gt;  $ choices           :'data.frame':  1 obs. of  5 variables:</span></span>
 <span><span class="co">#&gt;   ..$ index          : int 0</span></span>
 <span><span class="co">#&gt;   ..$ logprobs       : logi NA</span></span>
 <span><span class="co">#&gt;   ..$ finish_reason  : chr "stop"</span></span>
 <span><span class="co">#&gt;   ..$ message.role   : chr "assistant"</span></span>
-<span><span class="co">#&gt;   ..$ message.content: chr "Of course! The last course provided focused on the principles of psychology. Topics covered included perception"| __truncated__</span></span>
+<span><span class="co">#&gt;   ..$ message.content: chr "The last course I provided was an undergraduate seminar on \"Advanced Topics in Linguistics.\" The course focus"| __truncated__</span></span>
 <span><span class="co">#&gt;  $ usage             :List of 3</span></span>
 <span><span class="co">#&gt;   ..$ prompt_tokens    : int 29</span></span>
-<span><span class="co">#&gt;   ..$ completion_tokens: int 68</span></span>
-<span><span class="co">#&gt;   ..$ total_tokens     : int 97</span></span>
+<span><span class="co">#&gt;   ..$ completion_tokens: int 91</span></span>
+<span><span class="co">#&gt;   ..$ total_tokens     : int 120</span></span>
 <span><span class="co">#&gt;  $ system_fingerprint: NULL</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Of course! The last course provided focused on the principles of psychology. Topics covered included perception, motivation, emotion, memory, and various theories of personality. Students analyzed real-life case studies and conducted their own research projects to apply their learning. Overall, it was an engaging and informative course that truly delved into the fascinating world of psychology."</span></span>
+<span><span class="co">#&gt; [1] "The last course I provided was an undergraduate seminar on \"Advanced Topics in Linguistics.\" The course focused on the contemporary theories and research findings in areas such as syntax, semantics, phonetics, and psycholinguistics. The students were actively engaged in discussing and analyzing research papers, and they also had the opportunity to conduct their own research projects throughout the semester. Overall, it was a stimulating and rewarding experience for both the students and myself as the instructor."</span></span>
 <span></span>
 <span><span class="co"># for a well formatted output on R, use `cat()`</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Of course! The last course provided focused on the principles of psychology. Topics covered included perception, motivation, emotion, memory, and various theories of personality. Students analyzed real-life case studies and conducted their own research projects to apply their learning. Overall, it was an engaging and informative course that truly delved into the fascinating world of psychology.</span></span>
+<span><span class="co">#&gt; The last course I provided was an undergraduate seminar on "Advanced Topics in Linguistics." The course focused on the contemporary theories and research findings in areas such as syntax, semantics, phonetics, and psycholinguistics. The students were actively engaged in discussing and analyzing research papers, and they also had the opportunity to conduct their own research projects throughout the semester. Overall, it was a stimulating and rewarding experience for both the students and myself as the instructor.</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 97</span></span>
+<span><span class="co">#&gt; [1] 120</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"prompt"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 29</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"all"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     prompt_tokens completion_tokens      total_tokens </span></span>
-<span><span class="co">#&gt;                29                68                97</span></span></code></pre></div>
+<span><span class="co">#&gt;                29                91               120</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="easy-prompt-assisted-creation">Easy prompt-assisted creation<a class="anchor" aria-label="anchor" href="#easy-prompt-assisted-creation"></a>
@@ -210,7 +210,7 @@
 <span><span class="fu"><a href="reference/compose_prompt_api.html">compose_prompt_api</a></span><span class="op">(</span><span class="va">sys_prompt</span>, <span class="va">usr_prompt</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="reference/query_gpt.html">query_gpt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Nel - oscura"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "Nel - step-by-step"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="querying-a-column-of-a-dataframe">Querying a column of a dataframe<a class="anchor" aria-label="anchor" href="#querying-a-column-of-a-dataframe"></a>
@@ -320,6 +320,8 @@
 <span>  <span class="op">}</span></span>
 <span>  <span class="fu"><a href="https://corradolanera.github.io/depigner/reference/pb_len.html" class="external-link">tick</a></span><span class="op">(</span><span class="va">pb</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Row"</span>, <span class="va">i</span>, <span class="st">"of"</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; evaluated: Row 6 of 7 [========================&gt;----]  86% in  2s [ETA:  0s]evaluated: Row 7 of 7 [=============================] 100% in  3s [ETA:  0s]</span></span>
 <span></span>
 <span><span class="va">db</span></span>
 <span><span class="co">#&gt;                                                                       txt</span></span>
@@ -428,7 +430,7 @@
 <span>  <span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The last course I provided was an advanced seminar on environmental sustainability in urban planning. The course covered topics such as green infrastructure, sustainable transportation, and climate change adaptation strategies in urban areas. Students engaged in discussions, group projects, and case studies to explore real-world applications of sustainable urban planning principles. Overall, it was a very engaging and informative course that challenged students to think critically about how cities can become more environmentally sustainable.</span></span></code></pre></div>
+<span><span class="co">#&gt; The last course I provided was an advanced seminar on environmental sustainability in urban planning. The course covered topics such as green infrastructure, sustainable transportation, and climate change adaptation strategies in urban areas. Students engaged in discussions, group projects, and case studies to explore real-world applications of sustainable urban planning principles. Overall, it was a very engaging and informative course that challenged students to think critically about the intersection of environmental sustainability and urban development.</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="personalized-servers-endpoint">Personalized server’s endpoint<a class="anchor" aria-label="anchor" href="#personalized-servers-endpoint"></a>
@@ -456,14 +458,14 @@
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
 </h2>
-<p>Please note that the ubep.gpt project is released with a <a href="https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+<p>Please note that the gpteasyr project is released with a <a href="https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/UBESP-DCTV/ubep.gpt/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/UBESP-DCTV/ubep.gpt/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://github.com/CorradoLanera/gpteasyr/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/CorradoLanera/gpteasyr/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
@@ -485,7 +487,7 @@
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html#citation">Citing ubep.gpt</a></li>
+<li><a href="authors.html#citation">Citing gpteasyr</a></li>
 </ul>
 </div>
 
@@ -500,8 +502,8 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
-<li><a href="https://app.codecov.io/gh/UBESP-DCTV/ubep.gpt?branch=main" class="external-link"><img src="https://codecov.io/gh/UBESP-DCTV/ubep.gpt/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://github.com/UBESP-DCTV/ubep.gpt/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/UBESP-DCTV/ubep.gpt/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://app.codecov.io/gh/CorradoLanera/gpteasyr?branch=main" class="external-link"><img src="https://codecov.io/gh/CorradoLanera/gpteasyr/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://github.com/CorradoLanera/gpteasyr/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/CorradoLanera/gpteasyr/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
 

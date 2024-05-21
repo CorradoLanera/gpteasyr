@@ -2,8 +2,8 @@ pandoc: 3.1.11
 pkgdown: 2.0.9
 pkgdown_sha: ~
 articles: {}
-last_built: 2024-05-18T10:07Z
+last_built: 2024-05-21T14:39Z
 urls:
-  reference: https://ubesp-dctv.github.io/ubep.gpt/reference
-  article: https://ubesp-dctv.github.io/ubep.gpt/articles
+  reference: https://CorradoLanera.github.io/gpteasyr/reference
+  article: https://CorradoLanera.github.io/gpteasyr/articles
 

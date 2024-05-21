@@ -13,22 +13,22 @@ knitr::opts_chunk$set(
 )
 ```
 
-# ubep.gpt
+# gpteasyr
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![Codecov test coverage](https://codecov.io/gh/UBESP-DCTV/ubep.gpt/branch/main/graph/badge.svg)](https://app.codecov.io/gh/UBESP-DCTV/ubep.gpt?branch=main)
-[![R-CMD-check](https://github.com/UBESP-DCTV/ubep.gpt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/UBESP-DCTV/ubep.gpt/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/CorradoLanera/gpteasyr/branch/main/graph/badge.svg)](https://app.codecov.io/gh/CorradoLanera/gpteasyr?branch=main)
+[![R-CMD-check](https://github.com/CorradoLanera/gpteasyr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/CorradoLanera/gpteasyr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of `{ubep.gpt}` is to provide a basic/simple interface to OpenAI's GPT API. The package is designed to work with dataframes/tibbles and to simplify the process of querying the API. 
+The goal of `{gpteasyr}` is to provide a basic/simple interface to OpenAI's GPT API. The package is designed to work with dataframes/tibbles and to simplify the process of querying the API. 
 
 ## Installation
 
-You can install the development version of `{ubep.gpt}` like so:
+You can install the development version of `{gpteasyr}` like so:
 
 ``` r
-remotes::install_github("UBESP-DCTV/ubep.gpt")
+remotes::install_github("CorradoLanera/gpteasyr")
 ```
 
 ## Basic example
@@ -42,7 +42,7 @@ To use the function you need to compose a prompt. You can use (but it is not nec
 Once you have queried the API, you can extract the content of the response using the `get_content` function. You can also extract the tokens of the prompt and the response using the `get_tokens` function.
 
 ```{r}
-library(ubep.gpt)
+library(gpteasyr)
 prompt <- compose_prompt_api(
   sys_prompt = "You are the assistant of a university professor.",
   usr_prompt = "Tell me about the last course you provided."
@@ -295,5 +295,5 @@ cat(res)
 
 ## Code of Conduct
 
-Please note that the ubep.gpt project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that the gpteasyr project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
 

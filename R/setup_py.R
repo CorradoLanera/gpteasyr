@@ -16,7 +16,7 @@
 #'
 #' @examples
 #' if (FALSE) {
-#'   library(ubep.gpt)
+#'   library(gpteasyr)
 #'   setup_py()
 #'
 #'   prompt <- compose_prompt_api(
@@ -35,9 +35,9 @@
 setup_py <- function(venv_name = "r-gpt-venv", ask = interactive()) {
   if (
     (!ask) ||
-    usethis::ui_yeah(
-      "Do you want to setup a ({venv_name}) python environment?"
-    )
+      usethis::ui_yeah(
+        "Do you want to setup a ({venv_name}) python environment?"
+      )
   ) {
     reticulate::virtualenv_create(venv_name, packages = "openai")
     reticulate::use_virtualenv(venv_name, required = TRUE)

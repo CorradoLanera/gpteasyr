@@ -23,7 +23,7 @@ package in it.
 }
 \examples{
 if (FALSE) {
-  library(ubep.gpt)
+  library(gpteasyr)
   setup_py()
 
   prompt <- compose_prompt_api(

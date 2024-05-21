@@ -1,6 +1,6 @@
 ^renv$
 ^renv\.lock$
-^ubep\.gpt\.Rproj$
+^gpteasyr\.Rproj$
 ^\.Rproj\.user$
 ^README\.Rmd$
 ^LICENSE\.md$

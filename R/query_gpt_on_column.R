@@ -92,7 +92,7 @@ query_gpt_on_column <- function(
   usr_data_prompter <- create_usr_data_prompter(
     usr_prompt = usr_prompt,
     closing = closing
-)
+  )
 
   gpt_answers <- db[[text_column]] |>
     purrr::map(\(txt) {

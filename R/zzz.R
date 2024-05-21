@@ -1,12 +1,12 @@
 .onAttach <- function(...) {
-  packageStartupMessage("Wellcome to ubep.gpt!")
+  packageStartupMessage("Wellcome to `{gpteasyr}`!")
 
   if (Sys.getenv("OPENAI_API_KEY") == "") {
     packageStartupMessage(
       "OPENAI_API_KEY environment variable is not set.\n"
     )
     packageStartupMessage(
-      "it is required to use OpenAI APIs with `ubep.gpt`.\n"
+      "it is required to use OpenAI APIs with `{gpteasyr}`.\n"
     )
     packageStartupMessage(
       "To set the OPENAI_API_KEY environment variable,
@@ -18,11 +18,11 @@
       Never share your API key with others.
       Keep it safe and secure.
       If you need an API key, you can generate it in the OpenAI-API website
-      (https://platform.openai.com/api-keys).
-      Remind to assign it to the correct project
-      (i.e., NOT to the 'default' one).
+      (https://platform.openai.com/api-keys), or contact your 'GPT's admin'.
+      Remind to generate it within the correct (your) project!
+      (I.e., usually, NOT to the 'default' one.)
       If you need to be added to the organization and/or to a project,
-      please, contact your project's referent.\n\n"
+      please, contact your GPT's admin.\n\n"
     )
 
     packageStartupMessage(
@@ -34,7 +34,7 @@
       "The OPENAI_API_KEY environment variable is set\n"
     )
     packageStartupMessage(
-      "You are ready to use the package `ubep.gpt`.\n"
+      "You are ready to use the package `{gpteasyr}`.\n"
     )
     packageStartupMessage(
       "Just, double check if the key is the correct one.\n\n"
@@ -44,16 +44,18 @@
       Keep it safe and secure.
       If you think that your API key was compromised,
       you can regenerate it in the OpenAI-API website
-      (https://platform.openai.com/api-keys).\n\n"
+      (https://platform.openai.com/api-keys), or contacting your GPT's admin.
+      \n"
     )
-    packageStartupMessage("Enjoy the package!\n")
+    packageStartupMessage("Enjoy GPT with `{gpteasyr}`!\n")
   }
   packageStartupMessage(
-    "If you like to use the python backend (working only for GPT's OpenAI requests!),\n",
-    "setup the environmen first by executing:\n",
-    usethis::ui_code("setup_py()"), "(default virtual environment name is 'r-gpt-venv').\n",
-    "If you need to change the default name, run:\n",
+    "If you like to use the Python backend
+    (working for GPT's OpenAI requests only!),\n",
+    "setup its environment first by executing:\n",
+    usethis::ui_code("setup_py()"), "
+    (default virtual environment name is 'r-gpt-venv').\n",
+    "If you prefer to use a name different from the default one, run:\n",
     usethis::ui_code("setup_py(\"<your_custom_environment_name>\")")
   )
-
 }

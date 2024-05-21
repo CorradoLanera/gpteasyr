@@ -1,27 +1,27 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ubep.gpt
+# gpteasyr
 
 <!-- badges: start -->
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![Codecov test
-coverage](https://codecov.io/gh/UBESP-DCTV/ubep.gpt/branch/main/graph/badge.svg)](https://app.codecov.io/gh/UBESP-DCTV/ubep.gpt?branch=main)
-[![R-CMD-check](https://github.com/UBESP-DCTV/ubep.gpt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/UBESP-DCTV/ubep.gpt/actions/workflows/R-CMD-check.yaml)
+coverage](https://codecov.io/gh/CorradoLanera/gpteasyr/branch/main/graph/badge.svg)](https://app.codecov.io/gh/CorradoLanera/gpteasyr?branch=main)
+[![R-CMD-check](https://github.com/CorradoLanera/gpteasyr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/CorradoLanera/gpteasyr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of `{ubep.gpt}` is to provide a basic/simple interface to
+The goal of `{gpteasyr}` is to provide a basic/simple interface to
 OpenAI’s GPT API. The package is designed to work with
 dataframes/tibbles and to simplify the process of querying the API.
 
 ## Installation
 
-You can install the development version of `{ubep.gpt}` like so:
+You can install the development version of `{gpteasyr}` like so:
 
 ``` r
-remotes::install_github("UBESP-DCTV/ubep.gpt")
+remotes::install_github("CorradoLanera/gpteasyr")
 ```
 
 ## Basic example
@@ -49,10 +49,10 @@ response using the `get_content` function. You can also extract the
 tokens of the prompt and the response using the `get_tokens` function.
 
 ``` r
-library(ubep.gpt)
-#> Wellcome to ubep.gpt!
+library(gpteasyr)
+#> Wellcome to gpteasyr!
 #> The OPENAI_API_KEY environment variable is set
-#> You are ready to use the package `ubep.gpt`.
+#> You are ready to use the package `gpteasyr`.
 #> Just, double check if the key is the correct one.
 #> REMIND: Never share your API key with others.
 #>       Keep it safe and secure.
@@ -95,40 +95,40 @@ res <- query_gpt(
 )
 #> ℹ Total tries: 1.
 #> ℹ Prompt token used: 29.
-#> ℹ Response token used: 68.
-#> ℹ Total token used: 97.
+#> ℹ Response token used: 91.
+#> ℹ Total token used: 120.
 
 str(res)
 #> List of 7
-#>  $ id                : chr "chatcmpl-9QB5XJc6EMtdXz7nEwh2oRSHQ7vaI"
+#>  $ id                : chr "chatcmpl-9RKY0lxKiWocZTzRHJWCtPTcaH2w9"
 #>  $ object            : chr "chat.completion"
-#>  $ created           : int 1716026179
+#>  $ created           : int 1716300868
 #>  $ model             : chr "gpt-3.5-turbo-0125"
 #>  $ choices           :'data.frame':  1 obs. of  5 variables:
 #>   ..$ index          : int 0
 #>   ..$ logprobs       : logi NA
 #>   ..$ finish_reason  : chr "stop"
 #>   ..$ message.role   : chr "assistant"
-#>   ..$ message.content: chr "Of course! The last course provided focused on the principles of psychology. Topics covered included perception"| __truncated__
+#>   ..$ message.content: chr "The last course I provided was an undergraduate seminar on \"Advanced Topics in Linguistics.\" The course focus"| __truncated__
 #>  $ usage             :List of 3
 #>   ..$ prompt_tokens    : int 29
-#>   ..$ completion_tokens: int 68
-#>   ..$ total_tokens     : int 97
+#>   ..$ completion_tokens: int 91
+#>   ..$ total_tokens     : int 120
 #>  $ system_fingerprint: NULL
 get_content(res)
-#> [1] "Of course! The last course provided focused on the principles of psychology. Topics covered included perception, motivation, emotion, memory, and various theories of personality. Students analyzed real-life case studies and conducted their own research projects to apply their learning. Overall, it was an engaging and informative course that truly delved into the fascinating world of psychology."
+#> [1] "The last course I provided was an undergraduate seminar on \"Advanced Topics in Linguistics.\" The course focused on the contemporary theories and research findings in areas such as syntax, semantics, phonetics, and psycholinguistics. The students were actively engaged in discussing and analyzing research papers, and they also had the opportunity to conduct their own research projects throughout the semester. Overall, it was a stimulating and rewarding experience for both the students and myself as the instructor."
 
 # for a well formatted output on R, use `cat()`
 get_content(res) |> cat()
-#> Of course! The last course provided focused on the principles of psychology. Topics covered included perception, motivation, emotion, memory, and various theories of personality. Students analyzed real-life case studies and conducted their own research projects to apply their learning. Overall, it was an engaging and informative course that truly delved into the fascinating world of psychology.
+#> The last course I provided was an undergraduate seminar on "Advanced Topics in Linguistics." The course focused on the contemporary theories and research findings in areas such as syntax, semantics, phonetics, and psycholinguistics. The students were actively engaged in discussing and analyzing research papers, and they also had the opportunity to conduct their own research projects throughout the semester. Overall, it was a stimulating and rewarding experience for both the students and myself as the instructor.
 
 get_tokens(res)
-#> [1] 97
+#> [1] 120
 get_tokens(res, "prompt")
 #> [1] 29
 get_tokens(res, "all")
 #>     prompt_tokens completion_tokens      total_tokens 
-#>                29                68                97
+#>                29                91               120
 ```
 
 ## Easy prompt-assisted creation
@@ -182,7 +182,7 @@ cat(usr_prompt)
 compose_prompt_api(sys_prompt, usr_prompt) |> 
   query_gpt() |> 
   get_content()
-#> [1] "Nel - oscura"
+#> [1] "Nel - step-by-step"
 ```
 
 ## Querying a column of a dataframe
@@ -311,6 +311,8 @@ for (i in seq_len(n)) {
   }
   tick(pb, paste("Row", i, "of", n))
 }
+#> 
+#> evaluated: Row 6 of 7 [========================>----]  86% in  2s [ETA:  0s]evaluated: Row 7 of 7 [=============================] 100% in  3s [ETA:  0s]
 
 db
 #>                                                                       txt
@@ -448,7 +450,7 @@ res <- query_gpt(
   get_content() 
 
 cat(res)
-#> The last course I provided was an advanced seminar on environmental sustainability in urban planning. The course covered topics such as green infrastructure, sustainable transportation, and climate change adaptation strategies in urban areas. Students engaged in discussions, group projects, and case studies to explore real-world applications of sustainable urban planning principles. Overall, it was a very engaging and informative course that challenged students to think critically about how cities can become more environmentally sustainable.
+#> The last course I provided was an advanced seminar on environmental sustainability in urban planning. The course covered topics such as green infrastructure, sustainable transportation, and climate change adaptation strategies in urban areas. Students engaged in discussions, group projects, and case studies to explore real-world applications of sustainable urban planning principles. Overall, it was a very engaging and informative course that challenged students to think critically about the intersection of environmental sustainability and urban development.
 ```
 
 ### Personalized server’s endpoint
@@ -479,7 +481,7 @@ cat(res)
 
 ## Code of Conduct
 
-Please note that the ubep.gpt project is released with a [Contributor
+Please note that the gpteasyr project is released with a [Contributor
 Code of
 Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.

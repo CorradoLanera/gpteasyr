@@ -33,6 +33,7 @@
 #'   tokens used for the request (`prompt_tokens`), answer
 #'   (`completion_tokens`), and overall (`total_tokens`, the sum of the
 #'   other two)
+#'
 #' @export
 #'
 #' @examples

@@ -1,26 +1,30 @@
-# ubep.gpt 0.2.9
+# gpteasyr 0.3.0
+
+* Changed name and repo to 'CorradoLanera/gpteasyr'.
+
+# gpteasyr 0.2.9
 
 * Added `setup_py` function to setup python backend.
 * update `README`
 
-# ubep.gpt 0.2.8
+# gpteasyr 0.2.8
 
 * Added `use_py` argument to `gpt_query`, `gpt_query_on_column`, and  `get_completion_from_messages`
 
-# ubep.gpt 0.2.7
+# gpteasyr 0.2.7
 
 * Added `closing` argument to `compose_usr_prompt`, `compose_prompt`, and `create_usr_data_prompter` functions, to allow add text at the very end of the prompt, i.e., after the embedded text.
 
-# ubep.gpt 0.2.5
+# gpteasyr 0.2.5
 
 * Added seed argument to `gpt_query`, `gpt_query_on_column`, and `get_completion_from_messages` functions.
 
-# ubep.gpt 0.2.4
+# gpteasyr 0.2.4
 
 * Now `create_usr_data_prompter` can accept a custom delimiter.
 * Default delimiter changed from four quotes (`""""`) to three quotes (`"""`).
 
-# ubep.gpt 0.2.3
+# gpteasyr 0.2.3
 
 * `stream = FALSE` hard coded (for the moment) on `get_completion_from_messages`.
 * column name for results in `gpt_query_on_columns` is now customizable.
@@ -29,27 +33,27 @@
   with a single column only (when `add = FALSE`).
 * Add progress bar to `gpt_query_on_column` functions.
 
-# ubep.gpt 0.2.2
+# gpteasyr 0.2.2
 
 * hot-fix old calls to `match.arg(model)` in `gpt_query` and `gpt_query_on_column` functions.
 
-# ubep.gpt 0.2.1
+# gpteasyr 0.2.1
 
 * Add option to return NA when the API returns an error; this apply on `gpt_query` and `gpt_query_on_column` functions only (i.e., not to the base `get_completion_from_messages` function).
 
-# ubep.gpt 0.2.0
+# gpteasyr 0.2.0
 
 * Removed dependency from `{openai}` in favor of `{httr}` and `{jsonlite}` directly
 * Now queries can be made to personalized endpoints.
 * create_usr_data_prompter now works with empty characters (treated as NULL).
 * Now compose_prompt_api correctly manage empty prompts.
 
-# ubep.gpt 0.1.1
+# gpteasyr 0.1.1
 
 * 100% coverage passed
 * Activated all tests on CI
 
-# ubep.gpt 0.1.0
+# gpteasyr 0.1.0
 
 * All functions tested.
 * Prompt compositors (i.e., `compose_prompt`, `compose_usr_prompt`, `compose_sys_prompt`, and `create_usr_data_prompter`) now always return a character vector (possibly of length 0).

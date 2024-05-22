@@ -32,14 +32,14 @@ decide the model to use (e.g., `gpt-3.5-turbo`, `gpt-4-turbo`, or
 decided number of times (10 by default) in case of error (often caused
 by server overload).
 
-To use the function you need to compose a prompt. You can use (but it is
-not necessary!) the `compose_prompt_api` function to compose the prompt
-properly with an optional (single) system prompt (i.e., gpt’s setup) and
-a (single) user prompt (i.e., the query). This function is useful
-because it helps you to compose the prompt automatically adopting the
-required API’s structure.
+To use the function, you need to compose a prompt. You can use (but it
+is not necessary!) the `compose_prompt_api` function to compose the
+prompt properly with an optional (single) system prompt (i.e., gpt’s
+setup) and a (single) user prompt (i.e., the query). This function is
+useful because it helps you to compose the prompt automatically adopting
+the required API’s structure.
 
-> NOTE: you can still pass a correctly formatted list (of lists) as
+> NOTE: you can still pass a multiple fully-formatted list (of lists) as
 > described in the [official
 > documentation](https://platform.openai.com/docs/api-reference/chat)
 > (<https://platform.openai.com/docs/api-reference/chat>).
@@ -50,20 +50,23 @@ tokens of the prompt and the response using the `get_tokens` function.
 
 ``` r
 library(gpteasyr)
-#> Wellcome to gpteasyr!
+#> Wellcome to `{gpteasyr}`!
 #> The OPENAI_API_KEY environment variable is set
-#> You are ready to use the package `gpteasyr`.
+#> You are ready to use the package `{gpteasyr}`.
 #> Just, double check if the key is the correct one.
 #> REMIND: Never share your API key with others.
 #>       Keep it safe and secure.
 #>       If you think that your API key was compromised,
 #>       you can regenerate it in the OpenAI-API website
-#>       (https://platform.openai.com/api-keys).
-#> Enjoy the package!
-#> If you like to use the python backend (working only for GPT's OpenAI requests!),
-#> setup the environmen first by executing:
-#> `setup_py()`(default virtual environment name is 'r-gpt-venv').
-#> If you need to change the default name, run:
+#>       (https://platform.openai.com/api-keys), or contacting your GPT's admin.
+#> 
+#> Enjoy GPT with `{gpteasyr}`!
+#> If you like to use the Python backend
+#>     (working for GPT's OpenAI requests only!),
+#> setup its environment first by executing:
+#> `setup_py()`
+#>     (default virtual environment name is 'r-gpt-venv').
+#> If you prefer to use a name different from the default one, run:
 #> `setup_py("<your_custom_environment_name>")`
 prompt <- compose_prompt_api(
   sys_prompt = "You are the assistant of a university professor.",
@@ -95,40 +98,40 @@ res <- query_gpt(
 )
 #> ℹ Total tries: 1.
 #> ℹ Prompt token used: 29.
-#> ℹ Response token used: 91.
-#> ℹ Total token used: 120.
+#> ℹ Response token used: 100.
+#> ℹ Total token used: 129.
 
 str(res)
 #> List of 7
-#>  $ id                : chr "chatcmpl-9RKY0lxKiWocZTzRHJWCtPTcaH2w9"
+#>  $ id                : chr "chatcmpl-9RVNU6mPT5cq0XifTLp0MfqvsAhSB"
 #>  $ object            : chr "chat.completion"
-#>  $ created           : int 1716300868
+#>  $ created           : int 1716342500
 #>  $ model             : chr "gpt-3.5-turbo-0125"
 #>  $ choices           :'data.frame':  1 obs. of  5 variables:
 #>   ..$ index          : int 0
 #>   ..$ logprobs       : logi NA
-#>   ..$ finish_reason  : chr "stop"
+#>   ..$ finish_reason  : chr "length"
 #>   ..$ message.role   : chr "assistant"
-#>   ..$ message.content: chr "The last course I provided was an undergraduate seminar on \"Advanced Topics in Linguistics.\" The course focus"| __truncated__
+#>   ..$ message.content: chr "The last course I provided was on environmental sustainability in business. It covered topics such as sustainab"| __truncated__
 #>  $ usage             :List of 3
 #>   ..$ prompt_tokens    : int 29
-#>   ..$ completion_tokens: int 91
-#>   ..$ total_tokens     : int 120
+#>   ..$ completion_tokens: int 100
+#>   ..$ total_tokens     : int 129
 #>  $ system_fingerprint: NULL
 get_content(res)
-#> [1] "The last course I provided was an undergraduate seminar on \"Advanced Topics in Linguistics.\" The course focused on the contemporary theories and research findings in areas such as syntax, semantics, phonetics, and psycholinguistics. The students were actively engaged in discussing and analyzing research papers, and they also had the opportunity to conduct their own research projects throughout the semester. Overall, it was a stimulating and rewarding experience for both the students and myself as the instructor."
+#> [1] "The last course I provided was on environmental sustainability in business. It covered topics such as sustainable business practices, corporate social responsibility, and the role of businesses in addressing environmental issues. We also discussed case studies and examples of companies who have successfully implemented sustainable initiatives. The course included both theory and practical applications, and students were encouraged to develop their own sustainability action plans for a real-world scenario. Overall, it was a very insightful and engaging course that encouraged students to think critically about the intersection of business and environmental"
 
 # for a well formatted output on R, use `cat()`
 get_content(res) |> cat()
-#> The last course I provided was an undergraduate seminar on "Advanced Topics in Linguistics." The course focused on the contemporary theories and research findings in areas such as syntax, semantics, phonetics, and psycholinguistics. The students were actively engaged in discussing and analyzing research papers, and they also had the opportunity to conduct their own research projects throughout the semester. Overall, it was a stimulating and rewarding experience for both the students and myself as the instructor.
+#> The last course I provided was on environmental sustainability in business. It covered topics such as sustainable business practices, corporate social responsibility, and the role of businesses in addressing environmental issues. We also discussed case studies and examples of companies who have successfully implemented sustainable initiatives. The course included both theory and practical applications, and students were encouraged to develop their own sustainability action plans for a real-world scenario. Overall, it was a very insightful and engaging course that encouraged students to think critically about the intersection of business and environmental
 
-get_tokens(res)
-#> [1] 120
-get_tokens(res, "prompt")
+get_tokens(res) # default is "total"
+#> [1] 129
+get_tokens(res, "prompt") # "total", "prompt", "completion" (i.e., the answer)
 #> [1] 29
 get_tokens(res, "all")
 #>     prompt_tokens completion_tokens      total_tokens 
-#>                29                91               120
+#>                29               100               129
 ```
 
 ## Easy prompt-assisted creation
@@ -182,7 +185,7 @@ cat(usr_prompt)
 compose_prompt_api(sys_prompt, usr_prompt) |> 
   query_gpt() |> 
   get_content()
-#> [1] "Nel - step-by-step"
+#> [1] "Nel - oscura"
 ```
 
 ## Querying a column of a dataframe
@@ -238,9 +241,11 @@ usr_prompt <- compose_usr_prompt(
   output = output,
   style = style,
   examples = examples
-  # don't put the `closing` here if you want to use it on
-  # `query_gpt_on_column` after the embedded text;
-  # if here, it will go after the examples but before the embedded text.
+  # If you want to put a `closing` after the text embedded by the use of
+  # `query_gpt_on_column`, you usually shouldn't include it here as
+  # well: if put here, it will go after the examples but before the text
+  # embedded by `query_gpt_on_column`; In borderline cases, you might
+  # still free to decide to put it here, or even both.
 )
 
 db |>
@@ -285,6 +290,13 @@ warning, but it does not stop the computation. Moreover, re-executing
 the loop will evaluate the queries only where they were failed or not
 performed yet.
 
+> NOTE: Object not stored (on disk) will still be lost if the session
+> crashes! For maximum robustness, efficiency, and security, it is
+> suggested to transpose the logic onto a `{targets}` pipeline (see the
+> [manual](https://books.ropensci.org/targets/) for this; the idea is to
+> map each record to a branch of a single target, so that a successful
+> query never has to be re-executed.)
+
 ``` r
 # This is a function that take a text and attach it at the end of the
 # original provided prompt
@@ -312,7 +324,7 @@ for (i in seq_len(n)) {
   tick(pb, paste("Row", i, "of", n))
 }
 #> 
-#> evaluated: Row 6 of 7 [========================>----]  86% in  2s [ETA:  0s]evaluated: Row 7 of 7 [=============================] 100% in  3s [ETA:  0s]
+#> evaluated: Row 5 of 7 [====================>--------]  71% in  2s [ETA:  1s]evaluated: Row 6 of 7 [========================>----]  86% in  3s [ETA:  0s]evaluated: Row 7 of 7 [=============================] 100% in  3s [ETA:  0s]
 
 db
 #>                                                                       txt
@@ -393,10 +405,11 @@ class="uri">https://chat.openai.com/share/394a008b-d463-42dc-9361-1bd745bcad6d</
 
 ### Options for `temperature`, `max_tokens`, and `seed`
 
-You cannot use all the option of official APIs
-(<https://platform.openai.com/docs/api-reference/chat/create>), we
-select the following to be available here (please contact the authors if
-you need more):
+You cannot use all the features of the official APIs here
+(<https://platform.openai.com/docs/api-reference/chat/create>), we have
+selected the following to be available here to keep the interface in an
+opinionated balance between ease of use, efficiency and flexibility
+(please contact the authors if you need more):
 
 - `temperature`: “What sampling temperature to use, between 0 and 2.
   Higher values like 0.8 will make the output more random, while lower
@@ -440,7 +453,7 @@ setting `use_py = TRUE` in the functions that send the queries (i.e.,
 > necessary.
 
 ``` r
-setup_py(ask = FALSE)
+setup_py(ask = FALSE) # default TRUE will always ask for confirmation.
 #> virtualenv: r-gpt-venv
 
 res <- query_gpt(
@@ -450,21 +463,23 @@ res <- query_gpt(
   get_content() 
 
 cat(res)
-#> The last course I provided was an advanced seminar on environmental sustainability in urban planning. The course covered topics such as green infrastructure, sustainable transportation, and climate change adaptation strategies in urban areas. Students engaged in discussions, group projects, and case studies to explore real-world applications of sustainable urban planning principles. Overall, it was a very engaging and informative course that challenged students to think critically about the intersection of environmental sustainability and urban development.
+#> The last course that the professor provided was a graduate-level seminar on "Advanced Topics in Artificial Intelligence." The course covered cutting-edge research in areas such as deep learning, natural language processing, and reinforcement learning. Students were required to read and present research papers, participate in discussions, and complete a final project applying the concepts learned in the course. The professor also invited guest speakers from industry and academia to share their expertise and insights with the students. Overall, the course was well-received by the students and provided them with a deeper understanding of the latest developments in the field of artificial intelligence.
 ```
 
 ### Personalized server’s endpoint
 
-If you have a personal server asking for queries using the OpenAI’s API
-format, (e.g. using LM Studio, with open source models), you can set the
-endpoint to POST the query on your server instead of the OpenaAI one.
+If you have a personal server that listens for queries using the OpenAI
+API format, (e.g. using LM Studio, with open source models), you can set
+the endpoint to POST the query to your server instead of the OpenAI one.
 
-> NOTE: when using personalized server endpoint, you can select the
-> model you would like to use as usual by the `model` option. Clearly,
-> available models depend on your local server configuration.
+> NOTE: if you are using a personalised server endpoint, you can select
+> the model you whish to use in the usual way, i.e., using the `model`
+> option. Of course, the available models you can select depend on your
+> local server configuration.
 
-> WARNING: this option cannot be select if Python backend is request
-> (i.e., setting `use_py = TRUE`, and a custom `endpoint` won’t work)!
+> WARNING: this option cannot be selected if the Python backend is
+> requested (i.e., setting both `use_py = TRUE` and a custom `endpoint`
+> won’t work)!
 
 ``` r
 if (FALSE) { # we do not run this in the README
@@ -481,7 +496,7 @@ cat(res)
 
 ## Code of Conduct
 
-Please note that the gpteasyr project is released with a [Contributor
-Code of
+Please note that the `{gpteasyr}` project is released with a
+[Contributor Code of
 Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.

@@ -77,27 +77,30 @@
 <h2 id="basic-example">Basic example<a class="anchor" aria-label="anchor" href="#basic-example"></a>
 </h2>
 <p>You can use the <code>query_gpt</code> function to query the GPT API. You can decide the model to use (e.g., <code>gpt-3.5-turbo</code>, <code>gpt-4-turbo</code>, or <code>gpt-4o</code>). This function is useful because mainly it iterate the query a decided number of times (10 by default) in case of error (often caused by server overload).</p>
-<p>To use the function you need to compose a prompt. You can use (but it is not necessary!) the <code>compose_prompt_api</code> function to compose the prompt properly with an optional (single) system prompt (i.e., gpt’s setup) and a (single) user prompt (i.e., the query). This function is useful because it helps you to compose the prompt automatically adopting the required API’s structure.</p>
+<p>To use the function, you need to compose a prompt. You can use (but it is not necessary!) the <code>compose_prompt_api</code> function to compose the prompt properly with an optional (single) system prompt (i.e., gpt’s setup) and a (single) user prompt (i.e., the query). This function is useful because it helps you to compose the prompt automatically adopting the required API’s structure.</p>
 <blockquote>
-<p>NOTE: you can still pass a correctly formatted list (of lists) as described in the <a href="https://platform.openai.com/docs/api-reference/chat" class="external-link">official documentation</a> (<a href="https://platform.openai.com/docs/api-reference/chat" class="external-link uri">https://platform.openai.com/docs/api-reference/chat</a>).</p>
+<p>NOTE: you can still pass a multiple fully-formatted list (of lists) as described in the <a href="https://platform.openai.com/docs/api-reference/chat" class="external-link">official documentation</a> (<a href="https://platform.openai.com/docs/api-reference/chat" class="external-link uri">https://platform.openai.com/docs/api-reference/chat</a>).</p>
 </blockquote>
 <p>Once you have queried the API, you can extract the content of the response using the <code>get_content</code> function. You can also extract the tokens of the prompt and the response using the <code>get_tokens</code> function.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/CorradoLanera/gpteasyr" class="external-link">gpteasyr</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Wellcome to gpteasyr!</span></span>
+<span><span class="co">#&gt; Wellcome to `{gpteasyr}`!</span></span>
 <span><span class="co">#&gt; The OPENAI_API_KEY environment variable is set</span></span>
-<span><span class="co">#&gt; You are ready to use the package `gpteasyr`.</span></span>
+<span><span class="co">#&gt; You are ready to use the package `{gpteasyr}`.</span></span>
 <span><span class="co">#&gt; Just, double check if the key is the correct one.</span></span>
 <span><span class="co">#&gt; REMIND: Never share your API key with others.</span></span>
 <span><span class="co">#&gt;       Keep it safe and secure.</span></span>
 <span><span class="co">#&gt;       If you think that your API key was compromised,</span></span>
 <span><span class="co">#&gt;       you can regenerate it in the OpenAI-API website</span></span>
-<span><span class="co">#&gt;       (https://platform.openai.com/api-keys).</span></span>
-<span><span class="co">#&gt; Enjoy the package!</span></span>
-<span><span class="co">#&gt; If you like to use the python backend (working only for GPT's OpenAI requests!),</span></span>
-<span><span class="co">#&gt; setup the environmen first by executing:</span></span>
-<span><span class="co">#&gt; `setup_py()`(default virtual environment name is 'r-gpt-venv').</span></span>
-<span><span class="co">#&gt; If you need to change the default name, run:</span></span>
+<span><span class="co">#&gt;       (https://platform.openai.com/api-keys), or contacting your GPT's admin.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Enjoy GPT with `{gpteasyr}`!</span></span>
+<span><span class="co">#&gt; If you like to use the Python backend</span></span>
+<span><span class="co">#&gt;     (working for GPT's OpenAI requests only!),</span></span>
+<span><span class="co">#&gt; setup its environment first by executing:</span></span>
+<span><span class="co">#&gt; `setup_py()`</span></span>
+<span><span class="co">#&gt;     (default virtual environment name is 'r-gpt-venv').</span></span>
+<span><span class="co">#&gt; If you prefer to use a name different from the default one, run:</span></span>
 <span><span class="co">#&gt; `setup_py("&lt;your_custom_environment_name&gt;")`</span></span>
 <span><span class="va">prompt</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/compose_prompt_api.html">compose_prompt_api</a></span><span class="op">(</span></span>
 <span>  sys_prompt <span class="op">=</span> <span class="st">"You are the assistant of a university professor."</span>,</span>
@@ -129,40 +132,40 @@
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; ℹ Total tries: 1.</span></span>
 <span><span class="co">#&gt; ℹ Prompt token used: 29.</span></span>
-<span><span class="co">#&gt; ℹ Response token used: 91.</span></span>
-<span><span class="co">#&gt; ℹ Total token used: 120.</span></span>
+<span><span class="co">#&gt; ℹ Response token used: 100.</span></span>
+<span><span class="co">#&gt; ℹ Total token used: 129.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 7</span></span>
-<span><span class="co">#&gt;  $ id                : chr "chatcmpl-9RKY0lxKiWocZTzRHJWCtPTcaH2w9"</span></span>
+<span><span class="co">#&gt;  $ id                : chr "chatcmpl-9RVNU6mPT5cq0XifTLp0MfqvsAhSB"</span></span>
 <span><span class="co">#&gt;  $ object            : chr "chat.completion"</span></span>
-<span><span class="co">#&gt;  $ created           : int 1716300868</span></span>
+<span><span class="co">#&gt;  $ created           : int 1716342500</span></span>
 <span><span class="co">#&gt;  $ model             : chr "gpt-3.5-turbo-0125"</span></span>
 <span><span class="co">#&gt;  $ choices           :'data.frame':  1 obs. of  5 variables:</span></span>
 <span><span class="co">#&gt;   ..$ index          : int 0</span></span>
 <span><span class="co">#&gt;   ..$ logprobs       : logi NA</span></span>
-<span><span class="co">#&gt;   ..$ finish_reason  : chr "stop"</span></span>
+<span><span class="co">#&gt;   ..$ finish_reason  : chr "length"</span></span>
 <span><span class="co">#&gt;   ..$ message.role   : chr "assistant"</span></span>
-<span><span class="co">#&gt;   ..$ message.content: chr "The last course I provided was an undergraduate seminar on \"Advanced Topics in Linguistics.\" The course focus"| __truncated__</span></span>
+<span><span class="co">#&gt;   ..$ message.content: chr "The last course I provided was on environmental sustainability in business. It covered topics such as sustainab"| __truncated__</span></span>
 <span><span class="co">#&gt;  $ usage             :List of 3</span></span>
 <span><span class="co">#&gt;   ..$ prompt_tokens    : int 29</span></span>
-<span><span class="co">#&gt;   ..$ completion_tokens: int 91</span></span>
-<span><span class="co">#&gt;   ..$ total_tokens     : int 120</span></span>
+<span><span class="co">#&gt;   ..$ completion_tokens: int 100</span></span>
+<span><span class="co">#&gt;   ..$ total_tokens     : int 129</span></span>
 <span><span class="co">#&gt;  $ system_fingerprint: NULL</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "The last course I provided was an undergraduate seminar on \"Advanced Topics in Linguistics.\" The course focused on the contemporary theories and research findings in areas such as syntax, semantics, phonetics, and psycholinguistics. The students were actively engaged in discussing and analyzing research papers, and they also had the opportunity to conduct their own research projects throughout the semester. Overall, it was a stimulating and rewarding experience for both the students and myself as the instructor."</span></span>
+<span><span class="co">#&gt; [1] "The last course I provided was on environmental sustainability in business. It covered topics such as sustainable business practices, corporate social responsibility, and the role of businesses in addressing environmental issues. We also discussed case studies and examples of companies who have successfully implemented sustainable initiatives. The course included both theory and practical applications, and students were encouraged to develop their own sustainability action plans for a real-world scenario. Overall, it was a very insightful and engaging course that encouraged students to think critically about the intersection of business and environmental"</span></span>
 <span></span>
 <span><span class="co"># for a well formatted output on R, use `cat()`</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The last course I provided was an undergraduate seminar on "Advanced Topics in Linguistics." The course focused on the contemporary theories and research findings in areas such as syntax, semantics, phonetics, and psycholinguistics. The students were actively engaged in discussing and analyzing research papers, and they also had the opportunity to conduct their own research projects throughout the semester. Overall, it was a stimulating and rewarding experience for both the students and myself as the instructor.</span></span>
+<span><span class="co">#&gt; The last course I provided was on environmental sustainability in business. It covered topics such as sustainable business practices, corporate social responsibility, and the role of businesses in addressing environmental issues. We also discussed case studies and examples of companies who have successfully implemented sustainable initiatives. The course included both theory and practical applications, and students were encouraged to develop their own sustainability action plans for a real-world scenario. Overall, it was a very insightful and engaging course that encouraged students to think critically about the intersection of business and environmental</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 120</span></span>
-<span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"prompt"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="co"># default is "total"</span></span>
+<span><span class="co">#&gt; [1] 129</span></span>
+<span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"prompt"</span><span class="op">)</span> <span class="co"># "total", "prompt", "completion" (i.e., the answer)</span></span>
 <span><span class="co">#&gt; [1] 29</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"all"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     prompt_tokens completion_tokens      total_tokens </span></span>
-<span><span class="co">#&gt;                29                91               120</span></span></code></pre></div>
+<span><span class="co">#&gt;                29               100               129</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="easy-prompt-assisted-creation">Easy prompt-assisted creation<a class="anchor" aria-label="anchor" href="#easy-prompt-assisted-creation"></a>
@@ -210,7 +213,7 @@
 <span><span class="fu"><a href="reference/compose_prompt_api.html">compose_prompt_api</a></span><span class="op">(</span><span class="va">sys_prompt</span>, <span class="va">usr_prompt</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="reference/query_gpt.html">query_gpt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Nel - step-by-step"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "Nel - oscura"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="querying-a-column-of-a-dataframe">Querying a column of a dataframe<a class="anchor" aria-label="anchor" href="#querying-a-column-of-a-dataframe"></a>
@@ -255,9 +258,11 @@
 <span>  output <span class="op">=</span> <span class="va">output</span>,</span>
 <span>  style <span class="op">=</span> <span class="va">style</span>,</span>
 <span>  examples <span class="op">=</span> <span class="va">examples</span></span>
-<span>  <span class="co"># don't put the `closing` here if you want to use it on</span></span>
-<span>  <span class="co"># `query_gpt_on_column` after the embedded text;</span></span>
-<span>  <span class="co"># if here, it will go after the examples but before the embedded text.</span></span>
+<span>  <span class="co"># If you want to put a `closing` after the text embedded by the use of</span></span>
+<span>  <span class="co"># `query_gpt_on_column`, you usually shouldn't include it here as</span></span>
+<span>  <span class="co"># well: if put here, it will go after the examples but before the text</span></span>
+<span>  <span class="co"># embedded by `query_gpt_on_column`; In borderline cases, you might</span></span>
+<span>  <span class="co"># still free to decide to put it here, or even both.</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">db</span> <span class="op">|&gt;</span></span>
@@ -294,6 +299,9 @@
 </h2>
 <p>This example is useful for long computation in which errors from the server-side can happened (maybe after days of querying). The following script will save each result one-by one, so that in case of error the evaluated results won’t be lost.</p>
 <p>In case of any error, the error message(s) will be reported as a warning, but it does not stop the computation. Moreover, re-executing the loop will evaluate the queries only where they were failed or not performed yet.</p>
+<blockquote>
+<p>NOTE: Object not stored (on disk) will still be lost if the session crashes! For maximum robustness, efficiency, and security, it is suggested to transpose the logic onto a <a href="https://docs.ropensci.org/targets/" class="external-link">targets</a> pipeline (see the <a href="https://books.ropensci.org/targets/" class="external-link">manual</a> for this; the idea is to map each record to a branch of a single target, so that a successful query never has to be re-executed.)</p>
+</blockquote>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># This is a function that take a text and attach it at the end of the</span></span>
 <span><span class="co"># original provided prompt</span></span>
@@ -321,7 +329,7 @@
 <span>  <span class="fu"><a href="https://corradolanera.github.io/depigner/reference/pb_len.html" class="external-link">tick</a></span><span class="op">(</span><span class="va">pb</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Row"</span>, <span class="va">i</span>, <span class="st">"of"</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; evaluated: Row 6 of 7 [========================&gt;----]  86% in  2s [ETA:  0s]evaluated: Row 7 of 7 [=============================] 100% in  3s [ETA:  0s]</span></span>
+<span><span class="co">#&gt; evaluated: Row 5 of 7 [====================&gt;--------]  71% in  2s [ETA:  1s]evaluated: Row 6 of 7 [========================&gt;----]  86% in  3s [ETA:  0s]evaluated: Row 7 of 7 [=============================] 100% in  3s [ETA:  0s]</span></span>
 <span></span>
 <span><span class="va">db</span></span>
 <span><span class="co">#&gt;                                                                       txt</span></span>
@@ -391,7 +399,7 @@
 <h3 id="options-for-temperature-max_tokens-and-seed">Options for <code>temperature</code>, <code>max_tokens</code>, and <code>seed</code>
 <a class="anchor" aria-label="anchor" href="#options-for-temperature-max_tokens-and-seed"></a>
 </h3>
-<p>You cannot use all the option of official APIs (<a href="https://platform.openai.com/docs/api-reference/chat/create" class="external-link uri">https://platform.openai.com/docs/api-reference/chat/create</a>), we select the following to be available here (please contact the authors if you need more):</p>
+<p>You cannot use all the features of the official APIs here (<a href="https://platform.openai.com/docs/api-reference/chat/create" class="external-link uri">https://platform.openai.com/docs/api-reference/chat/create</a>), we have selected the following to be available here to keep the interface in an opinionated balance between ease of use, efficiency and flexibility (please contact the authors if you need more):</p>
 <ul>
 <li>
 <code>temperature</code>: “What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.”</li>
@@ -420,7 +428,7 @@
 <p>NOTE: using a Python backend can be a little slower, but sometimes necessary.</p>
 </blockquote>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/setup_py.html">setup_py</a></span><span class="op">(</span>ask <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/setup_py.html">setup_py</a></span><span class="op">(</span>ask <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="co"># default TRUE will always ask for confirmation.</span></span>
 <span><span class="co">#&gt; virtualenv: r-gpt-venv</span></span>
 <span></span>
 <span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/query_gpt.html">query_gpt</a></span><span class="op">(</span></span>
@@ -430,17 +438,17 @@
 <span>  <span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The last course I provided was an advanced seminar on environmental sustainability in urban planning. The course covered topics such as green infrastructure, sustainable transportation, and climate change adaptation strategies in urban areas. Students engaged in discussions, group projects, and case studies to explore real-world applications of sustainable urban planning principles. Overall, it was a very engaging and informative course that challenged students to think critically about the intersection of environmental sustainability and urban development.</span></span></code></pre></div>
+<span><span class="co">#&gt; The last course that the professor provided was a graduate-level seminar on "Advanced Topics in Artificial Intelligence." The course covered cutting-edge research in areas such as deep learning, natural language processing, and reinforcement learning. Students were required to read and present research papers, participate in discussions, and complete a final project applying the concepts learned in the course. The professor also invited guest speakers from industry and academia to share their expertise and insights with the students. Overall, the course was well-received by the students and provided them with a deeper understanding of the latest developments in the field of artificial intelligence.</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="personalized-servers-endpoint">Personalized server’s endpoint<a class="anchor" aria-label="anchor" href="#personalized-servers-endpoint"></a>
 </h3>
-<p>If you have a personal server asking for queries using the OpenAI’s API format, (e.g. using LM Studio, with open source models), you can set the endpoint to POST the query on your server instead of the OpenaAI one.</p>
+<p>If you have a personal server that listens for queries using the OpenAI API format, (e.g. using LM Studio, with open source models), you can set the endpoint to POST the query to your server instead of the OpenAI one.</p>
 <blockquote>
-<p>NOTE: when using personalized server endpoint, you can select the model you would like to use as usual by the <code>model</code> option. Clearly, available models depend on your local server configuration.</p>
+<p>NOTE: if you are using a personalised server endpoint, you can select the model you whish to use in the usual way, i.e., using the <code>model</code> option. Of course, the available models you can select depend on your local server configuration.</p>
 </blockquote>
 <blockquote>
-<p>WARNING: this option cannot be select if Python backend is request (i.e., setting <code>use_py = TRUE</code>, and a custom <code>endpoint</code> won’t work)!</p>
+<p>WARNING: this option cannot be selected if the Python backend is requested (i.e., setting both <code>use_py = TRUE</code> and a custom <code>endpoint</code> won’t work)!</p>
 </blockquote>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># we do not run this in the README</span></span>
@@ -458,7 +466,7 @@
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
 </h2>
-<p>Please note that the gpteasyr project is released with a <a href="https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+<p>Please note that the <a href="https://github.com/CorradoLanera/gpteasyr" class="external-link">gpteasyr</a> project is released with a <a href="https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">

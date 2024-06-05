@@ -1,5 +1,7 @@
 # gpteasyr (development version)
 
+* Added `create_jsonl_records`, and `write_jsonl_files` functions to compose 'jsonl' files useful for batch queries accordingly to API specification. (NOTE: for the moment only mandatory basic arguments are included (see https://platform.openai.com/docs/api-reference/batch/create, and https://platform.openai.com/docs/guides/batch/getting-started)).
+
 # gpteasyr 0.3.0
 
 * Changed name and repo to 'CorradoLanera/gpteasyr'.

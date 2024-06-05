@@ -161,7 +161,7 @@ compose_usr_prompt <- function(
 #' @export
 #'
 #' @examples
-#' usr_prmpt <- compose_prompt(
+#' usr_prompt <- compose_prompt(
 #'   role = "You are the assistant of a university professor.",
 #'   context = "
 #'     You are analyzing the comments of the students of the last course.",
@@ -182,12 +182,12 @@ compose_usr_prompt <- function(
 #'       output: 'Another - text'"
 #'   )
 #' prompter <- create_usr_data_prompter(
-#'   usr_prompt = usr_prmpt
+#'   usr_prompt = usr_prompt
 #' )
 #' prompter("This is an example text.")
 #' prompter("Another example text!!!")
 #'
-#' # You can also use it with a data frame to programmaically create
+#' # You can also use it with a data frame to programmatically create
 #' # prompts for each row of a data frame's column.
 #' db <- data.frame(
 #'   text = c("This is an example text.", "Another example text!!!")

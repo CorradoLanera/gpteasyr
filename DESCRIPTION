@@ -4,7 +4,10 @@ Version: 0.3.0.9000
 Authors@R: 
     person("Corrado", "Lanera", , "corrado.lanera@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-0520-7428"))
-Description: The goal of 'gpteasyr' is to provide a basic and simple interface to OpenAI's GPT API (and other compatible APIs).  The package is also designed to work with (i.e., to query on) dataframes/tibbles, and to simplify the process of querying the API.
+Description: The goal of 'gpteasyr' is to provide a basic and simple
+    interface to OpenAI's GPT API (and other compatible APIs).  The
+    package is also designed to work with (i.e., to query on)
+    dataframes/tibbles, and to simplify the process of querying the API.
 License: MIT + file LICENSE
 URL: https://github.com/CorradoLanera/gpteasyr,
     https://CorradoLanera.github.io/gpteasyr/
@@ -22,6 +25,7 @@ Imports:
 Suggests: 
     checkmate,
     depigner,
+    dplyr,
     lintr,
     spelling,
     testthat (>= 3.0.0),

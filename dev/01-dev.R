@@ -7,6 +7,8 @@ usethis::use_package("rlang")
 usethis::use_package("httr")
 usethis::use_package("jsonlite")
 usethis::use_package("depigner", type = "Suggests")
+usethis::use_package("dplyr", type = "Suggests")
+
 usethis::use_tidy_description()
 
 
@@ -14,6 +16,9 @@ usethis::use_tidy_description()
 
 usethis::use_r("zzz")
 usethis::use_r("query_gpt")
+usethis::use_r("create_jsonl")
+
 
 # tests -----------------------------------------------------------
 usethis::use_test("compose_prompt")
+usethis::use_test("create_jsonl")

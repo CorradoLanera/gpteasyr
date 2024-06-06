@@ -17,7 +17,7 @@ usethis::use_tidy_description()
 usethis::use_r("zzz")
 usethis::use_r("query_gpt")
 usethis::use_r("create_jsonl")
-
+usethis::use_r("batch_retrive_status")
 
 # tests -----------------------------------------------------------
 usethis::use_test("compose_prompt")

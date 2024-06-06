@@ -71,8 +71,11 @@
 #'   identical(jsonl_on_db, jsonl_direct)
 create_jsonl_records <- function(
   prompt,
-  id,
+  id = seq_along(prompt),
   model = "gpt-3.5-turbo",
+  temperature = 0,
+  max_tokens = NULL,
+  seed = NULL,
   prefix = "request-"
 ) {
   checkmate::qassert(model, "S1")
@@ -84,7 +87,15 @@ create_jsonl_records <- function(
 
   purrr::pmap_chr(
     list(prompt, id),
-    \(x, y) compose_jsonl_record(x, y, model = model, prefix = prefix)
+    \(x, y) compose_jsonl_record(
+      x,
+      y,
+      model = model,
+      temperature = temperature,
+      max_tokens = max_tokens,
+      seed = seed,
+      prefix = prefix
+    )
   )
 }
 
@@ -92,17 +103,34 @@ compose_jsonl_record <- function(
     prompt,
     id,
     model,
+    temperature = 0,
+    max_tokens = NULL,
+    seed = NULL,
     prefix = "request-"
 ) {
+  body <- list(
+    messages = prompt |>
+      purrr::map(\(x) purrr::map(x, jsonlite::unbox)),
+    model = jsonlite::unbox(model),
+    temperature = jsonlite::unbox(temperature),
+    max_tokens = jsonlite::unbox(max_tokens),
+    seed = jsonlite::unbox(seed)
+  )
+
+  if (is.null(max_tokens)) {
+    body[["max_tokens"]] <- NULL
+  }
+
+  if (is.null(seed)) {
+    body[["seed"]] <- NULL
+  }
+
   list(
     custom_id = stringr::str_c(prefix, id) |>
       jsonlite::unbox(),
     method = jsonlite::unbox("POST"),
     url = jsonlite::unbox("/v1/chat/completions"),
-    body = list(
-      model = jsonlite::unbox(model),
-      messages = prompt
-    )
+    body = body
   ) |>
     jsonlite::toJSON()
 }
@@ -169,7 +197,10 @@ compose_jsonl_record <- function(
 write_jsonl_files <- function(
   jsonl_records,
   dir_path,
-  name_prefix = "batch-input",
+  name_prefix = stringr::str_c(
+    stringr::str_remove_all(Sys.time(), "\\D"),
+    "_batch-input"
+  ),
   max_mb = 100
 ) {
   checkmate::qassert(jsonl_records, "S+")
@@ -186,6 +217,7 @@ write_jsonl_files <- function(
   # use list to avoid copies on overwrites
   current <- list(jsonl_records)
   id <- 1L
+  out_paths <- character()
 
   while (length(current[[1]]) > 0) {
     cum_sizes <- current[[1]] |>
@@ -193,17 +225,16 @@ write_jsonl_files <- function(
       cumsum()
     last_to_take <- sum(cum_sizes < max_size) |> # max size/batch
       min(5e4) # max query/batch
+    out_paths[id] <- file.path(
+      dir_path,
+      stringr::str_c(name_prefix, "-", id, ".jsonl")
+    )
     current[[1]][seq_len(last_to_take)] |>
       stringr::str_c(collapse = "\n") |>
-      writeLines(
-        file.path(
-          dir_path,
-          stringr::str_c(name_prefix, "-", id, ".jsonl")
-        )
-      )
+      writeLines(out_paths[[id]])
     current[[1]] <- current[[1]][-seq_len(last_to_take)]
     id <- id + 1L
   }
 
-  invisible(jsonl_records)
+  invisible(out_paths)
 }

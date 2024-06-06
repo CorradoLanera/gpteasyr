@@ -1,6 +1,7 @@
 # gpteasyr (development version)
 
-* Added `create_jsonl_records`, and `write_jsonl_files` functions to compose 'jsonl' files useful for batch queries accordingly to API specification. (NOTE: for the moment only mandatory basic arguments are included (see https://platform.openai.com/docs/api-reference/batch/create, and https://platform.openai.com/docs/guides/batch/getting-started)).
+* Added `batch_retrive_status` to retrieve a batch status.
+* Added `create_jsonl_records`, and `write_jsonl_files` functions to compose 'jsonl' files useful for batch queries accordingly to API specification. Model's options are available like for `query_gpt`, `gpt_query_on_column`, and  `get_completion_from_messages`.
 
 # gpteasyr 0.3.0
 

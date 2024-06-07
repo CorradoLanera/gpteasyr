@@ -59,7 +59,6 @@ batch_create <- function(input_file_id) {
     )
   ) |>
     parse_httr_response()
-
 }
 
 
@@ -130,7 +129,7 @@ batch_cancel <- function(batch_id) {
 }
 
 
-#' List all butches
+#' List all batches
 #'
 #' @param n (int)
 #'
@@ -141,50 +140,41 @@ batch_cancel <- function(batch_id) {
 #' a <- batch_list()
 #' batch_list(2)
 #' batch_list(Inf)
-batch_list <- function(n = 10, skip = 0) {
+batch_list <- function(n = 10) {
   checkmate::qassert(n, "X1(0,]")
-  checkmate::qassert(skip, "X1[0,]")
 
-  response <- httr::GET(
-    "https://api.openai.com/v1/batches",
+  httr::GET(
+    stringr::str_glue("https://api.openai.com/v1/batches?limit={n}"),
     httr::add_headers(
       "Authorization" = paste("Bearer", Sys.getenv("OPENAI_API_KEY"))
     ),
     httr::content_type_json(),
-    encode = "json",
-    limit = n,
-    after = skip
+    encode = "json"
   ) |>
-    parse_httr_response(is_list = TRUE)
-
+    parse_httr_response()
 }
 
 
-#' Cancel batch job
+#' Retrieve batch results
 #'
-#' @param output_file_id  (chr) id of the output file from the Batch object
+#' @param batch_id  (chr) id of the output file from the Batch object
 #'
 #' @return
 #' @export
 #'
 #' @examples
-#' batch_cancel("batch_abc123")
 #'
 #' batch_file_info <- here::here("abc123.jsonl") |>
 #'   batch_upload_file()
 #' batch_job_info <- batch_file_info[["id"]] |>
 #'   batch_create()
-#' result <- batch_jb_info[["output_file_id"]] |>
+#' batch_status <- #batch_job_info[["id"]]
+#'   batch_retrive_status(batch_id)
+#' result <- batch_status[["output_file_id"]] |>
 #'   batch_retreive_results()
-batch_retreive_results <- function(batch_id) {
-  batch_status <- batch_retrive_status(batch_id)
-  if (batch_status[["status"]] != "completed") {
-    usethis::ui_todo("batch not completed")
-    return(invisible(FALSE))
-  }
-
-  output_file_id <- batch_status[["output_file_id"]]
-
+batch_retreive_results <- function(output_file_id,
+  batch_id = "batch_lxIIMZndJ0JLokuKdW3iaU0n"
+) {
   file_id <- if (!is.na(output_file_id)) {
     output_file_id
   } else {
@@ -192,7 +182,7 @@ batch_retreive_results <- function(batch_id) {
   }
 
 
-  httr::GET(
+ response <-  httr::GET(
     stringr::str_glue(
       "https://api.openai.com/v1/files/{file_id}/content"
     ),
@@ -201,59 +191,25 @@ batch_retreive_results <- function(batch_id) {
     ),
     httr::content_type_json()
   ) |>
-    results_to_tibble()
-
+    parse_httr_response(convert_json = FALSE) |>
+    split_results()
 }
 
-parse_httr_response <- function(
-  response,
-  is_list = FALSE
-) {
-  parsed <- response |>
-    httr::content(as = "text", encoding = "UTF-8") |>
-    jsonlite::fromJSON() |>
-    (\(x) if (is_list) x[["data"]] else x)() |>
-    response_list_to_tibble()
-
-  if (httr::http_error(response)) {
-    err <- parsed[["error"]]
-    err <- if (is.character(err)) err else err[["message"]]
-    stringr::str_c(
-      "API request failed [",
-      httr::status_code(response),
-      "]:\n\n",
-      err
-    ) |>
-      usethis::ui_stop()
-  }
-  parsed
-}
-
-response_list_to_tibble <- function(resp) {
-  if (is.data.frame(resp)) return(
-    tibble::as_tibble(resp) |>
-      purrr::map(\(x) x %||% NA)
-  )
-
-  resp |>
-    purrr::map(\(x) x %||% NA) |>
-    purrr::flatten() |>
-    tibble::as_tibble()
-}
-
-
-results_to_tibble <- function(response) {
-  parsed <- response |>
-    httr::content(as = "text", encoding = "UTF-8") |>
+split_results <- function(response) {
+  response |>
     stringr::str_trim() |>
     stringr::str_split("\\n") |>
-    purrr::flatten() |>
-    purrr::map(
-      \(x) jsonlite::fromJSON(x) |>
-        response_list_to_tibble() |>
-        dplyr::mutate(body = purrr::map(body, response_list_to_tibble))
-    ) |>
-    purrr::list_rbind()
+    purrr::list_c() |>
+    purrr::map(\(x) {
+      x |>
+        jsonlite::fromJSON() |>
+        purrr::map(\(x) x %||% NA)
+    })
+}
+
+parse_httr_response <- function(response, convert_json = TRUE) {
+  parsed <- response |>
+    httr::content(as = "text", encoding = "UTF-8")
 
   if (httr::http_error(response)) {
     err <- parsed[["error"]]
@@ -266,5 +222,54 @@ results_to_tibble <- function(response) {
     ) |>
       usethis::ui_stop()
   }
-  parsed
+
+  if (convert_json) {
+    parsed |>
+      jsonlite::fromJSON() |>
+      purrr::map(\(x) x %||% NA) |>
+      purrr::list_flatten() |>
+      tibble::as_tibble()
+  } else {
+    parsed
+  }
 }
+
+# response_list_to_tibble <- function(resp) {
+#   if (is.data.frame(resp)) return(
+#     tibble::as_tibble(resp) |>
+#       purrr::map(\(x) x %||% NA)
+#   )
+#
+#   resp |>
+#     purrr::map(\(x) x %||% NA) |>
+#     purrr::list_flatten() |>
+#     tibble::as_tibble()
+# }
+
+
+# results_to_tibble <- function(response) {
+#   parsed <- response |>
+#     httr::content(as = "text", encoding = "UTF-8") |>
+#     stringr::str_trim() |>
+#     stringr::str_split("\\n") |>
+#     purrr::flatten_chr() |>
+#     purrr::map(
+#       \(x) jsonlite::fromJSON(x) |>
+#         response_list_to_tibble() |>
+#         dplyr::mutate(body = purrr::map(body, response_list_to_tibble))
+#     ) |>
+#     purrr::list_rbind()
+#
+#   if (httr::http_error(response)) {
+#     err <- parsed[["error"]]
+#     err <- if (is.character(err)) err else err[["message"]]
+#     stringr::str_c(
+#       "API request failed [",
+#       httr::status_code(response),
+#       "]:\n\n",
+#       err
+#     ) |>
+#       usethis::ui_stop()
+#   }
+#   parsed
+# }

@@ -115,7 +115,7 @@ get_completion_from_messages <- function(
       jsonlite::fromJSON() |>
       tryCatch(error = \(e) usethis::ui_stop(e))
   } else {
-    response <- httr::POST(
+    httr::POST(
       endpoint,
       httr::add_headers(
         "Authorization" = paste("Bearer", Sys.getenv("OPENAI_API_KEY"))
@@ -130,24 +130,8 @@ get_completion_from_messages <- function(
         stream = FALSE, # hard coded for the moment
         seed = seed
       )
-    )
-
-    parsed <- response |>
-      httr::content(as = "text", encoding = "UTF-8") |>
-      jsonlite::fromJSON(flatten = TRUE)
-
-    if (httr::http_error(response)) {
-      err <- parsed[["error"]]
-      err <- if (is.character(err)) err else err[["message"]]
-      stringr::str_c(
-        "API request failed [",
-        httr::status_code(response),
-        "]:\n\n",
-        err
-      ) |>
-        usethis::ui_stop()
-    }
-    parsed
+    ) |>
+      parse_httr_response()
   }
 }
 
@@ -160,6 +144,10 @@ get_completion_from_messages <- function(
 #' @return (chr) the output message returned by the assistant
 #' @export
 get_content <- function(completion) {
+  if ("response" %in% names(completion)) {  # batch response
+    completion <- completion[["response"]][["body"]]
+  }
+
   if (all(is.na(completion))) return(NA_character_)
 
   if ("message" %in% names(completion[["choices"]])) {
@@ -185,6 +173,10 @@ get_tokens <- function(
   completion,
   what = c("total", "prompt", "completion", "all")
 ) {
+  if ("response" %in% names(completion)) {  # batch response
+    completion <- completion[["response"]][["body"]]
+  }
+
   what <- match.arg(what)
 
   if (all(is.na(completion))) {

@@ -168,13 +168,11 @@ batch_list <- function(n = 10) {
 #'   batch_upload_file()
 #' batch_job_info <- batch_file_info[["id"]] |>
 #'   batch_create()
-#' batch_status <- #batch_job_info[["id"]]
-#'   batch_retrive_status(batch_id)
+#' batch_status <- batch_job_info[["id"]]
+#'   batch_retrive_status()
 #' result <- batch_status[["output_file_id"]] |>
 #'   batch_retreive_results()
-batch_retreive_results <- function(output_file_id,
-  batch_id = "batch_lxIIMZndJ0JLokuKdW3iaU0n"
-) {
+batch_retreive_results <- function(output_file_id) {
   file_id <- if (!is.na(output_file_id)) {
     output_file_id
   } else {

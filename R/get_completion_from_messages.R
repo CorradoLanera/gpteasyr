@@ -115,7 +115,7 @@ get_completion_from_messages <- function(
       jsonlite::fromJSON() |>
       tryCatch(error = \(e) usethis::ui_stop(e))
   } else {
-    httr::POST(
+    response <- httr::POST(
       endpoint,
       httr::add_headers(
         "Authorization" = paste("Bearer", Sys.getenv("OPENAI_API_KEY"))
@@ -130,8 +130,24 @@ get_completion_from_messages <- function(
         stream = FALSE, # hard coded for the moment
         seed = seed
       )
-    ) |>
-      parse_httr_response()
+    )
+
+    parsed <- response |>
+      httr::content(as = "text", encoding = "UTF-8") |>
+      jsonlite::fromJSON()
+
+    if (httr::http_error(response)) {
+      err <- parsed[["error"]]
+      err <- if (is.character(err)) err else err[["message"]]
+      stringr::str_c(
+        "API request failed [",
+        httr::status_code(response),
+        "]:\n\n",
+        err
+      ) |>
+        usethis::ui_stop()
+    }
+    parsed
   }
 }
 

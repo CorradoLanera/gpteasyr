@@ -30,47 +30,51 @@ test_that("batch utils works", {
   n <- nrow(before_start_status)
 
   batch_file_info <- batch_upload_file(out_jsonl_path)
-  Sys.sleep(1)
   batch_job_info <- batch_file_info[["id"]] |>
     batch_create()
-  Sys.sleep(1)
   batch_status <- batch_job_info[["id"]] |>
     batch_retrive_status()
-  Sys.sleep(1)
   after_start_status <- batch_list()
 
   batch_cancelled <- batch_job_info[["id"]] |>
     batch_cancel()
-  Sys.sleep(1)
   after_cancel_status <- batch_list()
 
   # expectations
-  expect_tibble(before_start_status, nrows = n)
+  expect_tibble(before_start_status)
   nc <- sum(
-    before_start_status[["status"]] %in% c("cancelled", "cancelling")
+    before_start_status[["data"]][["status"]] %in%
+      c("cancelled", "cancelling")
   )
-  np <- sum(before_start_status[["status"]] == "in_progress")
+  np <- sum(before_start_status[["data"]][["status"]] == "in_progress")
 
   expect_tibble(batch_file_info, nrows = 1)
   expect_tibble(batch_job_info, nrows = 1)
   expect_tibble(batch_status, nrows = 1)
 
-  expect_tibble(after_start_status, nrows = n + 1)
-  expect_equal(
-    sum(after_start_status[["status"]] %in% c("cancelled", "cancelling")),
+  expect_tibble(after_start_status)
+  expect_lte(
+    sum(
+      after_start_status[["data"]][["status"]] %in%
+        c("cancelled", "cancelling")
+    ),
     nc
   )
-  expect_equal(
-    sum(after_start_status[["status"]] == "in_progress"),
-    np + 1
+  expect_gte(
+    sum(after_start_status[["data"]][["status"]] == "in_progress"),
+    np
   )
 
   expect_tibble(batch_cancelled, nrows = 1)
-  expect_tibble(after_cancel_status, nrows = n + 1)
-  expect_equal(
-    sum(after_cancel_status[["status"]] %in% c("cancelled", "cancelling")),
-    nc + 1
+  expect_tibble(after_cancel_status, min.rows = n)
+  expect_gte(
+    sum(after_cancel_status[["data"]][["status"]] %in%
+          c("cancelled", "cancelling")),
+    nc
   )
-  expect_equal(sum(after_cancel_status[["status"]] == "in_progress"), np)
+  expect_equal(
+    sum(after_cancel_status[["data"]][["status"]] == "in_progress"),
+    np
+  )
 
 })

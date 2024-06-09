@@ -28,6 +28,7 @@ test_that("batch utils works", {
 
   # eval
   before_start_status <- batch_list()
+  Sys.sleep(1)
   n <- nrow(before_start_status)
 
   batch_file_info <- batch_upload_file(out_jsonl_path)
@@ -36,10 +37,12 @@ test_that("batch utils works", {
   batch_status <- batch_job_info[["id"]] |>
     batch_status()
   after_start_status <- batch_list()
+  Sys.sleep(1)
 
   batch_cancelled <- batch_job_info[["id"]] |>
     batch_cancel()
   after_cancel_status <- batch_list()
+  Sys.sleep(1)
 
   # expectations
   expect_tibble(before_start_status)
@@ -78,4 +81,22 @@ test_that("batch utils works", {
     np
   )
 
+})
+
+test_that("batch_* works well on error input", {
+  # setup
+  wrong_input <- "foo"
+
+  # eval
+  batch_create(wrong_input) |>
+    expect_error("API request failed")
+
+  batch_status(wrong_input) |>
+    expect_error("API request failed")
+
+  batch_result(wrong_input) |>
+    expect_error("API request failed")
+
+  batch_cancel(wrong_input) |>
+    expect_error("API request failed")
 })

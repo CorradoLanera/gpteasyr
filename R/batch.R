@@ -184,15 +184,18 @@ batch_cancel <- function(batch_id) {
 batch_list <- function(n = 10) {
   checkmate::qassert(n, "X1(0,]")
 
-  httr::GET(
-    stringr::str_glue("https://api.openai.com/v1/batches?limit={n}"),
-    httr::add_headers(
-      "Authorization" = paste("Bearer", Sys.getenv("OPENAI_API_KEY"))
-    ),
-    httr::content_type_json(),
-    encode = "json"
-  ) |>
-    parse_httr_response()
+  httr::with_config(
+    httr::timeout(600),
+    httr::GET(
+      stringr::str_glue("https://api.openai.com/v1/batches?limit={n}"),
+      httr::add_headers(
+        "Authorization" = paste("Bearer", Sys.getenv("OPENAI_API_KEY"))
+      ),
+      httr::content_type_json(),
+      encode = "json"
+    ) |>
+      parse_httr_response()
+  )
 }
 
 
@@ -269,7 +272,8 @@ split_results <- function(response, simplify = TRUE) {
 
 parse_httr_response <- function(response, convert_json = TRUE) {
   parsed <- response |>
-    httr::content(as = "text", encoding = "UTF-8")
+    httr::content(as = "text", encoding = "UTF-8") |>
+    jsonlite::fromJSON()
 
   if (httr::http_error(response)) {
     err <- parsed[["error"]]
@@ -285,7 +289,6 @@ parse_httr_response <- function(response, convert_json = TRUE) {
 
   if (convert_json) {
     parsed |>
-      jsonlite::fromJSON() |>
       purrr::map(\(x) x %||% NA) |>
       purrr::list_flatten() |>
       tibble::as_tibble()

@@ -16,7 +16,7 @@ complete prompt based on the desired context."><!-- mathjax --><script src="http
     
     <a class="navbar-brand me-2" href="../index.html">gpteasyr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,7 +90,7 @@ prompt based on the desired context.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">usr_prmpt</span> <span class="op">&lt;-</span> <span class="fu"><a href="compose_prompt.html">compose_prompt</a></span><span class="op">(</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">usr_prompt</span> <span class="op">&lt;-</span> <span class="fu"><a href="compose_prompt.html">compose_prompt</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  role <span class="op">=</span> <span class="st">"You are the assistant of a university professor."</span>,</span></span>
 <span class="r-in"><span>  context <span class="op">=</span> <span class="st">"</span></span></span>
 <span class="r-in"><span><span class="st">    You are analyzing the comments of the students of the last course."</span>,</span></span>
@@ -111,14 +111,14 @@ prompt based on the desired context.</p>
 <span class="r-in"><span><span class="st">      output: 'Another - text'"</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">prompter</span> <span class="op">&lt;-</span> <span class="fu">create_usr_data_prompter</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  usr_prompt <span class="op">=</span> <span class="va">usr_prmpt</span></span></span>
+<span class="r-in"><span>  usr_prompt <span class="op">=</span> <span class="va">usr_prompt</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">prompter</span><span class="op">(</span><span class="st">"This is an example text."</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "You are the assistant of a university professor.\n\n    You are analyzing the comments of the students of the last course.\nYour task is to extract information from a text provided.\n\n    You should extract the first and last words of the text.\n\n    Return the first and last words of the text separated by a dash,\n    i.e., `first - last`.\n\n    Do not add any additional information,\n    return only the requested information.\n\n      # Examples:\n      text: 'This is an example text.'\n      output: 'This - text'\n      text: 'Another example text!!!'\n      output: 'Another - text'\n\"\"\"\nThis is an example text.\n\"\"\""</span>
 <span class="r-in"><span><span class="fu">prompter</span><span class="op">(</span><span class="st">"Another example text!!!"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "You are the assistant of a university professor.\n\n    You are analyzing the comments of the students of the last course.\nYour task is to extract information from a text provided.\n\n    You should extract the first and last words of the text.\n\n    Return the first and last words of the text separated by a dash,\n    i.e., `first - last`.\n\n    Do not add any additional information,\n    return only the requested information.\n\n      # Examples:\n      text: 'This is an example text.'\n      output: 'This - text'\n      text: 'Another example text!!!'\n      output: 'Another - text'\n\"\"\"\nAnother example text!!!\n\"\"\""</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># You can also use it with a data frame to programmaically create</span></span></span>
+<span class="r-in"><span><span class="co"># You can also use it with a data frame to programmatically create</span></span></span>
 <span class="r-in"><span><span class="co"># prompts for each row of a data frame's column.</span></span></span>
 <span class="r-in"><span><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  text <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"This is an example text."</span>, <span class="st">"Another example text!!!"</span><span class="op">)</span></span></span>

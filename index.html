@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="index.html">gpteasyr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -132,40 +132,41 @@
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; ℹ Total tries: 1.</span></span>
 <span><span class="co">#&gt; ℹ Prompt token used: 29.</span></span>
-<span><span class="co">#&gt; ℹ Response token used: 100.</span></span>
-<span><span class="co">#&gt; ℹ Total token used: 129.</span></span>
+<span><span class="co">#&gt; ℹ Response token used: 84.</span></span>
+<span><span class="co">#&gt; ℹ Total token used: 113.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 7</span></span>
-<span><span class="co">#&gt;  $ id                : chr "chatcmpl-9RVNU6mPT5cq0XifTLp0MfqvsAhSB"</span></span>
+<span><span class="co">#&gt;  $ id                : chr "chatcmpl-9YF9y0wAQWx2FjWFqFn2wlJl1p0Dw"</span></span>
 <span><span class="co">#&gt;  $ object            : chr "chat.completion"</span></span>
-<span><span class="co">#&gt;  $ created           : int 1716342500</span></span>
+<span><span class="co">#&gt;  $ created           : int 1717948454</span></span>
 <span><span class="co">#&gt;  $ model             : chr "gpt-3.5-turbo-0125"</span></span>
-<span><span class="co">#&gt;  $ choices           :'data.frame':  1 obs. of  5 variables:</span></span>
-<span><span class="co">#&gt;   ..$ index          : int 0</span></span>
-<span><span class="co">#&gt;   ..$ logprobs       : logi NA</span></span>
-<span><span class="co">#&gt;   ..$ finish_reason  : chr "length"</span></span>
-<span><span class="co">#&gt;   ..$ message.role   : chr "assistant"</span></span>
-<span><span class="co">#&gt;   ..$ message.content: chr "The last course I provided was on environmental sustainability in business. It covered topics such as sustainab"| __truncated__</span></span>
+<span><span class="co">#&gt;  $ choices           :'data.frame':  1 obs. of  4 variables:</span></span>
+<span><span class="co">#&gt;   ..$ index        : int 0</span></span>
+<span><span class="co">#&gt;   ..$ message      :'data.frame':    1 obs. of  2 variables:</span></span>
+<span><span class="co">#&gt;   .. ..$ role   : chr "assistant"</span></span>
+<span><span class="co">#&gt;   .. ..$ content: chr "The last course my professor provided was on Modern Topics in Physics. This course explored advanced concepts i"| __truncated__</span></span>
+<span><span class="co">#&gt;   ..$ logprobs     : logi NA</span></span>
+<span><span class="co">#&gt;   ..$ finish_reason: chr "stop"</span></span>
 <span><span class="co">#&gt;  $ usage             :List of 3</span></span>
 <span><span class="co">#&gt;   ..$ prompt_tokens    : int 29</span></span>
-<span><span class="co">#&gt;   ..$ completion_tokens: int 100</span></span>
-<span><span class="co">#&gt;   ..$ total_tokens     : int 129</span></span>
+<span><span class="co">#&gt;   ..$ completion_tokens: int 84</span></span>
+<span><span class="co">#&gt;   ..$ total_tokens     : int 113</span></span>
 <span><span class="co">#&gt;  $ system_fingerprint: NULL</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "The last course I provided was on environmental sustainability in business. It covered topics such as sustainable business practices, corporate social responsibility, and the role of businesses in addressing environmental issues. We also discussed case studies and examples of companies who have successfully implemented sustainable initiatives. The course included both theory and practical applications, and students were encouraged to develop their own sustainability action plans for a real-world scenario. Overall, it was a very insightful and engaging course that encouraged students to think critically about the intersection of business and environmental"</span></span>
+<span><span class="co">#&gt; [1] "The last course my professor provided was on Modern Topics in Physics. This course explored advanced concepts in modern physics, including quantum mechanics, relativity, particle physics, and cosmology. The course included a combination of lectures, discussions, problem-solving sessions, and hands-on experiments, providing students with a comprehensive understanding of cutting-edge theories in physics. It received positive feedback from students and sparked lively debates among experts in the field."</span></span>
 <span></span>
 <span><span class="co"># for a well formatted output on R, use `cat()`</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The last course I provided was on environmental sustainability in business. It covered topics such as sustainable business practices, corporate social responsibility, and the role of businesses in addressing environmental issues. We also discussed case studies and examples of companies who have successfully implemented sustainable initiatives. The course included both theory and practical applications, and students were encouraged to develop their own sustainability action plans for a real-world scenario. Overall, it was a very insightful and engaging course that encouraged students to think critically about the intersection of business and environmental</span></span>
+<span><span class="co">#&gt; The last course my professor provided was on Modern Topics in Physics. This course explored advanced concepts in modern physics, including quantum mechanics, relativity, particle physics, and cosmology. The course included a combination of lectures, discussions, problem-solving sessions, and hands-on experiments, providing students with a comprehensive understanding of cutting-edge theories in physics. It received positive feedback from students and sparked lively debates among experts in the field.</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="co"># default is "total"</span></span>
-<span><span class="co">#&gt; [1] 129</span></span>
+<span><span class="co">#&gt; [1] 113</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"prompt"</span><span class="op">)</span> <span class="co"># "total", "prompt", "completion" (i.e., the answer)</span></span>
 <span><span class="co">#&gt; [1] 29</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"all"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     prompt_tokens completion_tokens      total_tokens </span></span>
-<span><span class="co">#&gt;                29               100               129</span></span></code></pre></div>
+<span><span class="co">#&gt;                29                84               113</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="easy-prompt-assisted-creation">Easy prompt-assisted creation<a class="anchor" aria-label="anchor" href="#easy-prompt-assisted-creation"></a>
@@ -329,7 +330,7 @@
 <span>  <span class="fu"><a href="https://corradolanera.github.io/depigner/reference/pb_len.html" class="external-link">tick</a></span><span class="op">(</span><span class="va">pb</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Row"</span>, <span class="va">i</span>, <span class="st">"of"</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; evaluated: Row 5 of 7 [====================&gt;--------]  71% in  2s [ETA:  1s]evaluated: Row 6 of 7 [========================&gt;----]  86% in  3s [ETA:  0s]evaluated: Row 7 of 7 [=============================] 100% in  3s [ETA:  0s]</span></span>
+<span><span class="co">#&gt; evaluated: Row 5 of 7 [====================&gt;--------]  71% in  2s [ETA:  1s]evaluated: Row 6 of 7 [========================&gt;----]  86% in  3s [ETA:  0s]evaluated: Row 7 of 7 [=============================] 100% in  4s [ETA:  0s]</span></span>
 <span></span>
 <span><span class="va">db</span></span>
 <span><span class="co">#&gt;                                                                       txt</span></span>
@@ -438,7 +439,7 @@
 <span>  <span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The last course that the professor provided was a graduate-level seminar on "Advanced Topics in Artificial Intelligence." The course covered cutting-edge research in areas such as deep learning, natural language processing, and reinforcement learning. Students were required to read and present research papers, participate in discussions, and complete a final project applying the concepts learned in the course. The professor also invited guest speakers from industry and academia to share their expertise and insights with the students. Overall, the course was well-received by the students and provided them with a deeper understanding of the latest developments in the field of artificial intelligence.</span></span></code></pre></div>
+<span><span class="co">#&gt; The last course provided by the professor was a graduate-level seminar on "Advanced Topics in Artificial Intelligence." The course covered cutting-edge research in areas such as deep learning, natural language processing, and reinforcement learning. Students were required to read and present research papers, participate in discussions, and complete a final project applying the concepts learned in the course. The professor also invited guest speakers from industry and academia to provide additional insights into the field. Overall, the course aimed to deepen students' understanding of the latest developments in artificial intelligence and prepare them for careers in research or industry.</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="personalized-servers-endpoint">Personalized server’s endpoint<a class="anchor" aria-label="anchor" href="#personalized-servers-endpoint"></a>
@@ -462,6 +463,155 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 </div>
+</div>
+<div class="section level2">
+<h2 id="batch-openai-requests">Batch OpenAI requests<a class="anchor" aria-label="anchor" href="#batch-openai-requests"></a>
+</h2>
+<p>By April 23, 2024, OpenAI has introduced a new feature that allows you to send multiple requests in a single call (see: <a href="https://openai.com/index/more-enterprise-grade-features-for-api-customers/" class="external-link uri">https://openai.com/index/more-enterprise-grade-features-for-api-customers/</a>).</p>
+<p>This feature is now available in <a href="https://github.com/CorradoLanera/gpteasyr" class="external-link">gpteasyr</a>. You can use the <code>batch_*</code> functions to send multiple requests in a single call. The functions are <code>batch_upload_file</code>,</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create a list of prompts</span></span>
+<span><span class="va">sys_prompt</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/compose_prompt.html">compose_sys_prompt</a></span><span class="op">(</span><span class="st">"Sei un simpatico assistente."</span><span class="op">)</span></span>
+<span><span class="va">usr_prompt</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/compose_prompt.html">compose_usr_prompt</a></span><span class="op">(</span></span>
+<span>  <span class="st">"Racconta una barzelletta che termini col testo che segue:"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">prompter</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/create_usr_data_prompter.html">create_usr_data_prompter</a></span><span class="op">(</span>usr_prompt <span class="op">=</span> <span class="va">usr_prompt</span><span class="op">)</span></span>
+<span><span class="va">text</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Che barba, che noia!"</span>,</span>
+<span>    <span class="st">"Un po' noioso, ma interessante"</span>,</span>
+<span>    <span class="st">"Che bello, mi è piaciuto molto!"</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">prompts</span> <span class="op">&lt;-</span> <span class="va">text</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span></span>
+<span>    \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="reference/compose_prompt_api.html">compose_prompt_api</a></span><span class="op">(</span></span>
+<span>      sys_prompt <span class="op">=</span> <span class="va">sys_prompt</span>,</span>
+<span>      usr_prompt <span class="op">=</span> <span class="fu">prompter</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create a jsonl file as required by the API, and save it</span></span>
+<span><span class="va">jsonl_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/create_jsonl_records.html">create_jsonl_records</a></span><span class="op">(</span><span class="va">prompts</span><span class="op">)</span></span>
+<span><span class="va">out_jsonl_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/write_jsonl_files.html">write_jsonl_files</a></span><span class="op">(</span><span class="va">jsonl_text</span>, <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># upload the jsonl file to OpenAI project</span></span>
+<span><span class="co"># The project used is the one linked with the API key you have set in</span></span>
+<span><span class="co"># the environment variable `OPENAI_API_KEY`</span></span>
+<span><span class="va">batch_file_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/batch_upload_file.html">batch_upload_file</a></span><span class="op">(</span><span class="va">out_jsonl_path</span><span class="op">)</span></span>
+<span><span class="va">batch_file_info</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 8</span></span>
+<span><span class="co">#&gt;   object id              purpose filename bytes created_at status status_details</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;   &lt;chr&gt;    &lt;int&gt;      &lt;int&gt; &lt;chr&gt;  &lt;lgl&gt;         </span></span>
+<span><span class="co">#&gt; 1 file   file-HUrpZUzfA… batch   2024060…   973 1717948471 proce… NA</span></span>
+<span></span>
+<span><span class="co"># Create a batch job from the id of an uploaded jsonl file</span></span>
+<span><span class="va">batch_job_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/batch_create.html">batch_create</a></span><span class="op">(</span><span class="va">batch_file_info</span><span class="op">[[</span><span class="st">"id"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">batch_job_info</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 22</span></span>
+<span><span class="co">#&gt;   id               object endpoint errors input_file_id completion_window status</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;    &lt;lgl&gt;  &lt;chr&gt;         &lt;chr&gt;             &lt;chr&gt; </span></span>
+<span><span class="co">#&gt; 1 batch_jnRBtno9X… batch  /v1/cha… NA     file-HUrpZUz… 24h               valid…</span></span>
+<span><span class="co">#&gt; # ℹ 15 more variables: output_file_id &lt;lgl&gt;, error_file_id &lt;lgl&gt;,</span></span>
+<span><span class="co">#&gt; #   created_at &lt;int&gt;, in_progress_at &lt;lgl&gt;, expires_at &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   finalizing_at &lt;lgl&gt;, completed_at &lt;lgl&gt;, failed_at &lt;lgl&gt;, expired_at &lt;lgl&gt;,</span></span>
+<span><span class="co">#&gt; #   cancelling_at &lt;lgl&gt;, cancelled_at &lt;lgl&gt;, request_counts_total &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   request_counts_completed &lt;int&gt;, request_counts_failed &lt;int&gt;, metadata &lt;lgl&gt;</span></span>
+<span></span>
+<span><span class="co"># You can retrieve the status of the batch job by its ID</span></span>
+<span><span class="va">batch_status</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/batch_status.html">batch_status</a></span><span class="op">(</span><span class="va">batch_job_info</span><span class="op">[[</span><span class="st">"id"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">batch_status</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 22</span></span>
+<span><span class="co">#&gt;   id               object endpoint errors input_file_id completion_window status</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;    &lt;lgl&gt;  &lt;chr&gt;         &lt;chr&gt;             &lt;chr&gt; </span></span>
+<span><span class="co">#&gt; 1 batch_jnRBtno9X… batch  /v1/cha… NA     file-HUrpZUz… 24h               in_pr…</span></span>
+<span><span class="co">#&gt; # ℹ 15 more variables: output_file_id &lt;lgl&gt;, error_file_id &lt;lgl&gt;,</span></span>
+<span><span class="co">#&gt; #   created_at &lt;int&gt;, in_progress_at &lt;int&gt;, expires_at &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   finalizing_at &lt;lgl&gt;, completed_at &lt;lgl&gt;, failed_at &lt;lgl&gt;, expired_at &lt;lgl&gt;,</span></span>
+<span><span class="co">#&gt; #   cancelling_at &lt;lgl&gt;, cancelled_at &lt;lgl&gt;, request_counts_total &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   request_counts_completed &lt;int&gt;, request_counts_failed &lt;int&gt;, metadata &lt;lgl&gt;</span></span>
+<span></span>
+<span><span class="co"># You can list all the batches in the project (default limit is 10)</span></span>
+<span><span class="va">list_of_batches</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/batch_list.html">batch_list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">list_of_batches</span></span>
+<span><span class="co">#&gt; # A tibble: 10 × 5</span></span>
+<span><span class="co">#&gt;    object data$id            $object $endpoint $errors first_id last_id has_more</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;              &lt;chr&gt;   &lt;chr&gt;     &lt;lgl&gt;   &lt;chr&gt;    &lt;chr&gt;   &lt;lgl&gt;   </span></span>
+<span><span class="co">#&gt;  1 list   batch_jnRBtno9Xt0… batch   /v1/chat… NA      batch_j… batch_… TRUE    </span></span>
+<span><span class="co">#&gt;  2 list   batch_2R2aGiz7KUF… batch   /v1/chat… NA      batch_j… batch_… TRUE    </span></span>
+<span><span class="co">#&gt;  3 list   batch_Y0ADn06jiat… batch   /v1/chat… NA      batch_j… batch_… TRUE    </span></span>
+<span><span class="co">#&gt;  4 list   batch_fRMTRSdvqex… batch   /v1/chat… NA      batch_j… batch_… TRUE    </span></span>
+<span><span class="co">#&gt;  5 list   batch_o0543oZ9r0G… batch   /v1/chat… NA      batch_j… batch_… TRUE    </span></span>
+<span><span class="co">#&gt;  6 list   batch_IDFvSdifMU0… batch   /v1/chat… NA      batch_j… batch_… TRUE    </span></span>
+<span><span class="co">#&gt;  7 list   batch_i86GpcxjAk9… batch   /v1/chat… NA      batch_j… batch_… TRUE    </span></span>
+<span><span class="co">#&gt;  8 list   batch_bdz02qG5J8b… batch   /v1/chat… NA      batch_j… batch_… TRUE    </span></span>
+<span><span class="co">#&gt;  9 list   batch_7WFbMsQjE9o… batch   /v1/chat… NA      batch_j… batch_… TRUE    </span></span>
+<span><span class="co">#&gt; 10 list   batch_tk7KHKvJ5B9… batch   /v1/chat… NA      batch_j… batch_… TRUE    </span></span>
+<span><span class="co">#&gt; # ℹ 16 more variables: data$input_file_id &lt;chr&gt;, $completion_window &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   $status &lt;chr&gt;, $output_file_id &lt;chr&gt;, $error_file_id &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   $created_at &lt;int&gt;, $in_progress_at &lt;int&gt;, $expires_at &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   $finalizing_at &lt;lgl&gt;, $completed_at &lt;lgl&gt;, $failed_at &lt;lgl&gt;,</span></span>
+<span><span class="co">#&gt; #   $expired_at &lt;lgl&gt;, $cancelling_at &lt;int&gt;, $cancelled_at &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   $request_counts &lt;df[,3]&gt;, $metadata &lt;lgl&gt;</span></span>
+<span></span>
+<span><span class="co"># You can cancel a batch job by its ID</span></span>
+<span><span class="va">batch_cancelled</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/batch_cancel.html">batch_cancel</a></span><span class="op">(</span><span class="va">batch_job_info</span><span class="op">[[</span><span class="st">"id"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">batch_cancelled</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 22</span></span>
+<span><span class="co">#&gt;   id               object endpoint errors input_file_id completion_window status</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;    &lt;lgl&gt;  &lt;chr&gt;         &lt;chr&gt;             &lt;chr&gt; </span></span>
+<span><span class="co">#&gt; 1 batch_jnRBtno9X… batch  /v1/cha… NA     file-HUrpZUz… 24h               cance…</span></span>
+<span><span class="co">#&gt; # ℹ 15 more variables: output_file_id &lt;lgl&gt;, error_file_id &lt;lgl&gt;,</span></span>
+<span><span class="co">#&gt; #   created_at &lt;int&gt;, in_progress_at &lt;int&gt;, expires_at &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   finalizing_at &lt;lgl&gt;, completed_at &lt;lgl&gt;, failed_at &lt;lgl&gt;, expired_at &lt;lgl&gt;,</span></span>
+<span><span class="co">#&gt; #   cancelling_at &lt;int&gt;, cancelled_at &lt;lgl&gt;, request_counts_total &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   request_counts_completed &lt;int&gt;, request_counts_failed &lt;int&gt;, metadata &lt;lgl&gt;</span></span>
+<span></span>
+<span><span class="co"># Once the batch is completed, you can retrieve the results by</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># results &lt;- batch_result(batch_status[["output_file_id"]])</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># Here, we will use an already computed batch to show the result structure.</span></span>
+<span><span class="co"># Please note, the following code will not work as it is because the</span></span>
+<span><span class="co"># (probably) you have not access to my "batch_lxIIMZndJ0JLokuKdW3iaU0n"</span></span>
+<span><span class="co"># batch job.</span></span>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/batch_status.html">batch_status</a></span><span class="op">(</span><span class="st">"batch_lxIIMZndJ0JLokuKdW3iaU0n"</span><span class="op">)</span><span class="op">[[</span><span class="st">"output_file_id"</span><span class="op">]</span><span class="op">]</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="reference/batch_result.html">batch_result</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">results</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 3</span></span>
+<span><span class="co">#&gt;  $ :List of 7</span></span>
+<span><span class="co">#&gt;   ..$ id                : chr "chatcmpl-9X8tAA8kPkxeobOk8nXK2ZKVMBoam"</span></span>
+<span><span class="co">#&gt;   ..$ object            : chr "chat.completion"</span></span>
+<span><span class="co">#&gt;   ..$ created           : int 1717686020</span></span>
+<span><span class="co">#&gt;   ..$ model             : chr "gpt-3.5-turbo-0125"</span></span>
+<span><span class="co">#&gt;   ..$ choices           :'data.frame':   1 obs. of  4 variables:</span></span>
+<span><span class="co">#&gt;   ..$ usage             :List of 3</span></span>
+<span><span class="co">#&gt;   ..$ system_fingerprint: NULL</span></span>
+<span><span class="co">#&gt;  $ :List of 7</span></span>
+<span><span class="co">#&gt;   ..$ id                : chr "chatcmpl-9X8tAavwNXksayZ9SrFmpxWZZSmTX"</span></span>
+<span><span class="co">#&gt;   ..$ object            : chr "chat.completion"</span></span>
+<span><span class="co">#&gt;   ..$ created           : int 1717686020</span></span>
+<span><span class="co">#&gt;   ..$ model             : chr "gpt-3.5-turbo-0125"</span></span>
+<span><span class="co">#&gt;   ..$ choices           :'data.frame':   1 obs. of  4 variables:</span></span>
+<span><span class="co">#&gt;   ..$ usage             :List of 3</span></span>
+<span><span class="co">#&gt;   ..$ system_fingerprint: NULL</span></span>
+<span><span class="co">#&gt;  $ :List of 7</span></span>
+<span><span class="co">#&gt;   ..$ id                : chr "chatcmpl-9X8tAzY6Tg2lKCvc8EE2LSDz39hsX"</span></span>
+<span><span class="co">#&gt;   ..$ object            : chr "chat.completion"</span></span>
+<span><span class="co">#&gt;   ..$ created           : int 1717686020</span></span>
+<span><span class="co">#&gt;   ..$ model             : chr "gpt-3.5-turbo-0125"</span></span>
+<span><span class="co">#&gt;   ..$ choices           :'data.frame':   1 obs. of  4 variables:</span></span>
+<span><span class="co">#&gt;   ..$ usage             :List of 3</span></span>
+<span><span class="co">#&gt;   ..$ system_fingerprint: NULL</span></span>
+<span></span>
+<span><span class="co"># By default the results are simplified to the response body returning </span></span>
+<span><span class="co"># a list of responses, so you can continue to work as usual. If you want</span></span>
+<span><span class="co"># to have the full response, you can set `simplify = FALSE` in the</span></span>
+<span><span class="co"># `batch_result` call.</span></span>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_chr</a></span><span class="op">(</span><span class="va">results</span>, <span class="va">get_content</span><span class="op">)</span></span>
+<span><span class="va">res</span></span>
+<span><span class="co">#&gt; [1] "Certo, ecco la barzelletta:\n\nQual è l'animale più pigro della giungla?\nIl panda, perché è sempre in bianco e nero!\n\nChe barba, che noia!"      </span></span>
+<span><span class="co">#&gt; [2] "Perché i pesci non sanno giocare a pallacanestro?\nPerché sono troppo scivolosi per fare un tiro in sospensione!\n\nUn po' noioso, ma interessante."</span></span>
+<span><span class="co">#&gt; [3] "Certo, ecco la barzelletta:\n\nQual è l'animale più antico del mondo? La zebra, perché è in bianco e nero! \n\nChe bello, mi è piaciuto molto!"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>

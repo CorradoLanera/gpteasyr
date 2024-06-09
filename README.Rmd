@@ -297,6 +297,82 @@ cat(res)
 }
 ```
 
+## Batch OpenAI requests
+
+By April 23, 2024, OpenAI has introduced a new feature that allows you to send multiple requests in a single call (see: https://openai.com/index/more-enterprise-grade-features-for-api-customers/).
+
+This feature is now available in `{gpteasyr}`. You can use the `batch_*` functions to send multiple requests in a single call. The functions are `batch_upload_file`, 
+
+```{r}
+# Create a list of prompts
+sys_prompt <- compose_sys_prompt("Sei un simpatico assistente.")
+usr_prompt <- compose_usr_prompt(
+  "Racconta una barzelletta che termini col testo che segue:"
+)
+prompter <- create_usr_data_prompter(usr_prompt = usr_prompt)
+text <-  c(
+    "Che barba, che noia!",
+    "Un po' noioso, ma interessante",
+    "Che bello, mi è piaciuto molto!"
+  )
+
+prompts <- text |>
+  purrr::map(
+    \(x) compose_prompt_api(
+      sys_prompt = sys_prompt,
+      usr_prompt = prompter(x)
+    )
+  )
+
+# Create a jsonl file as required by the API, and save it
+jsonl_text <- create_jsonl_records(prompts)
+out_jsonl_path <- write_jsonl_files(jsonl_text, tempdir())
+
+# upload the jsonl file to OpenAI project
+# The project used is the one linked with the API key you have set in
+# the environment variable `OPENAI_API_KEY`
+batch_file_info <- batch_upload_file(out_jsonl_path)
+batch_file_info
+
+# Create a batch job from the id of an uploaded jsonl file
+batch_job_info <- batch_create(batch_file_info[["id"]])
+batch_job_info
+
+# You can retrieve the status of the batch job by its ID
+batch_status <- batch_status(batch_job_info[["id"]])
+batch_status
+
+# You can list all the batches in the project (default limit is 10)
+list_of_batches <- batch_list()
+list_of_batches
+
+# You can cancel a batch job by its ID
+batch_cancelled <- batch_cancel(batch_job_info[["id"]])
+batch_cancelled
+
+# Once the batch is completed, you can retrieve the results by
+# 
+# results <- batch_result(batch_status[["output_file_id"]])
+# 
+# Here, we will use an already computed batch to show the result structure.
+# Please note, the following code will not work as it is because the
+# (probably) you have not access to my "batch_lxIIMZndJ0JLokuKdW3iaU0n"
+# batch job.
+results <- batch_status("batch_lxIIMZndJ0JLokuKdW3iaU0n")[["output_file_id"]] |> 
+  batch_result()
+str(results, 2)
+
+# By default the results are simplified to the response body returning 
+# a list of responses, so you can continue to work as usual. If you want
+# to have the full response, you can set `simplify = FALSE` in the
+# `batch_result` call.
+res <- purrr::map_chr(results, get_content)
+res
+```
+
+
+
+
 ## Code of Conduct
 
 Please note that the `{gpteasyr}` project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.

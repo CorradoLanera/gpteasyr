@@ -134,7 +134,7 @@ get_completion_from_messages <- function(
 
     parsed <- response |>
       httr::content(as = "text", encoding = "UTF-8") |>
-      jsonlite::fromJSON(flatten = TRUE)
+      jsonlite::fromJSON()
 
     if (httr::http_error(response)) {
       err <- parsed[["error"]]
@@ -185,6 +185,7 @@ get_tokens <- function(
   completion,
   what = c("total", "prompt", "completion", "all")
 ) {
+
   what <- match.arg(what)
 
   if (all(is.na(completion))) {

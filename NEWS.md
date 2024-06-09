@@ -1,4 +1,4 @@
-# gpteasyr (development version)
+# gpteasyr 0.4.0
 
 * Added `batch_upload_file`, `batch_create`, `batch_status`, `batch_cancel`, `batch_list`, and `batch_result` functions to manage batch queries accordingly to OpenAi API specification.
 * Added `create_jsonl_records`, and `write_jsonl_files` functions to compose 'jsonl' files useful for batch queries accordingly to API specification. Model's options are available like for `query_gpt`, `gpt_query_on_column`, and  `get_completion_from_messages`.

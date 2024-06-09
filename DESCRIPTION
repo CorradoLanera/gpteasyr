@@ -1,6 +1,6 @@
 Package: gpteasyr
 Title: A basic and simple interface to OpenAI’s GPT API
-Version: 0.3.0.9000
+Version: 0.4.0
 Authors@R: 
     person("Corrado", "Lanera", , "corrado.lanera@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-0520-7428"))

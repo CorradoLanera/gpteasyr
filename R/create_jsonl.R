@@ -6,6 +6,9 @@
 #' @param id (int) The id of the record.
 #' @param model (chr, default = "gpt-3.5-turbo") The model to be used.
 #' @param prefix (chr, default = "request-") The prefix of the custom id.
+#' @param temperature (dbl) the temperature to use
+#' @param max_tokens (dbl) the maximum number of tokens
+#' @param seed (dbl) the seed to use
 #'
 #' @return (chr) The jsonl records.
 #' @export
@@ -87,26 +90,28 @@ create_jsonl_records <- function(
 
   purrr::pmap_chr(
     list(prompt, id),
-    \(x, y) compose_jsonl_record(
-      x,
-      y,
-      model = model,
-      temperature = temperature,
-      max_tokens = max_tokens,
-      seed = seed,
-      prefix = prefix
-    )
+    \(x, y) {
+      compose_jsonl_record(
+        x,
+        y,
+        model = model,
+        temperature = temperature,
+        max_tokens = max_tokens,
+        seed = seed,
+        prefix = prefix
+      )
+    }
   )
 }
 
 compose_jsonl_record <- function(
-    prompt,
-    id,
-    model,
-    temperature = 0,
-    max_tokens = NULL,
-    seed = NULL,
-    prefix = "request-"
+  prompt,
+  id,
+  model,
+  temperature = 0,
+  max_tokens = NULL,
+  seed = NULL,
+  prefix = "request-"
 ) {
   body <- list(
     messages = prompt |>
@@ -141,7 +146,7 @@ compose_jsonl_record <- function(
 #' This function writes jsonl files from a list of jsonl records.
 #'
 #' @param jsonl_records (list) A list of jsonl records.
-#' @param dir_path (chr, default = here::here()) The directory path where to write the jsonl files.
+#' @param dir_path (chr) The directory path where to write the jsonl files.
 #' @param name_prefix (chr, default = "batch-input") The prefix of the jsonl files.
 #' @param max_mb (numeric, default = 100) The maximum size of the jsonl files in MB.
 #'

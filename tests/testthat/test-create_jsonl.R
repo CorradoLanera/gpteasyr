@@ -16,8 +16,8 @@ test_that("create_jsonl works", {
 
   sys_prompt <- compose_sys_prompt(role = role, context = context)
   usr_prompt <- compose_usr_prompt(
-   task = task, instructions = instructions, output = output,
-   style = style, examples = examples
+    task = task, instructions = instructions, output = output,
+    style = style, examples = examples
   )
 
   prompter <- create_usr_data_prompter(usr_prompt = usr_prompt)
@@ -33,10 +33,12 @@ test_that("create_jsonl works", {
       id = dplyr::row_number(),
       prompt = commenti |>
         purrr::map(
-          \(x) compose_prompt_api(
-            sys_prompt = sys_prompt,
-            usr_prompt = prompter(x)
-          )
+          \(x) {
+            compose_prompt_api(
+              sys_prompt = sys_prompt,
+              usr_prompt = prompter(x)
+            )
+          }
         )
     )
 
@@ -135,10 +137,12 @@ test_that("write_jsonl_files", {
       id = dplyr::row_number(),
       prompt = commenti |>
         purrr::map(
-          \(x) compose_prompt_api(
-            sys_prompt = sys_prompt,
-            usr_prompt = prompter(x)
-          )
+          \(x) {
+            compose_prompt_api(
+              sys_prompt = sys_prompt,
+              usr_prompt = prompter(x)
+            )
+          }
         ),
       jsonl = create_jsonl_records(prompt, id)
     ) |>

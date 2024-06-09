@@ -7,14 +7,15 @@
 write_jsonl_files(
   jsonl_records,
   dir_path,
-  name_prefix = "batch-input",
+  name_prefix = stringr::str_c(stringr::str_remove_all(Sys.time(), "\\\\D"),
+    "_batch-input"),
   max_mb = 100
 )
 }
 \arguments{
 \item{jsonl_records}{(list) A list of jsonl records.}
 
-\item{dir_path}{(chr, default = here::here()) The directory path where to write the jsonl files.}
+\item{dir_path}{(chr) The directory path where to write the jsonl files.}
 
 \item{name_prefix}{(chr, default = "batch-input") The prefix of the jsonl files.}
 

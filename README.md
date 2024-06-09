@@ -98,40 +98,41 @@ res <- query_gpt(
 )
 #> ℹ Total tries: 1.
 #> ℹ Prompt token used: 29.
-#> ℹ Response token used: 100.
-#> ℹ Total token used: 129.
+#> ℹ Response token used: 84.
+#> ℹ Total token used: 113.
 
 str(res)
 #> List of 7
-#>  $ id                : chr "chatcmpl-9RVNU6mPT5cq0XifTLp0MfqvsAhSB"
+#>  $ id                : chr "chatcmpl-9YF9y0wAQWx2FjWFqFn2wlJl1p0Dw"
 #>  $ object            : chr "chat.completion"
-#>  $ created           : int 1716342500
+#>  $ created           : int 1717948454
 #>  $ model             : chr "gpt-3.5-turbo-0125"
-#>  $ choices           :'data.frame':  1 obs. of  5 variables:
-#>   ..$ index          : int 0
-#>   ..$ logprobs       : logi NA
-#>   ..$ finish_reason  : chr "length"
-#>   ..$ message.role   : chr "assistant"
-#>   ..$ message.content: chr "The last course I provided was on environmental sustainability in business. It covered topics such as sustainab"| __truncated__
+#>  $ choices           :'data.frame':  1 obs. of  4 variables:
+#>   ..$ index        : int 0
+#>   ..$ message      :'data.frame':    1 obs. of  2 variables:
+#>   .. ..$ role   : chr "assistant"
+#>   .. ..$ content: chr "The last course my professor provided was on Modern Topics in Physics. This course explored advanced concepts i"| __truncated__
+#>   ..$ logprobs     : logi NA
+#>   ..$ finish_reason: chr "stop"
 #>  $ usage             :List of 3
 #>   ..$ prompt_tokens    : int 29
-#>   ..$ completion_tokens: int 100
-#>   ..$ total_tokens     : int 129
+#>   ..$ completion_tokens: int 84
+#>   ..$ total_tokens     : int 113
 #>  $ system_fingerprint: NULL
 get_content(res)
-#> [1] "The last course I provided was on environmental sustainability in business. It covered topics such as sustainable business practices, corporate social responsibility, and the role of businesses in addressing environmental issues. We also discussed case studies and examples of companies who have successfully implemented sustainable initiatives. The course included both theory and practical applications, and students were encouraged to develop their own sustainability action plans for a real-world scenario. Overall, it was a very insightful and engaging course that encouraged students to think critically about the intersection of business and environmental"
+#> [1] "The last course my professor provided was on Modern Topics in Physics. This course explored advanced concepts in modern physics, including quantum mechanics, relativity, particle physics, and cosmology. The course included a combination of lectures, discussions, problem-solving sessions, and hands-on experiments, providing students with a comprehensive understanding of cutting-edge theories in physics. It received positive feedback from students and sparked lively debates among experts in the field."
 
 # for a well formatted output on R, use `cat()`
 get_content(res) |> cat()
-#> The last course I provided was on environmental sustainability in business. It covered topics such as sustainable business practices, corporate social responsibility, and the role of businesses in addressing environmental issues. We also discussed case studies and examples of companies who have successfully implemented sustainable initiatives. The course included both theory and practical applications, and students were encouraged to develop their own sustainability action plans for a real-world scenario. Overall, it was a very insightful and engaging course that encouraged students to think critically about the intersection of business and environmental
+#> The last course my professor provided was on Modern Topics in Physics. This course explored advanced concepts in modern physics, including quantum mechanics, relativity, particle physics, and cosmology. The course included a combination of lectures, discussions, problem-solving sessions, and hands-on experiments, providing students with a comprehensive understanding of cutting-edge theories in physics. It received positive feedback from students and sparked lively debates among experts in the field.
 
 get_tokens(res) # default is "total"
-#> [1] 129
+#> [1] 113
 get_tokens(res, "prompt") # "total", "prompt", "completion" (i.e., the answer)
 #> [1] 29
 get_tokens(res, "all")
 #>     prompt_tokens completion_tokens      total_tokens 
-#>                29               100               129
+#>                29                84               113
 ```
 
 ## Easy prompt-assisted creation
@@ -324,7 +325,7 @@ for (i in seq_len(n)) {
   tick(pb, paste("Row", i, "of", n))
 }
 #> 
-#> evaluated: Row 5 of 7 [====================>--------]  71% in  2s [ETA:  1s]evaluated: Row 6 of 7 [========================>----]  86% in  3s [ETA:  0s]evaluated: Row 7 of 7 [=============================] 100% in  3s [ETA:  0s]
+#> evaluated: Row 5 of 7 [====================>--------]  71% in  2s [ETA:  1s]evaluated: Row 6 of 7 [========================>----]  86% in  3s [ETA:  0s]evaluated: Row 7 of 7 [=============================] 100% in  4s [ETA:  0s]
 
 db
 #>                                                                       txt
@@ -463,7 +464,7 @@ res <- query_gpt(
   get_content() 
 
 cat(res)
-#> The last course that the professor provided was a graduate-level seminar on "Advanced Topics in Artificial Intelligence." The course covered cutting-edge research in areas such as deep learning, natural language processing, and reinforcement learning. Students were required to read and present research papers, participate in discussions, and complete a final project applying the concepts learned in the course. The professor also invited guest speakers from industry and academia to share their expertise and insights with the students. Overall, the course was well-received by the students and provided them with a deeper understanding of the latest developments in the field of artificial intelligence.
+#> The last course provided by the professor was a graduate-level seminar on "Advanced Topics in Artificial Intelligence." The course covered cutting-edge research in areas such as deep learning, natural language processing, and reinforcement learning. Students were required to read and present research papers, participate in discussions, and complete a final project applying the concepts learned in the course. The professor also invited guest speakers from industry and academia to provide additional insights into the field. Overall, the course aimed to deepen students' understanding of the latest developments in artificial intelligence and prepare them for careers in research or industry.
 ```
 
 ### Personalized server’s endpoint
@@ -492,6 +493,161 @@ if (FALSE) { # we do not run this in the README
 
 cat(res)
 }
+```
+
+## Batch OpenAI requests
+
+By April 23, 2024, OpenAI has introduced a new feature that allows you
+to send multiple requests in a single call (see:
+<https://openai.com/index/more-enterprise-grade-features-for-api-customers/>).
+
+This feature is now available in `{gpteasyr}`. You can use the `batch_*`
+functions to send multiple requests in a single call. The functions are
+`batch_upload_file`,
+
+``` r
+# Create a list of prompts
+sys_prompt <- compose_sys_prompt("Sei un simpatico assistente.")
+usr_prompt <- compose_usr_prompt(
+  "Racconta una barzelletta che termini col testo che segue:"
+)
+prompter <- create_usr_data_prompter(usr_prompt = usr_prompt)
+text <-  c(
+    "Che barba, che noia!",
+    "Un po' noioso, ma interessante",
+    "Che bello, mi è piaciuto molto!"
+  )
+
+prompts <- text |>
+  purrr::map(
+    \(x) compose_prompt_api(
+      sys_prompt = sys_prompt,
+      usr_prompt = prompter(x)
+    )
+  )
+
+# Create a jsonl file as required by the API, and save it
+jsonl_text <- create_jsonl_records(prompts)
+out_jsonl_path <- write_jsonl_files(jsonl_text, tempdir())
+
+# upload the jsonl file to OpenAI project
+# The project used is the one linked with the API key you have set in
+# the environment variable `OPENAI_API_KEY`
+batch_file_info <- batch_upload_file(out_jsonl_path)
+batch_file_info
+#> # A tibble: 1 × 8
+#>   object id              purpose filename bytes created_at status status_details
+#>   <chr>  <chr>           <chr>   <chr>    <int>      <int> <chr>  <lgl>         
+#> 1 file   file-HUrpZUzfA… batch   2024060…   973 1717948471 proce… NA
+
+# Create a batch job from the id of an uploaded jsonl file
+batch_job_info <- batch_create(batch_file_info[["id"]])
+batch_job_info
+#> # A tibble: 1 × 22
+#>   id               object endpoint errors input_file_id completion_window status
+#>   <chr>            <chr>  <chr>    <lgl>  <chr>         <chr>             <chr> 
+#> 1 batch_jnRBtno9X… batch  /v1/cha… NA     file-HUrpZUz… 24h               valid…
+#> # ℹ 15 more variables: output_file_id <lgl>, error_file_id <lgl>,
+#> #   created_at <int>, in_progress_at <lgl>, expires_at <int>,
+#> #   finalizing_at <lgl>, completed_at <lgl>, failed_at <lgl>, expired_at <lgl>,
+#> #   cancelling_at <lgl>, cancelled_at <lgl>, request_counts_total <int>,
+#> #   request_counts_completed <int>, request_counts_failed <int>, metadata <lgl>
+
+# You can retrieve the status of the batch job by its ID
+batch_status <- batch_status(batch_job_info[["id"]])
+batch_status
+#> # A tibble: 1 × 22
+#>   id               object endpoint errors input_file_id completion_window status
+#>   <chr>            <chr>  <chr>    <lgl>  <chr>         <chr>             <chr> 
+#> 1 batch_jnRBtno9X… batch  /v1/cha… NA     file-HUrpZUz… 24h               in_pr…
+#> # ℹ 15 more variables: output_file_id <lgl>, error_file_id <lgl>,
+#> #   created_at <int>, in_progress_at <int>, expires_at <int>,
+#> #   finalizing_at <lgl>, completed_at <lgl>, failed_at <lgl>, expired_at <lgl>,
+#> #   cancelling_at <lgl>, cancelled_at <lgl>, request_counts_total <int>,
+#> #   request_counts_completed <int>, request_counts_failed <int>, metadata <lgl>
+
+# You can list all the batches in the project (default limit is 10)
+list_of_batches <- batch_list()
+list_of_batches
+#> # A tibble: 10 × 5
+#>    object data$id            $object $endpoint $errors first_id last_id has_more
+#>    <chr>  <chr>              <chr>   <chr>     <lgl>   <chr>    <chr>   <lgl>   
+#>  1 list   batch_jnRBtno9Xt0… batch   /v1/chat… NA      batch_j… batch_… TRUE    
+#>  2 list   batch_2R2aGiz7KUF… batch   /v1/chat… NA      batch_j… batch_… TRUE    
+#>  3 list   batch_Y0ADn06jiat… batch   /v1/chat… NA      batch_j… batch_… TRUE    
+#>  4 list   batch_fRMTRSdvqex… batch   /v1/chat… NA      batch_j… batch_… TRUE    
+#>  5 list   batch_o0543oZ9r0G… batch   /v1/chat… NA      batch_j… batch_… TRUE    
+#>  6 list   batch_IDFvSdifMU0… batch   /v1/chat… NA      batch_j… batch_… TRUE    
+#>  7 list   batch_i86GpcxjAk9… batch   /v1/chat… NA      batch_j… batch_… TRUE    
+#>  8 list   batch_bdz02qG5J8b… batch   /v1/chat… NA      batch_j… batch_… TRUE    
+#>  9 list   batch_7WFbMsQjE9o… batch   /v1/chat… NA      batch_j… batch_… TRUE    
+#> 10 list   batch_tk7KHKvJ5B9… batch   /v1/chat… NA      batch_j… batch_… TRUE    
+#> # ℹ 16 more variables: data$input_file_id <chr>, $completion_window <chr>,
+#> #   $status <chr>, $output_file_id <chr>, $error_file_id <chr>,
+#> #   $created_at <int>, $in_progress_at <int>, $expires_at <int>,
+#> #   $finalizing_at <lgl>, $completed_at <lgl>, $failed_at <lgl>,
+#> #   $expired_at <lgl>, $cancelling_at <int>, $cancelled_at <int>,
+#> #   $request_counts <df[,3]>, $metadata <lgl>
+
+# You can cancel a batch job by its ID
+batch_cancelled <- batch_cancel(batch_job_info[["id"]])
+batch_cancelled
+#> # A tibble: 1 × 22
+#>   id               object endpoint errors input_file_id completion_window status
+#>   <chr>            <chr>  <chr>    <lgl>  <chr>         <chr>             <chr> 
+#> 1 batch_jnRBtno9X… batch  /v1/cha… NA     file-HUrpZUz… 24h               cance…
+#> # ℹ 15 more variables: output_file_id <lgl>, error_file_id <lgl>,
+#> #   created_at <int>, in_progress_at <int>, expires_at <int>,
+#> #   finalizing_at <lgl>, completed_at <lgl>, failed_at <lgl>, expired_at <lgl>,
+#> #   cancelling_at <int>, cancelled_at <lgl>, request_counts_total <int>,
+#> #   request_counts_completed <int>, request_counts_failed <int>, metadata <lgl>
+
+# Once the batch is completed, you can retrieve the results by
+# 
+# results <- batch_result(batch_status[["output_file_id"]])
+# 
+# Here, we will use an already computed batch to show the result structure.
+# Please note, the following code will not work as it is because the
+# (probably) you have not access to my "batch_lxIIMZndJ0JLokuKdW3iaU0n"
+# batch job.
+results <- batch_status("batch_lxIIMZndJ0JLokuKdW3iaU0n")[["output_file_id"]] |> 
+  batch_result()
+str(results, 2)
+#> List of 3
+#>  $ :List of 7
+#>   ..$ id                : chr "chatcmpl-9X8tAA8kPkxeobOk8nXK2ZKVMBoam"
+#>   ..$ object            : chr "chat.completion"
+#>   ..$ created           : int 1717686020
+#>   ..$ model             : chr "gpt-3.5-turbo-0125"
+#>   ..$ choices           :'data.frame':   1 obs. of  4 variables:
+#>   ..$ usage             :List of 3
+#>   ..$ system_fingerprint: NULL
+#>  $ :List of 7
+#>   ..$ id                : chr "chatcmpl-9X8tAavwNXksayZ9SrFmpxWZZSmTX"
+#>   ..$ object            : chr "chat.completion"
+#>   ..$ created           : int 1717686020
+#>   ..$ model             : chr "gpt-3.5-turbo-0125"
+#>   ..$ choices           :'data.frame':   1 obs. of  4 variables:
+#>   ..$ usage             :List of 3
+#>   ..$ system_fingerprint: NULL
+#>  $ :List of 7
+#>   ..$ id                : chr "chatcmpl-9X8tAzY6Tg2lKCvc8EE2LSDz39hsX"
+#>   ..$ object            : chr "chat.completion"
+#>   ..$ created           : int 1717686020
+#>   ..$ model             : chr "gpt-3.5-turbo-0125"
+#>   ..$ choices           :'data.frame':   1 obs. of  4 variables:
+#>   ..$ usage             :List of 3
+#>   ..$ system_fingerprint: NULL
+
+# By default the results are simplified to the response body returning 
+# a list of responses, so you can continue to work as usual. If you want
+# to have the full response, you can set `simplify = FALSE` in the
+# `batch_result` call.
+res <- purrr::map_chr(results, get_content)
+res
+#> [1] "Certo, ecco la barzelletta:\n\nQual è l'animale più pigro della giungla?\nIl panda, perché è sempre in bianco e nero!\n\nChe barba, che noia!"      
+#> [2] "Perché i pesci non sanno giocare a pallacanestro?\nPerché sono troppo scivolosi per fare un tiro in sospensione!\n\nUn po' noioso, ma interessante."
+#> [3] "Certo, ecco la barzelletta:\n\nQual è l'animale più antico del mondo? La zebra, perché è in bianco e nero! \n\nChe bello, mi è piaciuto molto!"
 ```
 
 ## Code of Conduct

@@ -10,7 +10,7 @@
 #'   "https://api.openai.com/v1/chat/completions", i.e. the OpenAI API)
 #'   the endpoint to use for the request.
 #' @param na_if_error (lgl) whether to return NA if an error occurs
-#' @param seed  (chr, default = NULL) a string to seed the random number
+#' @param seed (chr, default = NULL) a string to seed the random number
 #' @param use_py (lgl, default = FALSE) whether to use python or not
 #'
 #' @return (list) the result of the query

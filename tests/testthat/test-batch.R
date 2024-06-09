@@ -1,6 +1,5 @@
 test_that("batch utils works", {
   skip_on_cran()
-  skip_on_ci()
   skip_if_offline()
 
   # setup
@@ -10,17 +9,19 @@ test_that("batch utils works", {
   )
   prompter <- create_usr_data_prompter(usr_prompt = usr_prompt)
   text <-  c(
-      "Che barba, che noia!",
-      "Un po' noioso, ma interessante",
-      "Che bello, mi è piaciuto molto!"
-    )
+    "Che barba, che noia!",
+    "Un po' noioso, ma interessante",
+    "Che bello, mi è piaciuto molto!"
+  )
 
   jsonl_text <- text |>
     purrr::map(
-      \(x) compose_prompt_api(
-        sys_prompt = sys_prompt,
-        usr_prompt = prompter(x)
-      )
+      \(x) {
+        compose_prompt_api(
+          sys_prompt = sys_prompt,
+          usr_prompt = prompter(x)
+        )
+      }
     ) |>
     create_jsonl_records()
   out_jsonl_path <- write_jsonl_files(jsonl_text, tempdir())
@@ -33,7 +34,7 @@ test_that("batch utils works", {
   batch_job_info <- batch_file_info[["id"]] |>
     batch_create()
   batch_status <- batch_job_info[["id"]] |>
-    batch_retrive_status()
+    batch_status()
   after_start_status <- batch_list()
 
   batch_cancelled <- batch_job_info[["id"]] |>

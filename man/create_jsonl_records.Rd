@@ -4,7 +4,15 @@
 \alias{create_jsonl_records}
 \title{Create jsonl records}
 \usage{
-create_jsonl_records(prompt, id, model = "gpt-3.5-turbo", prefix = "request-")
+create_jsonl_records(
+  prompt,
+  id = seq_along(prompt),
+  model = "gpt-3.5-turbo",
+  temperature = 0,
+  max_tokens = NULL,
+  seed = NULL,
+  prefix = "request-"
+)
 }
 \arguments{
 \item{prompt}{(list) The messages to be included in the jsonl record.}
@@ -12,6 +20,12 @@ create_jsonl_records(prompt, id, model = "gpt-3.5-turbo", prefix = "request-")
 \item{id}{(int) The id of the record.}
 
 \item{model}{(chr, default = "gpt-3.5-turbo") The model to be used.}
+
+\item{temperature}{(dbl) the temperature to use}
+
+\item{max_tokens}{(dbl) the maximum number of tokens}
+
+\item{seed}{(dbl) the seed to use}
 
 \item{prefix}{(chr, default = "request-") The prefix of the custom id.}
 }

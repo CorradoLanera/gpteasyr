@@ -52,9 +52,9 @@ This function writes jsonl files from a list of jsonl records.
 
   jsonl_on_db <- tibble::tibble(
     commenti = c(
-      "Che barba, che noia!",
-      "Un po' noioso, ma interessante",
-      "Che bello, mi è piaciuto molto!"
+      "deadly boring!",
+      "A bit boring, but interesting",
+      "How nice, I loved it!"
     )
   ) |>
     dplyr::mutate(

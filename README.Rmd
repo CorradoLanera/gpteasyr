@@ -301,19 +301,19 @@ cat(res)
 
 By April 23, 2024, OpenAI has introduced a new feature that allows you to send multiple requests in a single call (see: https://openai.com/index/more-enterprise-grade-features-for-api-customers/).
 
-This feature is now available in `{gpteasyr}`. You can use the `batch_*` functions to send multiple requests in a single call. The functions are `batch_upload_file`, 
+This feature is now available in `{gpteasyr}`. You can use the `batch_*` functions to send multiple requests in a single call. The functions are `file_upload`, 
 
 ```{r}
 # Create a list of prompts
-sys_prompt <- compose_sys_prompt("Sei un simpatico assistente.")
+sys_prompt <- compose_sys_prompt("You are a funny assistant.")
 usr_prompt <- compose_usr_prompt(
-  "Racconta una barzelletta che termini col testo che segue:"
+  "Tell me a joke ending in:"
 )
 prompter <- create_usr_data_prompter(usr_prompt = usr_prompt)
 text <-  c(
-    "Che barba, che noia!",
-    "Un po' noioso, ma interessante",
-    "Che bello, mi è piaciuto molto!"
+    "deadly boring!",
+    "A bit boring, but interesting",
+    "How nice, I loved it!"
   )
 
 prompts <- text |>
@@ -331,7 +331,7 @@ out_jsonl_path <- write_jsonl_files(jsonl_text, tempdir())
 # upload the jsonl file to OpenAI project
 # The project used is the one linked with the API key you have set in
 # the environment variable `OPENAI_API_KEY`
-batch_file_info <- batch_upload_file(out_jsonl_path)
+batch_file_info <- file_upload(out_jsonl_path)
 batch_file_info
 
 # Create a batch job from the id of an uploaded jsonl file

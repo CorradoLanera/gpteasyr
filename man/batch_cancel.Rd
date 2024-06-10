@@ -23,7 +23,7 @@ For more information, see the
 if (FALSE) {
   batch_cancel("batch_abc123")
 
-  batch_file_info <- batch_upload_file("abc123.jsonl")
+  batch_file_info <- file_upload("abc123.jsonl")
   batch_job_info <- batch_file_info[["id"]] |>
     batch_create()
   batch_cancelled <- batch_job_info[["id"]] |>
@@ -32,11 +32,11 @@ if (FALSE) {
 }
 }
 \seealso{
-Other batch: 
+Other batches: 
 \code{\link{batch_create}()},
 \code{\link{batch_list}()},
 \code{\link{batch_result}()},
 \code{\link{batch_status}()},
-\code{\link{batch_upload_file}()}
+\code{\link{file_upload}()}
 }
-\concept{batch}
+\concept{batches}

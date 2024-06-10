@@ -3,15 +3,15 @@ test_that("batch utils works", {
   skip_if_offline()
 
   # setup
-  sys_prompt <- compose_sys_prompt("Sei un simpatico assistente.")
+  sys_prompt <- compose_sys_prompt("You are a funny assistant.")
   usr_prompt <- compose_usr_prompt(
-    "Racconta una barzelletta che termini col testo che segue:"
+    "Tell me a joke ending in:"
   )
   prompter <- create_usr_data_prompter(usr_prompt = usr_prompt)
   text <-  c(
-    "Che barba, che noia!",
-    "Un po' noioso, ma interessante",
-    "Che bello, mi è piaciuto molto!"
+    "deadly boring!",
+    "A bit boring, but interesting",
+    "How nice, I loved it!"
   )
 
   jsonl_text <- text |>
@@ -31,7 +31,7 @@ test_that("batch utils works", {
   Sys.sleep(1)
   n <- nrow(before_start_status)
 
-  batch_file_info <- batch_upload_file(out_jsonl_path)
+  batch_file_info <- file_upload(out_jsonl_path)
   batch_job_info <- batch_file_info[["id"]] |>
     batch_create()
   batch_status <- batch_job_info[["id"]] |>

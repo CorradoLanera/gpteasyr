@@ -503,19 +503,19 @@ to send multiple requests in a single call (see:
 
 This feature is now available in `{gpteasyr}`. You can use the `batch_*`
 functions to send multiple requests in a single call. The functions are
-`batch_upload_file`,
+`file_upload`,
 
 ``` r
 # Create a list of prompts
-sys_prompt <- compose_sys_prompt("Sei un simpatico assistente.")
+sys_prompt <- compose_sys_prompt("You are a funny assistant.")
 usr_prompt <- compose_usr_prompt(
-  "Racconta una barzelletta che termini col testo che segue:"
+  "Tell me a joke ending in:"
 )
 prompter <- create_usr_data_prompter(usr_prompt = usr_prompt)
 text <-  c(
-    "Che barba, che noia!",
-    "Un po' noioso, ma interessante",
-    "Che bello, mi è piaciuto molto!"
+    "deadly boring!",
+    "A bit boring, but interesting",
+    "How nice, I loved it!"
   )
 
 prompts <- text |>
@@ -533,7 +533,7 @@ out_jsonl_path <- write_jsonl_files(jsonl_text, tempdir())
 # upload the jsonl file to OpenAI project
 # The project used is the one linked with the API key you have set in
 # the environment variable `OPENAI_API_KEY`
-batch_file_info <- batch_upload_file(out_jsonl_path)
+batch_file_info <- file_upload(out_jsonl_path)
 batch_file_info
 #> # A tibble: 1 × 8
 #>   object id              purpose filename bytes created_at status status_details
@@ -645,9 +645,9 @@ str(results, 2)
 # `batch_result` call.
 res <- purrr::map_chr(results, get_content)
 res
-#> [1] "Certo, ecco la barzelletta:\n\nQual è l'animale più pigro della giungla?\nIl panda, perché è sempre in bianco e nero!\n\nChe barba, che noia!"      
-#> [2] "Perché i pesci non sanno giocare a pallacanestro?\nPerché sono troppo scivolosi per fare un tiro in sospensione!\n\nUn po' noioso, ma interessante."
-#> [3] "Certo, ecco la barzelletta:\n\nQual è l'animale più antico del mondo? La zebra, perché è in bianco e nero! \n\nChe bello, mi è piaciuto molto!"
+#> [1] "Certo, ecco la barzelletta:\n\nQual è l'animale più pigro della giungla?\nIl panda, perché è sempre in bianco e nero!\n\ndeadly boring!"      
+#> [2] "Perché i pesci non sanno giocare a pallacanestro?\nPerché sono troppo scivolosi per fare un tiro in sospensione!\n\nA bit boring, but interesting."
+#> [3] "Certo, ecco la barzelletta:\n\nQual è l'animale più antico del mondo? La zebra, perché è in bianco e nero! \n\nHow nice, I loved it!"
 ```
 
 ## Code of Conduct

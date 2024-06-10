@@ -1,3 +1,8 @@
+# gpteasyr (development version)
+
+* fix an issue that can lead to integer overflow in `write_jsonl_files`.
+* Added `file_*` family of functions
+
 # gpteasyr 0.4.0
 
 * Added `file_upload`, `batch_create`, `batch_status`, `batch_cancel`, `batch_list`, and `batch_result` functions to manage batch queries accordingly to OpenAi API specification.

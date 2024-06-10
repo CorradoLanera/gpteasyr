@@ -226,7 +226,7 @@ write_jsonl_files <- function(
 
   while (length(current[[1]]) > 0) {
     cum_sizes <- current[[1]] |>
-      purrr::map_int(nchar) |>
+      purrr::map_dbl(nchar) |>
       cumsum()
     last_to_take <- sum(cum_sizes < max_size) |> # max size/batch
       min(5e4) # max query/batch

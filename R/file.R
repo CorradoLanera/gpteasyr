@@ -55,17 +55,20 @@ file_upload <- function(jsonl_path, purpose = "batch") {
     checkmate::assert_file_exists(jsonl_path, extension = "jsonl")
   }
 
-  httr::POST(
-    "https://api.openai.com/v1/files",
-    httr::add_headers(
-      "Authorization" = paste("Bearer", Sys.getenv("OPENAI_API_KEY"))
-    ),
-    body = list(
-      purpose = purpose,
-      file = httr::upload_file(jsonl_path)
-    )
-  ) |>
-    parse_httr_response()
+  httr::with_config(
+    httr::config(connecttimeout_ms = 600000),
+    httr::POST(
+      "https://api.openai.com/v1/files",
+      httr::add_headers(
+        "Authorization" = paste("Bearer", Sys.getenv("OPENAI_API_KEY"))
+      ),
+      body = list(
+        purpose = purpose,
+        file = httr::upload_file(jsonl_path)
+      )
+    ) |>
+      parse_httr_response()
+  )
 }
 
 
@@ -91,7 +94,7 @@ file_list <- function(purpose = NULL) {
   }
 
   httr::with_config(
-    httr::timeout(600),
+    httr::config(connecttimeout_ms = 600000),
     httr::GET(
       # "http://httpbin.org/get",
       stringr::str_glue("https://api.openai.com/v1/files"),
@@ -144,17 +147,19 @@ file_list <- function(purpose = NULL) {
 #' file_info(files[["id"]][[1]])
 #' file_delete(uploaded_file_info[["id"]])
 file_info <- function(file_id) {
-  httr::GET(
-    stringr::str_glue(
-      "https://api.openai.com/v1/files/{file_id}"
-    ),
-    httr::add_headers(
-      "Authorization" = paste("Bearer", Sys.getenv("OPENAI_API_KEY"))
-    ),
-    httr::content_type_json()
-  ) |>
-    parse_httr_response()
-
+  httr::with_config(
+    httr::config(connecttimeout_ms = 600000),
+    httr::GET(
+      stringr::str_glue(
+        "https://api.openai.com/v1/files/{file_id}"
+      ),
+      httr::add_headers(
+        "Authorization" = paste("Bearer", Sys.getenv("OPENAI_API_KEY"))
+      ),
+      httr::content_type_json()
+    ) |>
+      parse_httr_response()
+  )
 }
 
 #' Delete file
@@ -192,13 +197,16 @@ file_info <- function(file_id) {
 #' uploaded_file_info <- file_upload(out_jsonl_path)
 #' file_delete(uploaded_file_info[["id"]])
 file_delete <- function(file_id) {
-  httr::DELETE(
-    stringr::str_glue("https://api.openai.com/v1/files/{file_id}"),
-    httr::add_headers(
-      "Authorization" = paste("Bearer", Sys.getenv("OPENAI_API_KEY"))
-    )
-  ) |>
-    parse_httr_response()
+  httr::with_config(
+    httr::config(connecttimeout_ms = 600000),
+    httr::DELETE(
+      stringr::str_glue("https://api.openai.com/v1/files/{file_id}"),
+      httr::add_headers(
+        "Authorization" = paste("Bearer", Sys.getenv("OPENAI_API_KEY"))
+      )
+    ) |>
+      parse_httr_response()
+  )
 }
 
 #' Retrieve file content
@@ -236,14 +244,17 @@ file_delete <- function(file_id) {
 #' file_content <- file_retrieve(uploaded_file_info[["id"]])
 #' file_delete(uploaded_file_info[["id"]])
 file_retrieve <- function(file_id, convert_json = FALSE) {
-  httr::GET(
-    stringr::str_glue(
-      "https://api.openai.com/v1/files/{file_id}/content"
-    ),
-    httr::add_headers(
-      "Authorization" = paste("Bearer", Sys.getenv("OPENAI_API_KEY"))
-    ),
-    httr::content_type_json()
-  ) |>
-    parse_httr_response(convert_json = convert_json)
+  httr::with_config(
+    httr::config(connecttimeout_ms = 600000),
+    httr::GET(
+      stringr::str_glue(
+        "https://api.openai.com/v1/files/{file_id}/content"
+      ),
+      httr::add_headers(
+        "Authorization" = paste("Bearer", Sys.getenv("OPENAI_API_KEY"))
+      ),
+      httr::content_type_json()
+    ) |>
+      parse_httr_response(convert_json = convert_json)
+  )
 }

@@ -212,17 +212,33 @@ batch_result <- function(output_file_id, simplify = TRUE) {
 }
 
 split_results <- function(response, simplify = TRUE) {
-  response |>
-    stringr::str_trim() |>
-    stringr::str_split("\\n") |>
-    purrr::list_c() |>
+  (
+    response |>
+      stringr::str_trim() |>
+      stringr::str_split("\\n")
+  )[[1]] |>
     purrr::map(\(x) {
       x |>
         jsonlite::fromJSON() |>
-        purrr::map(\(x) x %||% NA) |>
-        (\(x) if (simplify) purrr::pluck(x, "response", "body") else x)()
+        (\(x) if (simplify) purrr::pluck(x, "response", "body") else x)() |>
+        purrr::map(\(x) x %||% NA)
     })
 }
+
+batch_output <- function(batch_id) {
+  batch_status(batch_id)[["output_file_id"]] |>
+    batch_result(FALSE) |>
+    purrr::flatten()
+    purrr::map_chr(get_content)
+}
+
+batch_error <- function(batch_id) {
+  batch_status(batch_id)[["error_file_id"]] |>
+    batch_result(FALSE)
+    purrr::map_dfr(\(x) purrr::pluck(x, "error"))
+}
+
+
 
 parse_httr_response <- function(response, convert_json = TRUE) {
   parsed <- response |>

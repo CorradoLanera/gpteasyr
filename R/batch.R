@@ -12,8 +12,6 @@
 #'
 #' @examples
 #' if (FALSE) {
-#'   batch_create("file-abc123")
-#'
 #'   batch_file_info <- file_upload("abc123.jsonl")
 #'   batch_job_info <- batch_file_info[["id"]] |>
 #'     batch_create()
@@ -191,13 +189,14 @@ batch_list <- function(n = 10) {
 #'     batch_status()
 #'
 #'   # once the batch is completed
-#'   results <- batch_status[["output_file_id"]] |>
-#'     batch_result()
+#'   results <- if (batch_status[["status"]] == "completed") {
+#'     batch_status[["id"]] |>
+#'       batch_result()
 #'   res <- results |>
 #'     purrr::map_chr(get_content)
 #'   res
 #'
-#'   full_results <- batch_status[["output_file_id"]] |>
+#'   full_results <- batch_status[["id"]] |>
 #'     batch_result(simplify = FALSE)
 #'   str(full_results, 2)
 #'   full_res <- full_results |>
@@ -206,9 +205,40 @@ batch_list <- function(n = 10) {
 #'
 #'   identical(res, full_res)
 #' }
-batch_result <- function(output_file_id, simplify = TRUE) {
-  file_retrieve(output_file_id) |>
-    split_results(simplify = simplify)
+batch_result <- function(batch_id, simplify = TRUE) {
+
+  if (!is.na(batch_status(batch_id)[["error_file_id"]])) {
+    usethis::ui_warn("Batch job has errors.")
+    usethis::ui_info(
+      'Use {usethis::ui_code(paste0("batch_error(\\"", batch_id, "\\")"))} to retrieve the error messages.'
+    )
+  }
+
+  batch_output(batch_id, simplify = simplify)
+}
+
+batch_output <- function(batch_id, simplify = TRUE, raw = FALSE) {
+  res <- batch_status(batch_id)[["output_file_id"]] |>
+    file_retrieve()
+
+  if (!raw) {
+    split_results(res, simplify = simplify)
+  } else {
+    res
+  }
+}
+
+batch_error <- function(batch_id, raw = FALSE) {
+  res <- batch_status(batch_id)[["error_file_id"]] |>
+    file_retrieve()
+
+  if (!raw) {
+    res |>
+    split_results(FALSE) |>
+    purrr::map_dfr(\(x) purrr::pluck(x, "error"))
+  } else {
+    res
+  }
 }
 
 split_results <- function(response, simplify = TRUE) {
@@ -224,20 +254,6 @@ split_results <- function(response, simplify = TRUE) {
         purrr::map(\(x) x %||% NA)
     })
 }
-
-batch_output <- function(batch_id) {
-  batch_status(batch_id)[["output_file_id"]] |>
-    batch_result(FALSE) |>
-    purrr::flatten()
-    purrr::map_chr(get_content)
-}
-
-batch_error <- function(batch_id) {
-  batch_status(batch_id)[["error_file_id"]] |>
-    batch_result(FALSE)
-    purrr::map_dfr(\(x) purrr::pluck(x, "error"))
-}
-
 
 
 parse_httr_response <- function(response, convert_json = TRUE) {

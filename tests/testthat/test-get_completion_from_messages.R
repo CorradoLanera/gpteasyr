@@ -69,6 +69,8 @@ test_that("get_completion_from_messages works w/ py", {
 })
 
 test_that("seed works", {
+  skip_on_cran()
+  skip_on_ci()
   # setup
   model <- "gpt-4o-mini"
   messages <- compose_prompt_api(

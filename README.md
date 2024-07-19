@@ -90,7 +90,7 @@ prompt
 
 res <- query_gpt(
   prompt = prompt,
-  model = "gpt-3.5-turbo",
+  model = "gpt-4o-mini",
   quiet = FALSE, # default TRUE
   max_try = 2, # default 10
   temperature = 1.5, # default 0 [0-2]
@@ -98,41 +98,41 @@ res <- query_gpt(
 )
 #> ℹ Total tries: 1.
 #> ℹ Prompt token used: 29.
-#> ℹ Response token used: 84.
-#> ℹ Total token used: 113.
+#> ℹ Response token used: 57.
+#> ℹ Total token used: 86.
 
 str(res)
 #> List of 7
-#>  $ id                : chr "chatcmpl-9YF9y0wAQWx2FjWFqFn2wlJl1p0Dw"
+#>  $ id                : chr "chatcmpl-9mkWb4KXeBxHxJ0HF24gzI2wH35dD"
 #>  $ object            : chr "chat.completion"
-#>  $ created           : int 1717948454
-#>  $ model             : chr "gpt-3.5-turbo-0125"
+#>  $ created           : int 1721405613
+#>  $ model             : chr "gpt-4o-mini-2024-07-18"
 #>  $ choices           :'data.frame':  1 obs. of  4 variables:
 #>   ..$ index        : int 0
 #>   ..$ message      :'data.frame':    1 obs. of  2 variables:
 #>   .. ..$ role   : chr "assistant"
-#>   .. ..$ content: chr "The last course my professor provided was on Modern Topics in Physics. This course explored advanced concepts i"| __truncated__
+#>   .. ..$ content: chr "I'm unable to provide specifics about a particular course, as I don't have access to personal coursework or tea"| __truncated__
 #>   ..$ logprobs     : logi NA
 #>   ..$ finish_reason: chr "stop"
 #>  $ usage             :List of 3
 #>   ..$ prompt_tokens    : int 29
-#>   ..$ completion_tokens: int 84
-#>   ..$ total_tokens     : int 113
-#>  $ system_fingerprint: NULL
+#>   ..$ completion_tokens: int 57
+#>   ..$ total_tokens     : int 86
+#>  $ system_fingerprint: chr "fp_7dd529cfca"
 get_content(res)
-#> [1] "The last course my professor provided was on Modern Topics in Physics. This course explored advanced concepts in modern physics, including quantum mechanics, relativity, particle physics, and cosmology. The course included a combination of lectures, discussions, problem-solving sessions, and hands-on experiments, providing students with a comprehensive understanding of cutting-edge theories in physics. It received positive feedback from students and sparked lively debates among experts in the field."
+#> [1] "I'm unable to provide specifics about a particular course, as I don't have access to personal coursework or teaching records. However, I can certainly assist you in general terms about course content, syllabus structure, projects, or methodologies! Please let me know which subject or specific information you're interested in."
 
 # for a well formatted output on R, use `cat()`
 get_content(res) |> cat()
-#> The last course my professor provided was on Modern Topics in Physics. This course explored advanced concepts in modern physics, including quantum mechanics, relativity, particle physics, and cosmology. The course included a combination of lectures, discussions, problem-solving sessions, and hands-on experiments, providing students with a comprehensive understanding of cutting-edge theories in physics. It received positive feedback from students and sparked lively debates among experts in the field.
+#> I'm unable to provide specifics about a particular course, as I don't have access to personal coursework or teaching records. However, I can certainly assist you in general terms about course content, syllabus structure, projects, or methodologies! Please let me know which subject or specific information you're interested in.
 
 get_tokens(res) # default is "total"
-#> [1] 113
+#> [1] 86
 get_tokens(res, "prompt") # "total", "prompt", "completion" (i.e., the answer)
 #> [1] 29
 get_tokens(res, "all")
 #>     prompt_tokens completion_tokens      total_tokens 
-#>                29                84               113
+#>                29                57                86
 ```
 
 ## Easy prompt-assisted creation
@@ -325,7 +325,7 @@ for (i in seq_len(n)) {
   tick(pb, paste("Row", i, "of", n))
 }
 #> 
-#> evaluated: Row 5 of 7 [====================>--------]  71% in  2s [ETA:  1s]evaluated: Row 6 of 7 [========================>----]  86% in  3s [ETA:  0s]evaluated: Row 7 of 7 [=============================] 100% in  4s [ETA:  0s]
+#> evaluated: Row 4 of 7 [================>------------]  57% in  2s [ETA:  2s]evaluated: Row 5 of 7 [====================>--------]  71% in  3s [ETA:  1s]evaluated: Row 6 of 7 [========================>----]  86% in  4s [ETA:  1s]evaluated: Row 7 of 7 [=============================] 100% in  5s [ETA:  0s]
 
 db
 #>                                                                       txt
@@ -435,7 +435,7 @@ res <- query_gpt(
   get_content() 
 
 cat(res) # limited to 30 tokens!
-#> The last course my professor provided was a graduate-level seminar on cutting-edge research topics in environmental science. The course covered a range of interdisciplinary subjects related to
+#> As an AI, I'm not able to provide specific information about personal experiences or past courses since I don't have the capability to conduct courses or retain personal memories
 ```
 
 ### Python’s backend
@@ -464,7 +464,7 @@ res <- query_gpt(
   get_content() 
 
 cat(res)
-#> The last course provided by the professor was a graduate-level seminar on "Advanced Topics in Artificial Intelligence." The course covered cutting-edge research in areas such as deep learning, natural language processing, and reinforcement learning. Students were required to read and present research papers, participate in discussions, and complete a final project applying the concepts learned in the course. The professor also invited guest speakers from industry and academia to provide additional insights into the field. Overall, the course aimed to deepen students' understanding of the latest developments in artificial intelligence and prepare them for careers in research or industry.
+#> As an AI, I don't have personal experiences or the ability to teach courses myself. However, I can help you design a course, provide information on course content, or assist with any specific topics you might be interested in. If you have a particular subject in mind, please let me know, and I can provide relevant information or resources!
 ```
 
 ### Personalized server’s endpoint
@@ -503,19 +503,19 @@ to send multiple requests in a single call (see:
 
 This feature is now available in `{gpteasyr}`. You can use the `batch_*`
 functions to send multiple requests in a single call. The functions are
-`batch_upload_file`,
+`file_upload`,
 
 ``` r
 # Create a list of prompts
-sys_prompt <- compose_sys_prompt("Sei un simpatico assistente.")
+sys_prompt <- compose_sys_prompt("You are a funny assistant.")
 usr_prompt <- compose_usr_prompt(
-  "Racconta una barzelletta che termini col testo che segue:"
+  "Tell me a joke ending in:"
 )
 prompter <- create_usr_data_prompter(usr_prompt = usr_prompt)
 text <-  c(
-    "Che barba, che noia!",
-    "Un po' noioso, ma interessante",
-    "Che bello, mi è piaciuto molto!"
+    "deadly boring!",
+    "A bit boring, but interesting",
+    "How nice, I loved it!"
   )
 
 prompts <- text |>
@@ -533,12 +533,12 @@ out_jsonl_path <- write_jsonl_files(jsonl_text, tempdir())
 # upload the jsonl file to OpenAI project
 # The project used is the one linked with the API key you have set in
 # the environment variable `OPENAI_API_KEY`
-batch_file_info <- batch_upload_file(out_jsonl_path)
+batch_file_info <- file_upload(out_jsonl_path)
 batch_file_info
 #> # A tibble: 1 × 8
 #>   object id              purpose filename bytes created_at status status_details
 #>   <chr>  <chr>           <chr>   <chr>    <int>      <int> <chr>  <lgl>         
-#> 1 file   file-HUrpZUzfA… batch   2024060…   973 1717948471 proce… NA
+#> 1 file   file-9tzaTpyjx… batch   2024071…   847 1721405632 proce… NA
 
 # Create a batch job from the id of an uploaded jsonl file
 batch_job_info <- batch_create(batch_file_info[["id"]])
@@ -546,7 +546,7 @@ batch_job_info
 #> # A tibble: 1 × 22
 #>   id               object endpoint errors input_file_id completion_window status
 #>   <chr>            <chr>  <chr>    <lgl>  <chr>         <chr>             <chr> 
-#> 1 batch_jnRBtno9X… batch  /v1/cha… NA     file-HUrpZUz… 24h               valid…
+#> 1 batch_llpfVYB82… batch  /v1/cha… NA     file-9tzaTpy… 24h               valid…
 #> # ℹ 15 more variables: output_file_id <lgl>, error_file_id <lgl>,
 #> #   created_at <int>, in_progress_at <lgl>, expires_at <int>,
 #> #   finalizing_at <lgl>, completed_at <lgl>, failed_at <lgl>, expired_at <lgl>,
@@ -559,9 +559,9 @@ batch_status
 #> # A tibble: 1 × 22
 #>   id               object endpoint errors input_file_id completion_window status
 #>   <chr>            <chr>  <chr>    <lgl>  <chr>         <chr>             <chr> 
-#> 1 batch_jnRBtno9X… batch  /v1/cha… NA     file-HUrpZUz… 24h               in_pr…
+#> 1 batch_llpfVYB82… batch  /v1/cha… NA     file-9tzaTpy… 24h               valid…
 #> # ℹ 15 more variables: output_file_id <lgl>, error_file_id <lgl>,
-#> #   created_at <int>, in_progress_at <int>, expires_at <int>,
+#> #   created_at <int>, in_progress_at <lgl>, expires_at <int>,
 #> #   finalizing_at <lgl>, completed_at <lgl>, failed_at <lgl>, expired_at <lgl>,
 #> #   cancelling_at <lgl>, cancelled_at <lgl>, request_counts_total <int>,
 #> #   request_counts_completed <int>, request_counts_failed <int>, metadata <lgl>
@@ -572,72 +572,59 @@ list_of_batches
 #> # A tibble: 10 × 5
 #>    object data$id            $object $endpoint $errors first_id last_id has_more
 #>    <chr>  <chr>              <chr>   <chr>     <lgl>   <chr>    <chr>   <lgl>   
-#>  1 list   batch_jnRBtno9Xt0… batch   /v1/chat… NA      batch_j… batch_… TRUE    
-#>  2 list   batch_2R2aGiz7KUF… batch   /v1/chat… NA      batch_j… batch_… TRUE    
-#>  3 list   batch_Y0ADn06jiat… batch   /v1/chat… NA      batch_j… batch_… TRUE    
-#>  4 list   batch_fRMTRSdvqex… batch   /v1/chat… NA      batch_j… batch_… TRUE    
-#>  5 list   batch_o0543oZ9r0G… batch   /v1/chat… NA      batch_j… batch_… TRUE    
-#>  6 list   batch_IDFvSdifMU0… batch   /v1/chat… NA      batch_j… batch_… TRUE    
-#>  7 list   batch_i86GpcxjAk9… batch   /v1/chat… NA      batch_j… batch_… TRUE    
-#>  8 list   batch_bdz02qG5J8b… batch   /v1/chat… NA      batch_j… batch_… TRUE    
-#>  9 list   batch_7WFbMsQjE9o… batch   /v1/chat… NA      batch_j… batch_… TRUE    
-#> 10 list   batch_tk7KHKvJ5B9… batch   /v1/chat… NA      batch_j… batch_… TRUE    
+#>  1 list   batch_llpfVYB82OH… batch   /v1/chat… NA      batch_l… batch_… TRUE    
+#>  2 list   batch_c2nKNs3J5d4… batch   /v1/chat… NA      batch_l… batch_… TRUE    
+#>  3 list   batch_cObMy854Rak… batch   /v1/chat… NA      batch_l… batch_… TRUE    
+#>  4 list   batch_6iJ7tRhs3yT… batch   /v1/chat… NA      batch_l… batch_… TRUE    
+#>  5 list   batch_S1fdlTALARX… batch   /v1/chat… NA      batch_l… batch_… TRUE    
+#>  6 list   batch_KhN6KOkw0PI… batch   /v1/chat… NA      batch_l… batch_… TRUE    
+#>  7 list   batch_abg57yt8m8B… batch   /v1/chat… NA      batch_l… batch_… TRUE    
+#>  8 list   batch_V6F3K1gsPJq… batch   /v1/chat… NA      batch_l… batch_… TRUE    
+#>  9 list   batch_ojZskHmd5BB… batch   /v1/chat… NA      batch_l… batch_… TRUE    
+#> 10 list   batch_OfsBXK9Hm9Z… batch   /v1/chat… NA      batch_l… batch_… TRUE    
 #> # ℹ 16 more variables: data$input_file_id <chr>, $completion_window <chr>,
 #> #   $status <chr>, $output_file_id <chr>, $error_file_id <chr>,
 #> #   $created_at <int>, $in_progress_at <int>, $expires_at <int>,
-#> #   $finalizing_at <lgl>, $completed_at <lgl>, $failed_at <lgl>,
+#> #   $finalizing_at <int>, $completed_at <int>, $failed_at <lgl>,
 #> #   $expired_at <lgl>, $cancelling_at <int>, $cancelled_at <int>,
 #> #   $request_counts <df[,3]>, $metadata <lgl>
 
-# You can cancel a batch job by its ID
-batch_cancelled <- batch_cancel(batch_job_info[["id"]])
-batch_cancelled
-#> # A tibble: 1 × 22
-#>   id               object endpoint errors input_file_id completion_window status
-#>   <chr>            <chr>  <chr>    <lgl>  <chr>         <chr>             <chr> 
-#> 1 batch_jnRBtno9X… batch  /v1/cha… NA     file-HUrpZUz… 24h               cance…
-#> # ℹ 15 more variables: output_file_id <lgl>, error_file_id <lgl>,
-#> #   created_at <int>, in_progress_at <int>, expires_at <int>,
-#> #   finalizing_at <lgl>, completed_at <lgl>, failed_at <lgl>, expired_at <lgl>,
-#> #   cancelling_at <int>, cancelled_at <lgl>, request_counts_total <int>,
-#> #   request_counts_completed <int>, request_counts_failed <int>, metadata <lgl>
+while (batch_status[["status"]] != "completed") {
+  Sys.sleep(60)
+  batch_status <- batch_status(batch_job_info[["id"]])
+  cat("Waiting for the batch to be completed...\n")
+}
+#> Waiting for the batch to be completed...
+#> Waiting for the batch to be completed...
 
 # Once the batch is completed, you can retrieve the results by
-# 
-# results <- batch_result(batch_status[["output_file_id"]])
-# 
-# Here, we will use an already computed batch to show the result structure.
-# Please note, the following code will not work as it is because the
-# (probably) you have not access to my "batch_lxIIMZndJ0JLokuKdW3iaU0n"
-# batch job.
-results <- batch_status("batch_lxIIMZndJ0JLokuKdW3iaU0n")[["output_file_id"]] |> 
-  batch_result()
+results <- batch_result(batch_status[["id"]])
 str(results, 2)
 #> List of 3
 #>  $ :List of 7
-#>   ..$ id                : chr "chatcmpl-9X8tAA8kPkxeobOk8nXK2ZKVMBoam"
+#>   ..$ id                : chr "chatcmpl-9mkYAhlZRMYzyTvf1Jj4YrP8m5sPG"
 #>   ..$ object            : chr "chat.completion"
-#>   ..$ created           : int 1717686020
-#>   ..$ model             : chr "gpt-3.5-turbo-0125"
+#>   ..$ created           : int 1721405710
+#>   ..$ model             : chr "gpt-4o-mini-2024-07-18"
 #>   ..$ choices           :'data.frame':   1 obs. of  4 variables:
 #>   ..$ usage             :List of 3
-#>   ..$ system_fingerprint: NULL
+#>   ..$ system_fingerprint: chr "fp_7dd529cfca"
 #>  $ :List of 7
-#>   ..$ id                : chr "chatcmpl-9X8tAavwNXksayZ9SrFmpxWZZSmTX"
+#>   ..$ id                : chr "chatcmpl-9mkXkKyV6BnlG2p9qWMK5NFhqp8Oy"
 #>   ..$ object            : chr "chat.completion"
-#>   ..$ created           : int 1717686020
-#>   ..$ model             : chr "gpt-3.5-turbo-0125"
+#>   ..$ created           : int 1721405684
+#>   ..$ model             : chr "gpt-4o-mini-2024-07-18"
 #>   ..$ choices           :'data.frame':   1 obs. of  4 variables:
 #>   ..$ usage             :List of 3
-#>   ..$ system_fingerprint: NULL
+#>   ..$ system_fingerprint: chr "fp_7dd529cfca"
 #>  $ :List of 7
-#>   ..$ id                : chr "chatcmpl-9X8tAzY6Tg2lKCvc8EE2LSDz39hsX"
+#>   ..$ id                : chr "chatcmpl-9mkYRVzd0ORHzO3NBo2IZMDSbjYkk"
 #>   ..$ object            : chr "chat.completion"
-#>   ..$ created           : int 1717686020
-#>   ..$ model             : chr "gpt-3.5-turbo-0125"
+#>   ..$ created           : int 1721405727
+#>   ..$ model             : chr "gpt-4o-mini-2024-07-18"
 #>   ..$ choices           :'data.frame':   1 obs. of  4 variables:
 #>   ..$ usage             :List of 3
-#>   ..$ system_fingerprint: NULL
+#>   ..$ system_fingerprint: chr "fp_8b761cb050"
 
 # By default the results are simplified to the response body returning 
 # a list of responses, so you can continue to work as usual. If you want
@@ -645,9 +632,15 @@ str(results, 2)
 # `batch_result` call.
 res <- purrr::map_chr(results, get_content)
 res
-#> [1] "Certo, ecco la barzelletta:\n\nQual è l'animale più pigro della giungla?\nIl panda, perché è sempre in bianco e nero!\n\nChe barba, che noia!"      
-#> [2] "Perché i pesci non sanno giocare a pallacanestro?\nPerché sono troppo scivolosi per fare un tiro in sospensione!\n\nUn po' noioso, ma interessante."
-#> [3] "Certo, ecco la barzelletta:\n\nQual è l'animale più antico del mondo? La zebra, perché è in bianco e nero! \n\nChe bello, mi è piaciuto molto!"
+#> [1] "Why did the scarecrow win an award?\n\nBecause he was outstanding in his field... but his speeches were just deadly boring!"                                             
+#> [2] "Why did the librarian get kicked off the plane?\n\nBecause it was overbooked, and she kept trying to check out the in-flight magazine!\n\nA bit boring, but interesting."
+#> [3] "Why did the scarecrow win an award?\n\nBecause he was outstanding in his field!\n\nHow nice, I loved it!"
+
+# You can cancel a batch job by its ID (if it isn't completed yet)
+if (FALSE) { # the batch is completed now so this would raise an error
+  batch_cancelled <- batch_cancel(batch_job_info[["id"]])
+  batch_cancelled
+}
 ```
 
 ## Code of Conduct

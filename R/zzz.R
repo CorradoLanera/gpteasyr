@@ -49,13 +49,4 @@
     )
     packageStartupMessage("Enjoy GPT with `{gpteasyr}`!\n")
   }
-  packageStartupMessage(
-    "If you like to use the Python backend
-    (working for GPT's OpenAI requests only!),\n",
-    "setup its environment first by executing:\n",
-    usethis::ui_code("setup_py()"), "
-    (default virtual environment name is 'r-gpt-venv').\n",
-    "If you prefer to use a name different from the default one, run:\n",
-    usethis::ui_code("setup_py(\"<your_custom_environment_name>\")")
-  )
 }

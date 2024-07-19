@@ -1,40 +1,3 @@
-#' Upload batch file
-#'
-#' @param jsonl_path (chr) path to jsonl file to upload
-#'
-#' @return (tibble) information about the uploaded file
-#'
-#' @details
-#' For more information, see the
-#' [OpenAI API documentation](https://platform.openai.com/docs/api-reference/batch).
-#'
-#'
-#' @export
-#' @family batch
-#'
-#' @examples
-#' if (FALSE) {
-#'   batch_file_info <- batch_upload_file("abc123.jsonl")
-#'   batch_file_info
-#' }
-batch_upload_file <- function(jsonl_path) {
-  checkmate::qassert(jsonl_path, "S1")
-  checkmate::assert_file_exists(jsonl_path, extension = "jsonl")
-
-  httr::POST(
-    "https://api.openai.com/v1/files",
-    httr::add_headers(
-      "Authorization" = paste("Bearer", Sys.getenv("OPENAI_API_KEY"))
-    ),
-    body = list(
-      purpose = "batch",
-      file = httr::upload_file(jsonl_path)
-    )
-  ) |>
-    parse_httr_response()
-}
-
-
 #' Create batch
 #'
 #' @param input_file_id (chr) id of the input file
@@ -45,13 +8,11 @@ batch_upload_file <- function(jsonl_path) {
 #' [OpenAI API documentation](https://platform.openai.com/docs/api-reference/batch).
 #'
 #' @export
-#' @family batch
+#' @family batches
 #'
 #' @examples
 #' if (FALSE) {
-#'   batch_create("file-abc123")
-#'
-#'   batch_file_info <- batch_upload_file("abc123.jsonl")
+#'   batch_file_info <- file_upload("abc123.jsonl")
 #'   batch_job_info <- batch_file_info[["id"]] |>
 #'     batch_create()
 #'   batch_job_info
@@ -94,13 +55,13 @@ batch_create <- function(input_file_id) {
 #' [OpenAI API documentation](https://platform.openai.com/docs/api-reference/batch).
 #'
 #' @export
-#' @family batch
+#' @family batches
 #'
 #' @examples
 #' if (FALSE) {
 #'   batch_status("batch_abc123")
 #'
-#'   batch_file_info <- batch_upload_file("abc123.jsonl")
+#'   batch_file_info <- file_upload("abc123.jsonl")
 #'   batch_job_info <- batch_file_info[["id"]] |>
 #'     batch_create()
 #'   batch_status <- batch_job_info[["id"]] |>
@@ -133,13 +94,13 @@ batch_status <- function(batch_id = "") {
 #' [OpenAI API documentation](https://platform.openai.com/docs/api-reference/batch).
 #'
 #' @export
-#' @family batch
+#' @family batches
 #'
 #' @examples
 #' if (FALSE) {
 #'   batch_cancel("batch_abc123")
 #'
-#'   batch_file_info <- batch_upload_file("abc123.jsonl")
+#'   batch_file_info <- file_upload("abc123.jsonl")
 #'   batch_job_info <- batch_file_info[["id"]] |>
 #'     batch_create()
 #'   batch_cancelled <- batch_job_info[["id"]] |>
@@ -173,7 +134,7 @@ batch_cancel <- function(batch_id) {
 #' [OpenAI API documentation](https://platform.openai.com/docs/api-reference/batch).
 #'
 #' @export
-#' @family batch
+#' @family batches
 #'
 #' @examples
 #' if (FALSE) {
@@ -187,12 +148,13 @@ batch_list <- function(n = 10) {
   httr::with_config(
     httr::timeout(600),
     httr::GET(
-      stringr::str_glue("https://api.openai.com/v1/batches?limit={n}"),
+      "https://api.openai.com/v1/batches",
       httr::add_headers(
         "Authorization" = paste("Bearer", Sys.getenv("OPENAI_API_KEY"))
       ),
       httr::content_type_json(),
-      encode = "json"
+      encode = "json",
+      query = list(limit = n)
     ) |>
       parse_httr_response()
   )
@@ -201,8 +163,7 @@ batch_list <- function(n = 10) {
 
 #' Retrieve batch results
 #'
-#' @param output_file_id (chr) the output file id as returned by the
-#'   batch status.
+#' @param batch_id (chr) the batch id to retrieve
 #' @param simplify (lgl, default TRUE) whether to simplify the output,
 #'   i.e. return only the response body as for single standard
 #'   completions (the default), or the full response.
@@ -216,24 +177,26 @@ batch_list <- function(n = 10) {
 #'   otherwise, a list of the full responses.
 #'
 #' @export
-#' @family batch
+#' @family batches
 #'
 #' @examples
 #' if (FALSE) {
-#'   batch_file_info <- batch_upload_file("abc123.jsonl")
+#'   batch_file_info <- file_upload("abc123.jsonl")
 #'   batch_job_info <- batch_file_info[["id"]] |>
 #'     batch_create()
 #'   batch_status <- batch_job_info[["id"]] |>
 #'     batch_status()
 #'
 #'   # once the batch is completed
-#'   results <- batch_status[["output_file_id"]] |>
-#'     batch_result()
-#'   res <- results |>
-#'     purrr::map_chr(get_content)
-#'   res
+#'   if (batch_status[["status"]] == "completed") {
+#'     results <- batch_status[["id"]] |>
+#'       batch_result()
+#'     res <- results |>
+#'       purrr::map_chr(get_content)
+#'     res
+#'   }
 #'
-#'   full_results <- batch_status[["output_file_id"]] |>
+#'   full_results <- batch_status[["id"]] |>
 #'     batch_result(simplify = FALSE)
 #'   str(full_results, 2)
 #'   full_res <- full_results |>
@@ -242,41 +205,65 @@ batch_list <- function(n = 10) {
 #'
 #'   identical(res, full_res)
 #' }
-batch_result <- function(output_file_id, simplify = TRUE) {
+batch_result <- function(batch_id, simplify = TRUE) {
 
-  httr::GET(
-    stringr::str_glue(
-      "https://api.openai.com/v1/files/{output_file_id}/content"
-    ),
-    httr::add_headers(
-      "Authorization" = paste("Bearer", Sys.getenv("OPENAI_API_KEY"))
-    ),
-    httr::content_type_json()
-  ) |>
-    parse_httr_response(convert_json = FALSE) |>
-    split_results(simplify = simplify)
+  if (!is.na(batch_status(batch_id)[["error_file_id"]])) {
+    usethis::ui_warn("Batch job has errors.")
+    usethis::ui_info(
+      'Use {usethis::ui_code(paste0("batch_error(\\"", batch_id, "\\")"))} to retrieve the error messages.'
+    )
+  }
+
+  batch_output(batch_id, simplify = simplify)
+}
+
+batch_output <- function(batch_id, simplify = TRUE, raw = FALSE) {
+  res <- batch_status(batch_id)[["output_file_id"]] |>
+    file_retrieve()
+
+  if (!raw) {
+    split_results(res, simplify = simplify)
+  } else {
+    res
+  }
+}
+
+batch_error <- function(batch_id, raw = FALSE) {
+  res <- batch_status(batch_id)[["error_file_id"]] |>
+    file_retrieve()
+
+  if (!raw) {
+    res |>
+      split_results(FALSE) |>
+      purrr::map_dfr(\(x) purrr::pluck(x, "error"))
+  } else {
+    res
+  }
 }
 
 split_results <- function(response, simplify = TRUE) {
-  response |>
-    stringr::str_trim() |>
-    stringr::str_split("\\n") |>
-    purrr::list_c() |>
+  (
+    response |>
+      stringr::str_trim() |>
+      stringr::str_split("\\n")
+  )[[1]] |>
     purrr::map(\(x) {
       x |>
         jsonlite::fromJSON() |>
-        purrr::map(\(x) x %||% NA) |>
-        (\(x) if (simplify) purrr::pluck(x, "response", "body") else x)()
+        (
+          \(x) if (simplify) purrr::pluck(x, "response", "body") else x
+        )() |>
+        purrr::map(\(x) x %||% NA)
     })
 }
 
+
 parse_httr_response <- function(response, convert_json = TRUE) {
   parsed <- response |>
-    httr::content(as = "text", encoding = "UTF-8") |>
-    jsonlite::fromJSON()
+    httr::content(as = "text", encoding = "UTF-8")
 
   if (httr::http_error(response)) {
-    err <- parsed[["error"]]
+    err <- jsonlite::fromJSON(parsed)[["error"]]
     err <- if (is.character(err)) err else err[["message"]]
     stringr::str_c(
       "API request failed [",
@@ -289,6 +276,7 @@ parse_httr_response <- function(response, convert_json = TRUE) {
 
   if (convert_json) {
     parsed |>
+      jsonlite::fromJSON() |>
       purrr::map(\(x) x %||% NA) |>
       purrr::list_flatten() |>
       tibble::as_tibble()

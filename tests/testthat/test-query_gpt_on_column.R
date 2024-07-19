@@ -11,7 +11,7 @@ test_that("query_gpt_on_column works", {
   output <- "output"
   style <- "style"
   examples <- "examples"
-  model <- "gpt-3.5-turbo"
+  model <- "gpt-4o-mini"
   quiet <- TRUE
   max_try <- 10
   temperature <- 0

@@ -4,7 +4,7 @@
 #'
 #' @param prompt (list) The messages to be included in the jsonl record.
 #' @param id (int) The id of the record.
-#' @param model (chr, default = "gpt-3.5-turbo") The model to be used.
+#' @param model (chr, default = "gpt-4o-mini") The model to be used.
 #' @param prefix (chr, default = "request-") The prefix of the custom id.
 #' @param temperature (dbl) the temperature to use
 #' @param max_tokens (dbl) the maximum number of tokens
@@ -21,9 +21,9 @@
 #'
 #'   db <- tibble(
 #'     commenti = c(
-#'       "Che barba, che noia!",
-#'       "Un po' noioso, ma interessante",
-#'       "Che bello, mi è piaciuto molto!"
+#'       "deadly boring!",
+#'       "A bit boring, but interesting",
+#'       "How nice, I loved it!"
 #'     )
 #'   )
 #'
@@ -75,7 +75,7 @@
 create_jsonl_records <- function(
   prompt,
   id = seq_along(prompt),
-  model = "gpt-3.5-turbo",
+  model = "gpt-4o-mini",
   temperature = 0,
   max_tokens = NULL,
   seed = NULL,
@@ -146,9 +146,12 @@ compose_jsonl_record <- function(
 #' This function writes jsonl files from a list of jsonl records.
 #'
 #' @param jsonl_records (list) A list of jsonl records.
-#' @param dir_path (chr) The directory path where to write the jsonl files.
-#' @param name_prefix (chr, default = "batch-input") The prefix of the jsonl files.
-#' @param max_mb (numeric, default = 100) The maximum size of the jsonl files in MB.
+#' @param dir_path (chr) The directory path where to write the jsonl
+#'   files.
+#' @param name_prefix (chr, default = "batch-input") The prefix of the
+#'   jsonl files.
+#' @param max_mb (numeric, default = 100) The maximum size of the jsonl
+#'   files in MB.
 #'
 #' @return (invisible) The jsonl records.
 #' @export
@@ -178,9 +181,9 @@ compose_jsonl_record <- function(
 #'
 #'   jsonl_on_db <- tibble::tibble(
 #'     commenti = c(
-#'       "Che barba, che noia!",
-#'       "Un po' noioso, ma interessante",
-#'       "Che bello, mi è piaciuto molto!"
+#'       "deadly boring!",
+#'       "A bit boring, but interesting",
+#'       "How nice, I loved it!"
 #'     )
 #'   ) |>
 #'     dplyr::mutate(
@@ -226,7 +229,7 @@ write_jsonl_files <- function(
 
   while (length(current[[1]]) > 0) {
     cum_sizes <- current[[1]] |>
-      purrr::map_int(nchar) |>
+      purrr::map_dbl(nchar) |>
       cumsum()
     last_to_take <- sum(cum_sizes < max_size) |> # max size/batch
       min(5e4) # max query/batch

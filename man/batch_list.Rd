@@ -27,11 +27,11 @@ if (FALSE) {
 }
 }
 \seealso{
-Other batch: 
+Other batches: 
 \code{\link{batch_cancel}()},
 \code{\link{batch_create}()},
 \code{\link{batch_result}()},
 \code{\link{batch_status}()},
-\code{\link{batch_upload_file}()}
+\code{\link{file_upload}()}
 }
-\concept{batch}
+\concept{batches}

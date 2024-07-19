@@ -1,6 +1,13 @@
+# gpteasyr (development version)
+
+* Switch from `gpt-3.5-turbo` as cheapest default to `gpt-4o-mini`
+* Updated README and documentations
+* fix an issue that can lead to integer overflow in `write_jsonl_files`.
+* Added `file_*` family of functions
+
 # gpteasyr 0.4.0
 
-* Added `batch_upload_file`, `batch_create`, `batch_status`, `batch_cancel`, `batch_list`, and `batch_result` functions to manage batch queries accordingly to OpenAi API specification.
+* Added `file_upload`, `batch_create`, `batch_status`, `batch_cancel`, `batch_list`, and `batch_result` functions to manage batch queries accordingly to OpenAi API specification.
 * Added `create_jsonl_records`, and `write_jsonl_files` functions to compose 'jsonl' files useful for batch queries accordingly to API specification. Model's options are available like for `query_gpt`, `gpt_query_on_column`, and  `get_completion_from_messages`.
 
 # gpteasyr 0.3.0

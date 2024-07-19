@@ -8,7 +8,7 @@
 \usage{
 get_completion_from_messages(
   messages,
-  model = "gpt-3.5-turbo",
+  model = "gpt-4o-mini",
   temperature = 0,
   max_tokens = NULL,
   endpoint = "https://api.openai.com/v1/chat/completions",
@@ -24,7 +24,7 @@ get_tokens(completion, what = c("total", "prompt", "completion", "all"))
 \item{messages}{(list) in the following format: \verb{⁠list(list("role" = "user", "content" = "Hey! How old are you?")} (see:
 https://platform.openai.com/docs/api-reference/chat/create#chat/create-model)}
 
-\item{model}{(chr, default = "gpt-3.5-turbo") a length one character
+\item{model}{(chr, default = "gpt-4o-mini") a length one character
 vector indicating the model to use (see:
 \url{https://platform.openai.com/docs/models/continuous-model-upgrades})}
 

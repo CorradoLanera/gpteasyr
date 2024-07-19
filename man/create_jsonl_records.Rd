@@ -7,7 +7,7 @@
 create_jsonl_records(
   prompt,
   id = seq_along(prompt),
-  model = "gpt-3.5-turbo",
+  model = "gpt-4o-mini",
   temperature = 0,
   max_tokens = NULL,
   seed = NULL,
@@ -19,7 +19,7 @@ create_jsonl_records(
 
 \item{id}{(int) The id of the record.}
 
-\item{model}{(chr, default = "gpt-3.5-turbo") The model to be used.}
+\item{model}{(chr, default = "gpt-4o-mini") The model to be used.}
 
 \item{temperature}{(dbl) the temperature to use}
 
@@ -43,9 +43,9 @@ This function creates a jsonl file from a tibble.
 
   db <- tibble(
     commenti = c(
-      "Che barba, che noia!",
-      "Un po' noioso, ma interessante",
-      "Che bello, mi è piaciuto molto!"
+      "deadly boring!",
+      "A bit boring, but interesting",
+      "How nice, I loved it!"
     )
   )
 

@@ -1,6 +1,6 @@
 test_that("get_completion_from_messages works", {
   # setup
-  model <- "gpt-3.5-turbo"
+  model <- "gpt-4o-mini"
   messages <- compose_prompt_api(
     sys_prompt = compose_sys_prompt(
       role = "role",
@@ -35,7 +35,7 @@ test_that("get_completion_from_messages works", {
 test_that("get_completion_from_messages works w/ py", {
   # setup
   setup_py()
-  model <- "gpt-3.5-turbo"
+  model <- "gpt-4o-mini"
   messages <- compose_prompt_api(
     sys_prompt = compose_sys_prompt(
       role = "role",
@@ -70,7 +70,7 @@ test_that("get_completion_from_messages works w/ py", {
 
 test_that("seed works", {
   # setup
-  model <- "gpt-3.5-turbo"
+  model <- "gpt-4o-mini"
   messages <- compose_prompt_api(
     sys_prompt = compose_sys_prompt(
       role = "role",

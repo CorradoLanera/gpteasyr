@@ -15,11 +15,14 @@ write_jsonl_files(
 \arguments{
 \item{jsonl_records}{(list) A list of jsonl records.}
 
-\item{dir_path}{(chr) The directory path where to write the jsonl files.}
+\item{dir_path}{(chr) The directory path where to write the jsonl
+files.}
 
-\item{name_prefix}{(chr, default = "batch-input") The prefix of the jsonl files.}
+\item{name_prefix}{(chr, default = "batch-input") The prefix of the
+jsonl files.}
 
-\item{max_mb}{(numeric, default = 100) The maximum size of the jsonl files in MB.}
+\item{max_mb}{(numeric, default = 100) The maximum size of the jsonl
+files in MB.}
 }
 \value{
 (invisible) The jsonl records.
@@ -52,9 +55,9 @@ This function writes jsonl files from a list of jsonl records.
 
   jsonl_on_db <- tibble::tibble(
     commenti = c(
-      "Che barba, che noia!",
-      "Un po' noioso, ma interessante",
-      "Che bello, mi è piaciuto molto!"
+      "deadly boring!",
+      "A bit boring, but interesting",
+      "How nice, I loved it!"
     )
   ) |>
     dplyr::mutate(

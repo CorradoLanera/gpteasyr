@@ -1,75 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/404.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/index.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/reference/batch_cancel.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/reference/batch_create.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/reference/batch_list.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/reference/batch_result.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/reference/batch_status.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/reference/batch_upload_file.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/reference/compose_prompt.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/reference/compose_prompt_api.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/reference/create_jsonl_records.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/reference/create_usr_data_prompter.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/reference/get_completion_from_messages.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/reference/gpteasyr-package.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/reference/query_gpt.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/reference/query_gpt_on_column.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/reference/setup_py.html</loc>
-  </url>
-  <url>
-    <loc>https://CorradoLanera.github.io/gpteasyr/reference/write_jsonl_files.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/404.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/LICENSE-text.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/LICENSE.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/authors.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/index.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/news/index.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/reference/batch_cancel.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/reference/batch_create.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/reference/batch_list.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/reference/batch_result.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/reference/batch_status.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/reference/compose_prompt.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/reference/compose_prompt_api.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/reference/create_jsonl_records.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/reference/create_usr_data_prompter.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/reference/file_delete.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/reference/file_info.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/reference/file_list.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/reference/file_retrieve.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/reference/file_upload.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/reference/get_completion_from_messages.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/reference/gpteasyr-package.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/reference/index.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/reference/query_gpt.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/reference/query_gpt_on_column.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/reference/setup_py.html</loc></url>
+<url><loc>https://CorradoLanera.github.io/gpteasyr/reference/write_jsonl_files.html</loc></url>
 </urlset>
+

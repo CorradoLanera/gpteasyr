@@ -5,58 +5,44 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="The goal of gpteasyr is to provide a basic and simple interface to OpenAI's GPT API (and other compatible APIs). The package is also designed to work with (i.e., to query on) dataframes/tibbles, and to simplify the process of querying the API.">
 <title>A basic and simple interface to OpenAI’s GPT API • gpteasyr</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="A basic and simple interface to OpenAI’s GPT API">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+<link href="deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="A basic and simple interface to OpenAI’s GPT API">
+<meta name="description" content="The goal of gpteasyr is to provide a basic and simple interface to OpenAI's GPT API (and other compatible APIs). The package is also designed to work with (i.e., to query on) dataframes/tibbles, and to simplify the process of querying the API.">
 <meta property="og:description" content="The goal of gpteasyr is to provide a basic and simple interface to OpenAI's GPT API (and other compatible APIs). The package is also designed to work with (i.e., to query on) dataframes/tibbles, and to simplify the process of querying the API.">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="index.html">gpteasyr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0.9000</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="reference/index.html">Reference</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="news/index.html">Changelog</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/CorradoLanera/gpteasyr/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/CorradoLanera/gpteasyr/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-home">
 <div class="row">
@@ -124,7 +110,7 @@
 <span></span>
 <span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/query_gpt.html">query_gpt</a></span><span class="op">(</span></span>
 <span>  prompt <span class="op">=</span> <span class="va">prompt</span>,</span>
-<span>  model <span class="op">=</span> <span class="st">"gpt-3.5-turbo"</span>,</span>
+<span>  model <span class="op">=</span> <span class="st">"gpt-4o-mini"</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">FALSE</span>, <span class="co"># default TRUE</span></span>
 <span>  max_try <span class="op">=</span> <span class="fl">2</span>, <span class="co"># default 10</span></span>
 <span>  temperature <span class="op">=</span> <span class="fl">1.5</span>, <span class="co"># default 0 [0-2]</span></span>
@@ -132,41 +118,41 @@
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; ℹ Total tries: 1.</span></span>
 <span><span class="co">#&gt; ℹ Prompt token used: 29.</span></span>
-<span><span class="co">#&gt; ℹ Response token used: 84.</span></span>
-<span><span class="co">#&gt; ℹ Total token used: 113.</span></span>
+<span><span class="co">#&gt; ℹ Response token used: 57.</span></span>
+<span><span class="co">#&gt; ℹ Total token used: 86.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 7</span></span>
-<span><span class="co">#&gt;  $ id                : chr "chatcmpl-9YF9y0wAQWx2FjWFqFn2wlJl1p0Dw"</span></span>
+<span><span class="co">#&gt;  $ id                : chr "chatcmpl-9mkWb4KXeBxHxJ0HF24gzI2wH35dD"</span></span>
 <span><span class="co">#&gt;  $ object            : chr "chat.completion"</span></span>
-<span><span class="co">#&gt;  $ created           : int 1717948454</span></span>
-<span><span class="co">#&gt;  $ model             : chr "gpt-3.5-turbo-0125"</span></span>
+<span><span class="co">#&gt;  $ created           : int 1721405613</span></span>
+<span><span class="co">#&gt;  $ model             : chr "gpt-4o-mini-2024-07-18"</span></span>
 <span><span class="co">#&gt;  $ choices           :'data.frame':  1 obs. of  4 variables:</span></span>
 <span><span class="co">#&gt;   ..$ index        : int 0</span></span>
 <span><span class="co">#&gt;   ..$ message      :'data.frame':    1 obs. of  2 variables:</span></span>
 <span><span class="co">#&gt;   .. ..$ role   : chr "assistant"</span></span>
-<span><span class="co">#&gt;   .. ..$ content: chr "The last course my professor provided was on Modern Topics in Physics. This course explored advanced concepts i"| __truncated__</span></span>
+<span><span class="co">#&gt;   .. ..$ content: chr "I'm unable to provide specifics about a particular course, as I don't have access to personal coursework or tea"| __truncated__</span></span>
 <span><span class="co">#&gt;   ..$ logprobs     : logi NA</span></span>
 <span><span class="co">#&gt;   ..$ finish_reason: chr "stop"</span></span>
 <span><span class="co">#&gt;  $ usage             :List of 3</span></span>
 <span><span class="co">#&gt;   ..$ prompt_tokens    : int 29</span></span>
-<span><span class="co">#&gt;   ..$ completion_tokens: int 84</span></span>
-<span><span class="co">#&gt;   ..$ total_tokens     : int 113</span></span>
-<span><span class="co">#&gt;  $ system_fingerprint: NULL</span></span>
+<span><span class="co">#&gt;   ..$ completion_tokens: int 57</span></span>
+<span><span class="co">#&gt;   ..$ total_tokens     : int 86</span></span>
+<span><span class="co">#&gt;  $ system_fingerprint: chr "fp_7dd529cfca"</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "The last course my professor provided was on Modern Topics in Physics. This course explored advanced concepts in modern physics, including quantum mechanics, relativity, particle physics, and cosmology. The course included a combination of lectures, discussions, problem-solving sessions, and hands-on experiments, providing students with a comprehensive understanding of cutting-edge theories in physics. It received positive feedback from students and sparked lively debates among experts in the field."</span></span>
+<span><span class="co">#&gt; [1] "I'm unable to provide specifics about a particular course, as I don't have access to personal coursework or teaching records. However, I can certainly assist you in general terms about course content, syllabus structure, projects, or methodologies! Please let me know which subject or specific information you're interested in."</span></span>
 <span></span>
 <span><span class="co"># for a well formatted output on R, use `cat()`</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The last course my professor provided was on Modern Topics in Physics. This course explored advanced concepts in modern physics, including quantum mechanics, relativity, particle physics, and cosmology. The course included a combination of lectures, discussions, problem-solving sessions, and hands-on experiments, providing students with a comprehensive understanding of cutting-edge theories in physics. It received positive feedback from students and sparked lively debates among experts in the field.</span></span>
+<span><span class="co">#&gt; I'm unable to provide specifics about a particular course, as I don't have access to personal coursework or teaching records. However, I can certainly assist you in general terms about course content, syllabus structure, projects, or methodologies! Please let me know which subject or specific information you're interested in.</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="co"># default is "total"</span></span>
-<span><span class="co">#&gt; [1] 113</span></span>
+<span><span class="co">#&gt; [1] 86</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"prompt"</span><span class="op">)</span> <span class="co"># "total", "prompt", "completion" (i.e., the answer)</span></span>
 <span><span class="co">#&gt; [1] 29</span></span>
 <span><span class="fu"><a href="reference/get_completion_from_messages.html">get_tokens</a></span><span class="op">(</span><span class="va">res</span>, <span class="st">"all"</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     prompt_tokens completion_tokens      total_tokens </span></span>
-<span><span class="co">#&gt;                29                84               113</span></span></code></pre></div>
+<span><span class="co">#&gt;                29                57                86</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="easy-prompt-assisted-creation">Easy prompt-assisted creation<a class="anchor" aria-label="anchor" href="#easy-prompt-assisted-creation"></a>
@@ -330,7 +316,7 @@
 <span>  <span class="fu"><a href="https://corradolanera.github.io/depigner/reference/pb_len.html" class="external-link">tick</a></span><span class="op">(</span><span class="va">pb</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Row"</span>, <span class="va">i</span>, <span class="st">"of"</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; evaluated: Row 5 of 7 [====================&gt;--------]  71% in  2s [ETA:  1s]evaluated: Row 6 of 7 [========================&gt;----]  86% in  3s [ETA:  0s]evaluated: Row 7 of 7 [=============================] 100% in  4s [ETA:  0s]</span></span>
+<span><span class="co">#&gt; evaluated: Row 4 of 7 [================&gt;------------]  57% in  2s [ETA:  2s]evaluated: Row 5 of 7 [====================&gt;--------]  71% in  3s [ETA:  1s]evaluated: Row 6 of 7 [========================&gt;----]  86% in  4s [ETA:  1s]evaluated: Row 7 of 7 [=============================] 100% in  5s [ETA:  0s]</span></span>
 <span></span>
 <span><span class="va">db</span></span>
 <span><span class="co">#&gt;                                                                       txt</span></span>
@@ -419,7 +405,7 @@
 <span>  <span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="co"># limited to 30 tokens!</span></span>
-<span><span class="co">#&gt; The last course my professor provided was a graduate-level seminar on cutting-edge research topics in environmental science. The course covered a range of interdisciplinary subjects related to</span></span></code></pre></div>
+<span><span class="co">#&gt; As an AI, I'm not able to provide specific information about personal experiences or past courses since I don't have the capability to conduct courses or retain personal memories</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="pythons-backend">Python’s backend<a class="anchor" aria-label="anchor" href="#pythons-backend"></a>
@@ -439,7 +425,7 @@
 <span>  <span class="fu"><a href="reference/get_completion_from_messages.html">get_content</a></span><span class="op">(</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The last course provided by the professor was a graduate-level seminar on "Advanced Topics in Artificial Intelligence." The course covered cutting-edge research in areas such as deep learning, natural language processing, and reinforcement learning. Students were required to read and present research papers, participate in discussions, and complete a final project applying the concepts learned in the course. The professor also invited guest speakers from industry and academia to provide additional insights into the field. Overall, the course aimed to deepen students' understanding of the latest developments in artificial intelligence and prepare them for careers in research or industry.</span></span></code></pre></div>
+<span><span class="co">#&gt; As an AI, I don't have personal experiences or the ability to teach courses myself. However, I can help you design a course, provide information on course content, or assist with any specific topics you might be interested in. If you have a particular subject in mind, please let me know, and I can provide relevant information or resources!</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="personalized-servers-endpoint">Personalized server’s endpoint<a class="anchor" aria-label="anchor" href="#personalized-servers-endpoint"></a>
@@ -468,18 +454,18 @@
 <h2 id="batch-openai-requests">Batch OpenAI requests<a class="anchor" aria-label="anchor" href="#batch-openai-requests"></a>
 </h2>
 <p>By April 23, 2024, OpenAI has introduced a new feature that allows you to send multiple requests in a single call (see: <a href="https://openai.com/index/more-enterprise-grade-features-for-api-customers/" class="external-link uri">https://openai.com/index/more-enterprise-grade-features-for-api-customers/</a>).</p>
-<p>This feature is now available in <a href="https://github.com/CorradoLanera/gpteasyr" class="external-link">gpteasyr</a>. You can use the <code>batch_*</code> functions to send multiple requests in a single call. The functions are <code>batch_upload_file</code>,</p>
+<p>This feature is now available in <a href="https://github.com/CorradoLanera/gpteasyr" class="external-link">gpteasyr</a>. You can use the <code>batch_*</code> functions to send multiple requests in a single call. The functions are <code>file_upload</code>,</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a list of prompts</span></span>
-<span><span class="va">sys_prompt</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/compose_prompt.html">compose_sys_prompt</a></span><span class="op">(</span><span class="st">"Sei un simpatico assistente."</span><span class="op">)</span></span>
+<span><span class="va">sys_prompt</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/compose_prompt.html">compose_sys_prompt</a></span><span class="op">(</span><span class="st">"You are a funny assistant."</span><span class="op">)</span></span>
 <span><span class="va">usr_prompt</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/compose_prompt.html">compose_usr_prompt</a></span><span class="op">(</span></span>
-<span>  <span class="st">"Racconta una barzelletta che termini col testo che segue:"</span></span>
+<span>  <span class="st">"Tell me a joke ending in:"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">prompter</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/create_usr_data_prompter.html">create_usr_data_prompter</a></span><span class="op">(</span>usr_prompt <span class="op">=</span> <span class="va">usr_prompt</span><span class="op">)</span></span>
 <span><span class="va">text</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"Che barba, che noia!"</span>,</span>
-<span>    <span class="st">"Un po' noioso, ma interessante"</span>,</span>
-<span>    <span class="st">"Che bello, mi è piaciuto molto!"</span></span>
+<span>    <span class="st">"deadly boring!"</span>,</span>
+<span>    <span class="st">"A bit boring, but interesting"</span>,</span>
+<span>    <span class="st">"How nice, I loved it!"</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">prompts</span> <span class="op">&lt;-</span> <span class="va">text</span> <span class="op">|&gt;</span></span>
@@ -497,12 +483,12 @@
 <span><span class="co"># upload the jsonl file to OpenAI project</span></span>
 <span><span class="co"># The project used is the one linked with the API key you have set in</span></span>
 <span><span class="co"># the environment variable `OPENAI_API_KEY`</span></span>
-<span><span class="va">batch_file_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/batch_upload_file.html">batch_upload_file</a></span><span class="op">(</span><span class="va">out_jsonl_path</span><span class="op">)</span></span>
+<span><span class="va">batch_file_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/file_upload.html">file_upload</a></span><span class="op">(</span><span class="va">out_jsonl_path</span><span class="op">)</span></span>
 <span><span class="va">batch_file_info</span></span>
 <span><span class="co">#&gt; # A tibble: 1 × 8</span></span>
 <span><span class="co">#&gt;   object id              purpose filename bytes created_at status status_details</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;  &lt;chr&gt;           &lt;chr&gt;   &lt;chr&gt;    &lt;int&gt;      &lt;int&gt; &lt;chr&gt;  &lt;lgl&gt;         </span></span>
-<span><span class="co">#&gt; 1 file   file-HUrpZUzfA… batch   2024060…   973 1717948471 proce… NA</span></span>
+<span><span class="co">#&gt; 1 file   file-9tzaTpyjx… batch   2024071…   847 1721405632 proce… NA</span></span>
 <span></span>
 <span><span class="co"># Create a batch job from the id of an uploaded jsonl file</span></span>
 <span><span class="va">batch_job_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/batch_create.html">batch_create</a></span><span class="op">(</span><span class="va">batch_file_info</span><span class="op">[[</span><span class="st">"id"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
@@ -510,7 +496,7 @@
 <span><span class="co">#&gt; # A tibble: 1 × 22</span></span>
 <span><span class="co">#&gt;   id               object endpoint errors input_file_id completion_window status</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;    &lt;lgl&gt;  &lt;chr&gt;         &lt;chr&gt;             &lt;chr&gt; </span></span>
-<span><span class="co">#&gt; 1 batch_jnRBtno9X… batch  /v1/cha… NA     file-HUrpZUz… 24h               valid…</span></span>
+<span><span class="co">#&gt; 1 batch_llpfVYB82… batch  /v1/cha… NA     file-9tzaTpy… 24h               valid…</span></span>
 <span><span class="co">#&gt; # ℹ 15 more variables: output_file_id &lt;lgl&gt;, error_file_id &lt;lgl&gt;,</span></span>
 <span><span class="co">#&gt; #   created_at &lt;int&gt;, in_progress_at &lt;lgl&gt;, expires_at &lt;int&gt;,</span></span>
 <span><span class="co">#&gt; #   finalizing_at &lt;lgl&gt;, completed_at &lt;lgl&gt;, failed_at &lt;lgl&gt;, expired_at &lt;lgl&gt;,</span></span>
@@ -523,9 +509,9 @@
 <span><span class="co">#&gt; # A tibble: 1 × 22</span></span>
 <span><span class="co">#&gt;   id               object endpoint errors input_file_id completion_window status</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;    &lt;lgl&gt;  &lt;chr&gt;         &lt;chr&gt;             &lt;chr&gt; </span></span>
-<span><span class="co">#&gt; 1 batch_jnRBtno9X… batch  /v1/cha… NA     file-HUrpZUz… 24h               in_pr…</span></span>
+<span><span class="co">#&gt; 1 batch_llpfVYB82… batch  /v1/cha… NA     file-9tzaTpy… 24h               valid…</span></span>
 <span><span class="co">#&gt; # ℹ 15 more variables: output_file_id &lt;lgl&gt;, error_file_id &lt;lgl&gt;,</span></span>
-<span><span class="co">#&gt; #   created_at &lt;int&gt;, in_progress_at &lt;int&gt;, expires_at &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   created_at &lt;int&gt;, in_progress_at &lt;lgl&gt;, expires_at &lt;int&gt;,</span></span>
 <span><span class="co">#&gt; #   finalizing_at &lt;lgl&gt;, completed_at &lt;lgl&gt;, failed_at &lt;lgl&gt;, expired_at &lt;lgl&gt;,</span></span>
 <span><span class="co">#&gt; #   cancelling_at &lt;lgl&gt;, cancelled_at &lt;lgl&gt;, request_counts_total &lt;int&gt;,</span></span>
 <span><span class="co">#&gt; #   request_counts_completed &lt;int&gt;, request_counts_failed &lt;int&gt;, metadata &lt;lgl&gt;</span></span>
@@ -536,72 +522,59 @@
 <span><span class="co">#&gt; # A tibble: 10 × 5</span></span>
 <span><span class="co">#&gt;    object data$id            $object $endpoint $errors first_id last_id has_more</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;              &lt;chr&gt;   &lt;chr&gt;     &lt;lgl&gt;   &lt;chr&gt;    &lt;chr&gt;   &lt;lgl&gt;   </span></span>
-<span><span class="co">#&gt;  1 list   batch_jnRBtno9Xt0… batch   /v1/chat… NA      batch_j… batch_… TRUE    </span></span>
-<span><span class="co">#&gt;  2 list   batch_2R2aGiz7KUF… batch   /v1/chat… NA      batch_j… batch_… TRUE    </span></span>
-<span><span class="co">#&gt;  3 list   batch_Y0ADn06jiat… batch   /v1/chat… NA      batch_j… batch_… TRUE    </span></span>
-<span><span class="co">#&gt;  4 list   batch_fRMTRSdvqex… batch   /v1/chat… NA      batch_j… batch_… TRUE    </span></span>
-<span><span class="co">#&gt;  5 list   batch_o0543oZ9r0G… batch   /v1/chat… NA      batch_j… batch_… TRUE    </span></span>
-<span><span class="co">#&gt;  6 list   batch_IDFvSdifMU0… batch   /v1/chat… NA      batch_j… batch_… TRUE    </span></span>
-<span><span class="co">#&gt;  7 list   batch_i86GpcxjAk9… batch   /v1/chat… NA      batch_j… batch_… TRUE    </span></span>
-<span><span class="co">#&gt;  8 list   batch_bdz02qG5J8b… batch   /v1/chat… NA      batch_j… batch_… TRUE    </span></span>
-<span><span class="co">#&gt;  9 list   batch_7WFbMsQjE9o… batch   /v1/chat… NA      batch_j… batch_… TRUE    </span></span>
-<span><span class="co">#&gt; 10 list   batch_tk7KHKvJ5B9… batch   /v1/chat… NA      batch_j… batch_… TRUE    </span></span>
+<span><span class="co">#&gt;  1 list   batch_llpfVYB82OH… batch   /v1/chat… NA      batch_l… batch_… TRUE    </span></span>
+<span><span class="co">#&gt;  2 list   batch_c2nKNs3J5d4… batch   /v1/chat… NA      batch_l… batch_… TRUE    </span></span>
+<span><span class="co">#&gt;  3 list   batch_cObMy854Rak… batch   /v1/chat… NA      batch_l… batch_… TRUE    </span></span>
+<span><span class="co">#&gt;  4 list   batch_6iJ7tRhs3yT… batch   /v1/chat… NA      batch_l… batch_… TRUE    </span></span>
+<span><span class="co">#&gt;  5 list   batch_S1fdlTALARX… batch   /v1/chat… NA      batch_l… batch_… TRUE    </span></span>
+<span><span class="co">#&gt;  6 list   batch_KhN6KOkw0PI… batch   /v1/chat… NA      batch_l… batch_… TRUE    </span></span>
+<span><span class="co">#&gt;  7 list   batch_abg57yt8m8B… batch   /v1/chat… NA      batch_l… batch_… TRUE    </span></span>
+<span><span class="co">#&gt;  8 list   batch_V6F3K1gsPJq… batch   /v1/chat… NA      batch_l… batch_… TRUE    </span></span>
+<span><span class="co">#&gt;  9 list   batch_ojZskHmd5BB… batch   /v1/chat… NA      batch_l… batch_… TRUE    </span></span>
+<span><span class="co">#&gt; 10 list   batch_OfsBXK9Hm9Z… batch   /v1/chat… NA      batch_l… batch_… TRUE    </span></span>
 <span><span class="co">#&gt; # ℹ 16 more variables: data$input_file_id &lt;chr&gt;, $completion_window &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   $status &lt;chr&gt;, $output_file_id &lt;chr&gt;, $error_file_id &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   $created_at &lt;int&gt;, $in_progress_at &lt;int&gt;, $expires_at &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   $finalizing_at &lt;lgl&gt;, $completed_at &lt;lgl&gt;, $failed_at &lt;lgl&gt;,</span></span>
+<span><span class="co">#&gt; #   $finalizing_at &lt;int&gt;, $completed_at &lt;int&gt;, $failed_at &lt;lgl&gt;,</span></span>
 <span><span class="co">#&gt; #   $expired_at &lt;lgl&gt;, $cancelling_at &lt;int&gt;, $cancelled_at &lt;int&gt;,</span></span>
 <span><span class="co">#&gt; #   $request_counts &lt;df[,3]&gt;, $metadata &lt;lgl&gt;</span></span>
 <span></span>
-<span><span class="co"># You can cancel a batch job by its ID</span></span>
-<span><span class="va">batch_cancelled</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/batch_cancel.html">batch_cancel</a></span><span class="op">(</span><span class="va">batch_job_info</span><span class="op">[[</span><span class="st">"id"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="va">batch_cancelled</span></span>
-<span><span class="co">#&gt; # A tibble: 1 × 22</span></span>
-<span><span class="co">#&gt;   id               object endpoint errors input_file_id completion_window status</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;    &lt;lgl&gt;  &lt;chr&gt;         &lt;chr&gt;             &lt;chr&gt; </span></span>
-<span><span class="co">#&gt; 1 batch_jnRBtno9X… batch  /v1/cha… NA     file-HUrpZUz… 24h               cance…</span></span>
-<span><span class="co">#&gt; # ℹ 15 more variables: output_file_id &lt;lgl&gt;, error_file_id &lt;lgl&gt;,</span></span>
-<span><span class="co">#&gt; #   created_at &lt;int&gt;, in_progress_at &lt;int&gt;, expires_at &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   finalizing_at &lt;lgl&gt;, completed_at &lt;lgl&gt;, failed_at &lt;lgl&gt;, expired_at &lt;lgl&gt;,</span></span>
-<span><span class="co">#&gt; #   cancelling_at &lt;int&gt;, cancelled_at &lt;lgl&gt;, request_counts_total &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   request_counts_completed &lt;int&gt;, request_counts_failed &lt;int&gt;, metadata &lt;lgl&gt;</span></span>
+<span><span class="kw">while</span> <span class="op">(</span><span class="va">batch_status</span><span class="op">[[</span><span class="st">"status"</span><span class="op">]</span><span class="op">]</span> <span class="op">!=</span> <span class="st">"completed"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html" class="external-link">Sys.sleep</a></span><span class="op">(</span><span class="fl">60</span><span class="op">)</span></span>
+<span>  <span class="va">batch_status</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/batch_status.html">batch_status</a></span><span class="op">(</span><span class="va">batch_job_info</span><span class="op">[[</span><span class="st">"id"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Waiting for the batch to be completed...\n"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="co">#&gt; Waiting for the batch to be completed...</span></span>
+<span><span class="co">#&gt; Waiting for the batch to be completed...</span></span>
 <span></span>
 <span><span class="co"># Once the batch is completed, you can retrieve the results by</span></span>
-<span><span class="co"># </span></span>
-<span><span class="co"># results &lt;- batch_result(batch_status[["output_file_id"]])</span></span>
-<span><span class="co"># </span></span>
-<span><span class="co"># Here, we will use an already computed batch to show the result structure.</span></span>
-<span><span class="co"># Please note, the following code will not work as it is because the</span></span>
-<span><span class="co"># (probably) you have not access to my "batch_lxIIMZndJ0JLokuKdW3iaU0n"</span></span>
-<span><span class="co"># batch job.</span></span>
-<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/batch_status.html">batch_status</a></span><span class="op">(</span><span class="st">"batch_lxIIMZndJ0JLokuKdW3iaU0n"</span><span class="op">)</span><span class="op">[[</span><span class="st">"output_file_id"</span><span class="op">]</span><span class="op">]</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="reference/batch_result.html">batch_result</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/batch_result.html">batch_result</a></span><span class="op">(</span><span class="va">batch_status</span><span class="op">[[</span><span class="st">"id"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">results</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; List of 3</span></span>
 <span><span class="co">#&gt;  $ :List of 7</span></span>
-<span><span class="co">#&gt;   ..$ id                : chr "chatcmpl-9X8tAA8kPkxeobOk8nXK2ZKVMBoam"</span></span>
+<span><span class="co">#&gt;   ..$ id                : chr "chatcmpl-9mkYAhlZRMYzyTvf1Jj4YrP8m5sPG"</span></span>
 <span><span class="co">#&gt;   ..$ object            : chr "chat.completion"</span></span>
-<span><span class="co">#&gt;   ..$ created           : int 1717686020</span></span>
-<span><span class="co">#&gt;   ..$ model             : chr "gpt-3.5-turbo-0125"</span></span>
+<span><span class="co">#&gt;   ..$ created           : int 1721405710</span></span>
+<span><span class="co">#&gt;   ..$ model             : chr "gpt-4o-mini-2024-07-18"</span></span>
 <span><span class="co">#&gt;   ..$ choices           :'data.frame':   1 obs. of  4 variables:</span></span>
 <span><span class="co">#&gt;   ..$ usage             :List of 3</span></span>
-<span><span class="co">#&gt;   ..$ system_fingerprint: NULL</span></span>
+<span><span class="co">#&gt;   ..$ system_fingerprint: chr "fp_7dd529cfca"</span></span>
 <span><span class="co">#&gt;  $ :List of 7</span></span>
-<span><span class="co">#&gt;   ..$ id                : chr "chatcmpl-9X8tAavwNXksayZ9SrFmpxWZZSmTX"</span></span>
+<span><span class="co">#&gt;   ..$ id                : chr "chatcmpl-9mkXkKyV6BnlG2p9qWMK5NFhqp8Oy"</span></span>
 <span><span class="co">#&gt;   ..$ object            : chr "chat.completion"</span></span>
-<span><span class="co">#&gt;   ..$ created           : int 1717686020</span></span>
-<span><span class="co">#&gt;   ..$ model             : chr "gpt-3.5-turbo-0125"</span></span>
+<span><span class="co">#&gt;   ..$ created           : int 1721405684</span></span>
+<span><span class="co">#&gt;   ..$ model             : chr "gpt-4o-mini-2024-07-18"</span></span>
 <span><span class="co">#&gt;   ..$ choices           :'data.frame':   1 obs. of  4 variables:</span></span>
 <span><span class="co">#&gt;   ..$ usage             :List of 3</span></span>
-<span><span class="co">#&gt;   ..$ system_fingerprint: NULL</span></span>
+<span><span class="co">#&gt;   ..$ system_fingerprint: chr "fp_7dd529cfca"</span></span>
 <span><span class="co">#&gt;  $ :List of 7</span></span>
-<span><span class="co">#&gt;   ..$ id                : chr "chatcmpl-9X8tAzY6Tg2lKCvc8EE2LSDz39hsX"</span></span>
+<span><span class="co">#&gt;   ..$ id                : chr "chatcmpl-9mkYRVzd0ORHzO3NBo2IZMDSbjYkk"</span></span>
 <span><span class="co">#&gt;   ..$ object            : chr "chat.completion"</span></span>
-<span><span class="co">#&gt;   ..$ created           : int 1717686020</span></span>
-<span><span class="co">#&gt;   ..$ model             : chr "gpt-3.5-turbo-0125"</span></span>
+<span><span class="co">#&gt;   ..$ created           : int 1721405727</span></span>
+<span><span class="co">#&gt;   ..$ model             : chr "gpt-4o-mini-2024-07-18"</span></span>
 <span><span class="co">#&gt;   ..$ choices           :'data.frame':   1 obs. of  4 variables:</span></span>
 <span><span class="co">#&gt;   ..$ usage             :List of 3</span></span>
-<span><span class="co">#&gt;   ..$ system_fingerprint: NULL</span></span>
+<span><span class="co">#&gt;   ..$ system_fingerprint: chr "fp_8b761cb050"</span></span>
 <span></span>
 <span><span class="co"># By default the results are simplified to the response body returning </span></span>
 <span><span class="co"># a list of responses, so you can continue to work as usual. If you want</span></span>
@@ -609,9 +582,15 @@
 <span><span class="co"># `batch_result` call.</span></span>
 <span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_chr</a></span><span class="op">(</span><span class="va">results</span>, <span class="va">get_content</span><span class="op">)</span></span>
 <span><span class="va">res</span></span>
-<span><span class="co">#&gt; [1] "Certo, ecco la barzelletta:\n\nQual è l'animale più pigro della giungla?\nIl panda, perché è sempre in bianco e nero!\n\nChe barba, che noia!"      </span></span>
-<span><span class="co">#&gt; [2] "Perché i pesci non sanno giocare a pallacanestro?\nPerché sono troppo scivolosi per fare un tiro in sospensione!\n\nUn po' noioso, ma interessante."</span></span>
-<span><span class="co">#&gt; [3] "Certo, ecco la barzelletta:\n\nQual è l'animale più antico del mondo? La zebra, perché è in bianco e nero! \n\nChe bello, mi è piaciuto molto!"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "Why did the scarecrow win an award?\n\nBecause he was outstanding in his field... but his speeches were just deadly boring!"                                             </span></span>
+<span><span class="co">#&gt; [2] "Why did the librarian get kicked off the plane?\n\nBecause it was overbooked, and she kept trying to check out the in-flight magazine!\n\nA bit boring, but interesting."</span></span>
+<span><span class="co">#&gt; [3] "Why did the scarecrow win an award?\n\nBecause he was outstanding in his field!\n\nHow nice, I loved it!"</span></span>
+<span></span>
+<span><span class="co"># You can cancel a batch job by its ID (if it isn't completed yet)</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># the batch is completed now so this would raise an error</span></span>
+<span>  <span class="va">batch_cancelled</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/batch_cancel.html">batch_cancel</a></span><span class="op">(</span><span class="va">batch_job_info</span><span class="op">[[</span><span class="st">"id"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="va">batch_cancelled</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
@@ -674,15 +653,15 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>

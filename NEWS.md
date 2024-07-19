@@ -1,4 +1,4 @@
-# gpteasyr (development version)
+# gpteasyr 0.5.0
 
 * Switch from `gpt-3.5-turbo` as cheapest default to `gpt-4o-mini`
 * Updated README and documentations

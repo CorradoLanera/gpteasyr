@@ -1,5 +1,7 @@
 # gpteasyr (development version)
 
+* Switch from `gpt-3.5-turbo` as cheapest default to `gpt-4o-mini`
+* Updated README and documentations
 * fix an issue that can lead to integer overflow in `write_jsonl_files`.
 * Added `file_*` family of functions
 

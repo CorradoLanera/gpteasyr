@@ -234,8 +234,8 @@ batch_error <- function(batch_id, raw = FALSE) {
 
   if (!raw) {
     res |>
-    split_results(FALSE) |>
-    purrr::map_dfr(\(x) purrr::pluck(x, "error"))
+      split_results(FALSE) |>
+      purrr::map_dfr(\(x) purrr::pluck(x, "error"))
   } else {
     res
   }
@@ -250,11 +250,8 @@ split_results <- function(response, simplify = TRUE) {
     purrr::map(\(x) {
       x |>
         jsonlite::fromJSON() |>
-        (\(x) if (simplify) {
-            purrr::pluck(x, "response", "body")
-          } else {
-            x
-          }
+        (
+          \(x) if (simplify) purrr::pluck(x, "response", "body") else x
         )() |>
         purrr::map(\(x) x %||% NA)
     })

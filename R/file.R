@@ -12,16 +12,16 @@
 #' - [batch documentation](https://platform.openai.com/docs/api-reference/batch).
 #' - [file documentation](https://platform.openai.com/docs/api-reference/files).
 #'
-#' At the moment, 'gpteasyr' is tested on file upload for the batch API
-#' only (still it should work for the other also).
+#'   At the moment, 'gpteasyr' is tested on file upload for the batch
+#'   API only (still it should work for the other also).
 #'
-#' ## Files for batch API
-#' Your input file must be formatted as a
-#'  [JSONL file](https://platform.openai.com/docs/api-reference/batch/request-input).
+#'   ## Files for batch API Your input file must be formatted as a
+#'   [JSONL
+#'   file](https://platform.openai.com/docs/api-reference/batch/request-input).
 #'
-#' The file can contain up to 50,000 requests, can be up to 100 MB in
-#' size, and the size of all files uploaded by one organization can be
-#' up to 100 GB.
+#'   The file can contain up to 50,000 requests, can be up to 100 MB in
+#'   size, and the size of all files uploaded by one organization can be
+#'   up to 100 GB.
 #'
 #'
 #' @export
@@ -102,7 +102,6 @@ file_list <- function(purpose = NULL) {
   httr::with_config(
     httr::config(connecttimeout_ms = 600000),
     httr::GET(
-      # "http://httpbin.org/get",
       stringr::str_glue("https://api.openai.com/v1/files"),
       httr::add_headers(
         "Authorization" = paste("Bearer", Sys.getenv("OPENAI_API_KEY"))

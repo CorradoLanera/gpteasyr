@@ -5,7 +5,7 @@
 #'   data
 #' @param sys_prompt (chr) the system prompt to use
 #' @param usr_prompt (chr) the user prompt to use
-#' @param model (chr, default = "gpt-3.5-turbo") the model to use
+#' @param model (chr, default = "gpt-4o-mini") the model to use
 #' @param quiet (lgl, default = TRUE) whether to print information
 #' @param max_try (int, default = 10) the maximum number of tries
 #' @param temperature (dbl, default = 0) the temperature to use
@@ -75,7 +75,7 @@ query_gpt_on_column <- function(
   sys_prompt = NULL,
   usr_prompt = NULL,
   closing = NULL,
-  model = "gpt-3.5-turbo",
+  model = "gpt-4o-mini",
   quiet = TRUE,
   max_try = 10,
   temperature = 0,

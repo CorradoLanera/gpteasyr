@@ -10,7 +10,7 @@ query_gpt_on_column(
   sys_prompt = NULL,
   usr_prompt = NULL,
   closing = NULL,
-  model = "gpt-3.5-turbo",
+  model = "gpt-4o-mini",
   quiet = TRUE,
   max_try = 10,
   temperature = 0,
@@ -37,7 +37,7 @@ data}
 
 \item{closing}{(chr, default = NULL) Text to include at the end of the prompt}
 
-\item{model}{(chr, default = "gpt-3.5-turbo") the model to use}
+\item{model}{(chr, default = "gpt-4o-mini") the model to use}
 
 \item{quiet}{(lgl, default = TRUE) whether to print information}
 

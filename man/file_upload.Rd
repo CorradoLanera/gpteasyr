@@ -25,18 +25,17 @@ For more information, see
 \itemize{
 \item \href{https://platform.openai.com/docs/api-reference/batch}{batch documentation}.
 \item \href{https://platform.openai.com/docs/api-reference/files}{file documentation}.
-}
 
-At the moment, 'gpteasyr' is tested on file upload for the batch API
-only (still it should work for the other also).
-\subsection{Files for batch API}{
+At the moment, 'gpteasyr' is tested on file upload for the batch
+API only (still it should work for the other also).
+\subsection{Files for batch API Your input file must be formatted as a}{
 
-Your input file must be formatted as a
 \href{https://platform.openai.com/docs/api-reference/batch/request-input}{JSONL file}.
 
 The file can contain up to 50,000 requests, can be up to 100 MB in
 size, and the size of all files uploaded by one organization can be
 up to 100 GB.
+}
 }
 }
 \examples{

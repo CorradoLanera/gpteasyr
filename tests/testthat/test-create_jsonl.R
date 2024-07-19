@@ -96,7 +96,7 @@ test_that("create_jsonl works", {
     body_opt[["messages"]][[2]][[2]],
     db[["prompt"]][[1]][[2]][[2]]
   )
-  expect_equal(body_opt[["model"]], "gpt-3.5-turbo")
+  expect_equal(body_opt[["model"]], "gpt-4o-mini")
   expect_equal(body_opt[["temperature"]], 2)
   expect_equal(body_opt[["max_tokens"]], 500)
   expect_equal(body_opt[["seed"]], 123)
@@ -194,7 +194,7 @@ test_that("compose_jsonl_record works", {
   )
 
   # eval
-  res <- compose_jsonl_record(messages, id = 1, model = "gpt-3.5-turbo")
+  res <- compose_jsonl_record(messages, id = 1, model = "gpt-4o-mini")
 
   # expectation
   expect_list(

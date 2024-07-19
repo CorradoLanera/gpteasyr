@@ -3,7 +3,7 @@
 #' @param messages (list) in the following format: `⁠list(list("role" =
 #'   "user", "content" = "Hey! How old are you?")` (see:
 #'   https://platform.openai.com/docs/api-reference/chat/create#chat/create-model)
-#' @param model (chr, default = "gpt-3.5-turbo") a length one character
+#' @param model (chr, default = "gpt-4o-mini") a length one character
 #'   vector indicating the model to use (see:
 #'   <https://platform.openai.com/docs/models/continuous-model-upgrades>)
 #' @param temperature (dbl, default = 0) a value between 0 (most
@@ -80,7 +80,7 @@
 #' }
 get_completion_from_messages <- function(
   messages,
-  model = "gpt-3.5-turbo",
+  model = "gpt-4o-mini",
   temperature = 0,
   max_tokens = NULL,
   endpoint = "https://api.openai.com/v1/chat/completions",

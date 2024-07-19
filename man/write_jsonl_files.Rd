@@ -15,11 +15,14 @@ write_jsonl_files(
 \arguments{
 \item{jsonl_records}{(list) A list of jsonl records.}
 
-\item{dir_path}{(chr) The directory path where to write the jsonl files.}
+\item{dir_path}{(chr) The directory path where to write the jsonl
+files.}
 
-\item{name_prefix}{(chr, default = "batch-input") The prefix of the jsonl files.}
+\item{name_prefix}{(chr, default = "batch-input") The prefix of the
+jsonl files.}
 
-\item{max_mb}{(numeric, default = 100) The maximum size of the jsonl files in MB.}
+\item{max_mb}{(numeric, default = 100) The maximum size of the jsonl
+files in MB.}
 }
 \value{
 (invisible) The jsonl records.

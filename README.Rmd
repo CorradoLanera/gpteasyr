@@ -33,7 +33,7 @@ remotes::install_github("CorradoLanera/gpteasyr")
 
 ## Basic example
 
-You can use the `query_gpt` function to query the GPT API. You can decide the model to use (e.g., `gpt-3.5-turbo`, `gpt-4-turbo`, or `gpt-4o`). This function is useful because mainly it iterate the query a decided number of times (10 by default) in case of error (often caused by server overload).
+You can use the `query_gpt` function to query the GPT API. You can decide the model to use (e.g., `gpt-3.5-turbo`, `gpt-4o`, `gpt-4o-mini`). This function is useful because mainly it iterate the query a decided number of times (10 by default) in case of error (often caused by server overload).
 
 To use the function, you need to compose a prompt. You can use (but it is not necessary!) the `compose_prompt_api` function to compose the prompt properly with an optional (single) system prompt (i.e., gpt's setup) and a (single) user prompt (i.e., the query). This function is useful because it helps you to compose the prompt automatically adopting the required API's structure.
 
@@ -51,7 +51,7 @@ prompt
 
 res <- query_gpt(
   prompt = prompt,
-  model = "gpt-3.5-turbo",
+  model = "gpt-4o-mini",
   quiet = FALSE, # default TRUE
   max_try = 2, # default 10
   temperature = 1.5, # default 0 [0-2]

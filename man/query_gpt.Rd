@@ -6,7 +6,7 @@
 \usage{
 query_gpt(
   prompt,
-  model = "gpt-3.5-turbo",
+  model = "gpt-4o-mini",
   temperature = 0,
   max_tokens = NULL,
   endpoint = "https://api.openai.com/v1/chat/completions",

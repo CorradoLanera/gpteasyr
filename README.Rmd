@@ -346,20 +346,14 @@ batch_status
 list_of_batches <- batch_list()
 list_of_batches
 
-# You can cancel a batch job by its ID
-batch_cancelled <- batch_cancel(batch_job_info[["id"]])
-batch_cancelled
+while (batch_status[["status"]] != "completed") {
+  Sys.sleep(60)
+  batch_status <- batch_status(batch_job_info[["id"]])
+  cat("Waiting for the batch to be completed...\n")
+}
 
 # Once the batch is completed, you can retrieve the results by
-# 
-# results <- batch_result(batch_status[["output_file_id"]])
-# 
-# Here, we will use an already computed batch to show the result structure.
-# Please note, the following code will not work as it is because the
-# (probably) you have not access to my "batch_lxIIMZndJ0JLokuKdW3iaU0n"
-# batch job.
-results <- batch_status("batch_lxIIMZndJ0JLokuKdW3iaU0n")[["output_file_id"]] |> 
-  batch_result()
+results <- batch_result(batch_status[["id"]])
 str(results, 2)
 
 # By default the results are simplified to the response body returning 
@@ -368,6 +362,12 @@ str(results, 2)
 # `batch_result` call.
 res <- purrr::map_chr(results, get_content)
 res
+
+# You can cancel a batch job by its ID (if it isn't completed yet)
+if (FALSE) { # the batch is completed now so this would raise an error
+  batch_cancelled <- batch_cancel(batch_job_info[["id"]])
+  batch_cancelled
+}
 ```
 
 

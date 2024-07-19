@@ -9,6 +9,9 @@ file_info(file_id)
 \arguments{
 \item{file_id}{(chr) The id of the file to retrieve.}
 }
+\value{
+(tibble) information about the file
+}
 \description{
 Retrieve file information
 }

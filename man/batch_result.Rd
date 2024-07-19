@@ -4,11 +4,10 @@
 \alias{batch_result}
 \title{Retrieve batch results}
 \usage{
-batch_result(output_file_id, simplify = TRUE)
+batch_result(batch_id, simplify = TRUE)
 }
 \arguments{
-\item{output_file_id}{(chr) the output file id as returned by the
-batch status.}
+\item{batch_id}{(chr) the batch id to retrieve}
 
 \item{simplify}{(lgl, default TRUE) whether to simplify the output,
 i.e. return only the response body as for single standard
@@ -34,13 +33,15 @@ if (FALSE) {
     batch_status()
 
   # once the batch is completed
-  results <- batch_status[["output_file_id"]] |>
-    batch_result()
-  res <- results |>
-    purrr::map_chr(get_content)
-  res
+  if (batch_status[["status"]] == "completed") {
+    results <- batch_status[["id"]] |>
+      batch_result()
+    res <- results |>
+      purrr::map_chr(get_content)
+    res
+  }
 
-  full_results <- batch_status[["output_file_id"]] |>
+  full_results <- batch_status[["id"]] |>
     batch_result(simplify = FALSE)
   str(full_results, 2)
   full_res <- full_results |>

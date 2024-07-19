@@ -163,8 +163,7 @@ batch_list <- function(n = 10) {
 
 #' Retrieve batch results
 #'
-#' @param output_file_id (chr) the output file id as returned by the
-#'   batch status.
+#' @param batch_id (chr) the batch id to retrieve
 #' @param simplify (lgl, default TRUE) whether to simplify the output,
 #'   i.e. return only the response body as for single standard
 #'   completions (the default), or the full response.
@@ -189,12 +188,13 @@ batch_list <- function(n = 10) {
 #'     batch_status()
 #'
 #'   # once the batch is completed
-#'   results <- if (batch_status[["status"]] == "completed") {
-#'     batch_status[["id"]] |>
+#'   if (batch_status[["status"]] == "completed") {
+#'     results <- batch_status[["id"]] |>
 #'       batch_result()
-#'   res <- results |>
-#'     purrr::map_chr(get_content)
-#'   res
+#'     res <- results |>
+#'       purrr::map_chr(get_content)
+#'     res
+#'   }
 #'
 #'   full_results <- batch_status[["id"]] |>
 #'     batch_result(simplify = FALSE)
@@ -250,7 +250,12 @@ split_results <- function(response, simplify = TRUE) {
     purrr::map(\(x) {
       x |>
         jsonlite::fromJSON() |>
-        (\(x) if (simplify) purrr::pluck(x, "response", "body") else x)() |>
+        (\(x) if (simplify) {
+            purrr::pluck(x, "response", "body")
+          } else {
+            x
+          }
+        )() |>
         purrr::map(\(x) x %||% NA)
     })
 }

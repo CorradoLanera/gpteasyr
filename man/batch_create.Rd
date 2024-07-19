@@ -21,8 +21,6 @@ For more information, see the
 }
 \examples{
 if (FALSE) {
-  batch_create("file-abc123")
-
   batch_file_info <- file_upload("abc123.jsonl")
   batch_job_info <- batch_file_info[["id"]] |>
     batch_create()

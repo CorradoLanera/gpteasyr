@@ -1,6 +1,10 @@
 #' Upload batch file
 #'
 #' @param jsonl_path (chr) path to a file to upload
+#' @param purpose (chr, default = "batch") The intended purpose of the
+#'   uploaded file. Use "assistants" for Assistants and Message files,
+#'   "vision" for Assistants image file inputs, "batch" for Batch API,
+#'   and "fine-tune" for Fine-tuning.
 #'
 #' @return (tibble) information about the uploaded file
 #'
@@ -8,8 +12,10 @@
 #' - [batch documentation](https://platform.openai.com/docs/api-reference/batch).
 #' - [file documentation](https://platform.openai.com/docs/api-reference/files).
 #'
-#' At the moment, 'gpteasyr' supports file upload for the batch API only.
+#' At the moment, 'gpteasyr' is tested on file upload for the batch API
+#' only (still it should work for the other also).
 #'
+#' ## Files for batch API
 #' Your input file must be formatted as a
 #'  [JSONL file](https://platform.openai.com/docs/api-reference/batch/request-input).
 #'
@@ -114,7 +120,7 @@ file_list <- function(purpose = NULL) {
 #'
 #' @param file_id (chr) The id of the file to retrieve.
 #'
-#' @return
+#' @return (tibble) information about the file
 #' @export
 #' @family files
 #'

@@ -107,7 +107,8 @@ query_gpt_on_column <- function(
         endpoint = endpoint,
         quiet = quiet,
         na_if_error = na_if_error,
-        seed = seed
+        seed = seed,
+        use_py = use_py
       )
     }, .progress = .progress)
 

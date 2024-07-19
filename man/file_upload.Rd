@@ -8,6 +8,11 @@ file_upload(jsonl_path, purpose = "batch")
 }
 \arguments{
 \item{jsonl_path}{(chr) path to a file to upload}
+
+\item{purpose}{(chr, default = "batch") The intended purpose of the
+uploaded file. Use "assistants" for Assistants and Message files,
+"vision" for Assistants image file inputs, "batch" for Batch API,
+and "fine-tune" for Fine-tuning.}
 }
 \value{
 (tibble) information about the uploaded file
@@ -22,7 +27,9 @@ For more information, see
 \item \href{https://platform.openai.com/docs/api-reference/files}{file documentation}.
 }
 
-At the moment, 'gpteasyr' supports file upload for the batch API only.
+At the moment, 'gpteasyr' is tested on file upload for the batch API
+only (still it should work for the other also).
+\subsection{Files for batch API}{
 
 Your input file must be formatted as a
 \href{https://platform.openai.com/docs/api-reference/batch/request-input}{JSONL file}.
@@ -30,6 +37,7 @@ Your input file must be formatted as a
 The file can contain up to 50,000 requests, can be up to 100 MB in
 size, and the size of all files uploaded by one organization can be
 up to 100 GB.
+}
 }
 \examples{
  sys_prompt <- compose_sys_prompt("You are a funny assistant.")

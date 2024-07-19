@@ -27,10 +27,10 @@ remotes::install_github("CorradoLanera/gpteasyr")
 ## Basic example
 
 You can use the `query_gpt` function to query the GPT API. You can
-decide the model to use (e.g., `gpt-3.5-turbo`, `gpt-4-turbo`, or
-`gpt-4o`). This function is useful because mainly it iterate the query a
-decided number of times (10 by default) in case of error (often caused
-by server overload).
+decide the model to use (e.g., `gpt-3.5-turbo`, `gpt-4o`,
+`gpt-4o-mini`). This function is useful because mainly it iterate the
+query a decided number of times (10 by default) in case of error (often
+caused by server overload).
 
 To use the function, you need to compose a prompt. You can use (but it
 is not necessary!) the `compose_prompt_api` function to compose the
@@ -61,13 +61,6 @@ library(gpteasyr)
 #>       (https://platform.openai.com/api-keys), or contacting your GPT's admin.
 #> 
 #> Enjoy GPT with `{gpteasyr}`!
-#> If you like to use the Python backend
-#>     (working for GPT's OpenAI requests only!),
-#> setup its environment first by executing:
-#> `setup_py()`
-#>     (default virtual environment name is 'r-gpt-venv').
-#> If you prefer to use a name different from the default one, run:
-#> `setup_py("<your_custom_environment_name>")`
 prompt <- compose_prompt_api(
   sys_prompt = "You are the assistant of a university professor.",
   usr_prompt = "Tell me about the last course you provided."
@@ -98,41 +91,41 @@ res <- query_gpt(
 )
 #> ℹ Total tries: 1.
 #> ℹ Prompt token used: 29.
-#> ℹ Response token used: 57.
-#> ℹ Total token used: 86.
+#> ℹ Response token used: 64.
+#> ℹ Total token used: 93.
 
 str(res)
 #> List of 7
-#>  $ id                : chr "chatcmpl-9mkWb4KXeBxHxJ0HF24gzI2wH35dD"
+#>  $ id                : chr "chatcmpl-9mletd4NzxIN41yj1lKc7UCyiIS0F"
 #>  $ object            : chr "chat.completion"
-#>  $ created           : int 1721405613
+#>  $ created           : int 1721409971
 #>  $ model             : chr "gpt-4o-mini-2024-07-18"
 #>  $ choices           :'data.frame':  1 obs. of  4 variables:
 #>   ..$ index        : int 0
 #>   ..$ message      :'data.frame':    1 obs. of  2 variables:
 #>   .. ..$ role   : chr "assistant"
-#>   .. ..$ content: chr "I'm unable to provide specifics about a particular course, as I don't have access to personal coursework or tea"| __truncated__
+#>   .. ..$ content: chr "As an AI, I don't personally teach courses or run specific academic logs. However, I can help you outline what "| __truncated__
 #>   ..$ logprobs     : logi NA
 #>   ..$ finish_reason: chr "stop"
 #>  $ usage             :List of 3
 #>   ..$ prompt_tokens    : int 29
-#>   ..$ completion_tokens: int 57
-#>   ..$ total_tokens     : int 86
-#>  $ system_fingerprint: chr "fp_7dd529cfca"
+#>   ..$ completion_tokens: int 64
+#>   ..$ total_tokens     : int 93
+#>  $ system_fingerprint: chr "fp_8b761cb050"
 get_content(res)
-#> [1] "I'm unable to provide specifics about a particular course, as I don't have access to personal coursework or teaching records. However, I can certainly assist you in general terms about course content, syllabus structure, projects, or methodologies! Please let me know which subject or specific information you're interested in."
+#> [1] "As an AI, I don't personally teach courses or run specific academic logs. However, I can help you outline what an educational course might cover! Please provide details on the subject you'd like to focus on, and I can assist in describing the content, structure, assignments, or learning objectives for a course in that subject."
 
 # for a well formatted output on R, use `cat()`
 get_content(res) |> cat()
-#> I'm unable to provide specifics about a particular course, as I don't have access to personal coursework or teaching records. However, I can certainly assist you in general terms about course content, syllabus structure, projects, or methodologies! Please let me know which subject or specific information you're interested in.
+#> As an AI, I don't personally teach courses or run specific academic logs. However, I can help you outline what an educational course might cover! Please provide details on the subject you'd like to focus on, and I can assist in describing the content, structure, assignments, or learning objectives for a course in that subject.
 
 get_tokens(res) # default is "total"
-#> [1] 86
+#> [1] 93
 get_tokens(res, "prompt") # "total", "prompt", "completion" (i.e., the answer)
 #> [1] 29
 get_tokens(res, "all")
 #>     prompt_tokens completion_tokens      total_tokens 
-#>                29                57                86
+#>                29                64                93
 ```
 
 ## Easy prompt-assisted creation
@@ -325,7 +318,7 @@ for (i in seq_len(n)) {
   tick(pb, paste("Row", i, "of", n))
 }
 #> 
-#> evaluated: Row 4 of 7 [================>------------]  57% in  2s [ETA:  2s]evaluated: Row 5 of 7 [====================>--------]  71% in  3s [ETA:  1s]evaluated: Row 6 of 7 [========================>----]  86% in  4s [ETA:  1s]evaluated: Row 7 of 7 [=============================] 100% in  5s [ETA:  0s]
+#> evaluated: Row 4 of 7 [================>------------]  57% in  2s [ETA:  2s]evaluated: Row 5 of 7 [====================>--------]  71% in  3s [ETA:  1s]evaluated: Row 6 of 7 [========================>----]  86% in  3s [ETA:  1s]evaluated: Row 7 of 7 [=============================] 100% in  4s [ETA:  0s]
 
 db
 #>                                                                       txt
@@ -435,7 +428,7 @@ res <- query_gpt(
   get_content() 
 
 cat(res) # limited to 30 tokens!
-#> As an AI, I'm not able to provide specific information about personal experiences or past courses since I don't have the capability to conduct courses or retain personal memories
+#> As an AI, I'm not able to provide specific information about personal experiences or past actions since I don't have the capability to conduct courses or retain personal memories
 ```
 
 ### Python’s backend
@@ -538,7 +531,7 @@ batch_file_info
 #> # A tibble: 1 × 8
 #>   object id              purpose filename bytes created_at status status_details
 #>   <chr>  <chr>           <chr>   <chr>    <int>      <int> <chr>  <lgl>         
-#> 1 file   file-9tzaTpyjx… batch   2024071…   847 1721405632 proce… NA
+#> 1 file   file-WD0v9Zf1h… batch   2024071…   847 1721409987 proce… NA
 
 # Create a batch job from the id of an uploaded jsonl file
 batch_job_info <- batch_create(batch_file_info[["id"]])
@@ -546,7 +539,7 @@ batch_job_info
 #> # A tibble: 1 × 22
 #>   id               object endpoint errors input_file_id completion_window status
 #>   <chr>            <chr>  <chr>    <lgl>  <chr>         <chr>             <chr> 
-#> 1 batch_llpfVYB82… batch  /v1/cha… NA     file-9tzaTpy… 24h               valid…
+#> 1 batch_j2ZEBIayM… batch  /v1/cha… NA     file-WD0v9Zf… 24h               valid…
 #> # ℹ 15 more variables: output_file_id <lgl>, error_file_id <lgl>,
 #> #   created_at <int>, in_progress_at <lgl>, expires_at <int>,
 #> #   finalizing_at <lgl>, completed_at <lgl>, failed_at <lgl>, expired_at <lgl>,
@@ -559,9 +552,9 @@ batch_status
 #> # A tibble: 1 × 22
 #>   id               object endpoint errors input_file_id completion_window status
 #>   <chr>            <chr>  <chr>    <lgl>  <chr>         <chr>             <chr> 
-#> 1 batch_llpfVYB82… batch  /v1/cha… NA     file-9tzaTpy… 24h               valid…
+#> 1 batch_j2ZEBIayM… batch  /v1/cha… NA     file-WD0v9Zf… 24h               in_pr…
 #> # ℹ 15 more variables: output_file_id <lgl>, error_file_id <lgl>,
-#> #   created_at <int>, in_progress_at <lgl>, expires_at <int>,
+#> #   created_at <int>, in_progress_at <int>, expires_at <int>,
 #> #   finalizing_at <lgl>, completed_at <lgl>, failed_at <lgl>, expired_at <lgl>,
 #> #   cancelling_at <lgl>, cancelled_at <lgl>, request_counts_total <int>,
 #> #   request_counts_completed <int>, request_counts_failed <int>, metadata <lgl>
@@ -572,20 +565,20 @@ list_of_batches
 #> # A tibble: 10 × 5
 #>    object data$id            $object $endpoint $errors first_id last_id has_more
 #>    <chr>  <chr>              <chr>   <chr>     <lgl>   <chr>    <chr>   <lgl>   
-#>  1 list   batch_llpfVYB82OH… batch   /v1/chat… NA      batch_l… batch_… TRUE    
-#>  2 list   batch_c2nKNs3J5d4… batch   /v1/chat… NA      batch_l… batch_… TRUE    
-#>  3 list   batch_cObMy854Rak… batch   /v1/chat… NA      batch_l… batch_… TRUE    
-#>  4 list   batch_6iJ7tRhs3yT… batch   /v1/chat… NA      batch_l… batch_… TRUE    
-#>  5 list   batch_S1fdlTALARX… batch   /v1/chat… NA      batch_l… batch_… TRUE    
-#>  6 list   batch_KhN6KOkw0PI… batch   /v1/chat… NA      batch_l… batch_… TRUE    
-#>  7 list   batch_abg57yt8m8B… batch   /v1/chat… NA      batch_l… batch_… TRUE    
-#>  8 list   batch_V6F3K1gsPJq… batch   /v1/chat… NA      batch_l… batch_… TRUE    
-#>  9 list   batch_ojZskHmd5BB… batch   /v1/chat… NA      batch_l… batch_… TRUE    
-#> 10 list   batch_OfsBXK9Hm9Z… batch   /v1/chat… NA      batch_l… batch_… TRUE    
+#>  1 list   batch_j2ZEBIayM6a… batch   /v1/chat… NA      batch_j… batch_… TRUE    
+#>  2 list   batch_6tE6zWTFOO5… batch   /v1/chat… NA      batch_j… batch_… TRUE    
+#>  3 list   batch_2AHPswv8VDU… batch   /v1/chat… NA      batch_j… batch_… TRUE    
+#>  4 list   batch_XhIO1qXvIgE… batch   /v1/chat… NA      batch_j… batch_… TRUE    
+#>  5 list   batch_MllBz1653SD… batch   /v1/chat… NA      batch_j… batch_… TRUE    
+#>  6 list   batch_ntJoJiyBldj… batch   /v1/chat… NA      batch_j… batch_… TRUE    
+#>  7 list   batch_AkeprQpqku3… batch   /v1/chat… NA      batch_j… batch_… TRUE    
+#>  8 list   batch_uLg2nQXcOLy… batch   /v1/chat… NA      batch_j… batch_… TRUE    
+#>  9 list   batch_Gl288anB838… batch   /v1/chat… NA      batch_j… batch_… TRUE    
+#> 10 list   batch_Z5oXvVMQeFS… batch   /v1/chat… NA      batch_j… batch_… TRUE    
 #> # ℹ 16 more variables: data$input_file_id <chr>, $completion_window <chr>,
 #> #   $status <chr>, $output_file_id <chr>, $error_file_id <chr>,
 #> #   $created_at <int>, $in_progress_at <int>, $expires_at <int>,
-#> #   $finalizing_at <int>, $completed_at <int>, $failed_at <lgl>,
+#> #   $finalizing_at <lgl>, $completed_at <lgl>, $failed_at <lgl>,
 #> #   $expired_at <lgl>, $cancelling_at <int>, $cancelled_at <int>,
 #> #   $request_counts <df[,3]>, $metadata <lgl>
 
@@ -595,32 +588,31 @@ while (batch_status[["status"]] != "completed") {
   cat("Waiting for the batch to be completed...\n")
 }
 #> Waiting for the batch to be completed...
-#> Waiting for the batch to be completed...
 
 # Once the batch is completed, you can retrieve the results by
 results <- batch_result(batch_status[["id"]])
 str(results, 2)
 #> List of 3
 #>  $ :List of 7
-#>   ..$ id                : chr "chatcmpl-9mkYAhlZRMYzyTvf1Jj4YrP8m5sPG"
+#>   ..$ id                : chr "chatcmpl-9mlfAmX2Z0L96gTgll5MyVj9ln6kb"
 #>   ..$ object            : chr "chat.completion"
-#>   ..$ created           : int 1721405710
+#>   ..$ created           : int 1721409988
 #>   ..$ model             : chr "gpt-4o-mini-2024-07-18"
 #>   ..$ choices           :'data.frame':   1 obs. of  4 variables:
 #>   ..$ usage             :List of 3
-#>   ..$ system_fingerprint: chr "fp_7dd529cfca"
+#>   ..$ system_fingerprint: chr "fp_661538dc1f"
 #>  $ :List of 7
-#>   ..$ id                : chr "chatcmpl-9mkXkKyV6BnlG2p9qWMK5NFhqp8Oy"
+#>   ..$ id                : chr "chatcmpl-9mlfAC9GeibmX0Av13L0mJHdSfZn6"
 #>   ..$ object            : chr "chat.completion"
-#>   ..$ created           : int 1721405684
+#>   ..$ created           : int 1721409988
 #>   ..$ model             : chr "gpt-4o-mini-2024-07-18"
 #>   ..$ choices           :'data.frame':   1 obs. of  4 variables:
 #>   ..$ usage             :List of 3
-#>   ..$ system_fingerprint: chr "fp_7dd529cfca"
+#>   ..$ system_fingerprint: chr "fp_8b761cb050"
 #>  $ :List of 7
-#>   ..$ id                : chr "chatcmpl-9mkYRVzd0ORHzO3NBo2IZMDSbjYkk"
+#>   ..$ id                : chr "chatcmpl-9mlfWrGqtbPMjPrELxAWfwS2PeMJX"
 #>   ..$ object            : chr "chat.completion"
-#>   ..$ created           : int 1721405727
+#>   ..$ created           : int 1721410010
 #>   ..$ model             : chr "gpt-4o-mini-2024-07-18"
 #>   ..$ choices           :'data.frame':   1 obs. of  4 variables:
 #>   ..$ usage             :List of 3
@@ -632,8 +624,8 @@ str(results, 2)
 # `batch_result` call.
 res <- purrr::map_chr(results, get_content)
 res
-#> [1] "Why did the scarecrow win an award?\n\nBecause he was outstanding in his field... but his speeches were just deadly boring!"                                             
-#> [2] "Why did the librarian get kicked off the plane?\n\nBecause it was overbooked, and she kept trying to check out the in-flight magazine!\n\nA bit boring, but interesting."
+#> [1] "Why did the scarecrow win an award?\n\nBecause he was outstanding in his field... but his speeches were just deadly boring!"                
+#> [2] "Why did the mathematician break up with the statistician?\n\nBecause every time they went out, it was always a bit boring, but interesting!"
 #> [3] "Why did the scarecrow win an award?\n\nBecause he was outstanding in his field!\n\nHow nice, I loved it!"
 
 # You can cancel a batch job by its ID (if it isn't completed yet)

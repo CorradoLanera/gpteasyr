@@ -2,7 +2,7 @@ pandoc: 3.1.11
 pkgdown: 2.1.0
 pkgdown_sha: ~
 articles: {}
-last_built: 2024-07-19T17:23Z
+last_built: 2024-07-19T17:33Z
 urls:
   reference: https://CorradoLanera.github.io/gpteasyr/reference
   article: https://CorradoLanera.github.io/gpteasyr/articles

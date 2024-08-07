@@ -88,7 +88,8 @@ get_completion_from_messages <- function(
   use_py = FALSE
 ) {
   stopifnot(
-    `At the moment, python can be used with openai API only` = !use_py ||
+    `At the moment, python can be used with openai API only` =
+      !use_py ||
       endpoint == "https://api.openai.com/v1/chat/completions"
   )
 
@@ -115,20 +116,23 @@ get_completion_from_messages <- function(
       jsonlite::fromJSON() |>
       tryCatch(error = \(e) usethis::ui_stop(e))
   } else {
-    response <- httr::POST(
-      endpoint,
-      httr::add_headers(
-        "Authorization" = paste("Bearer", Sys.getenv("OPENAI_API_KEY"))
-      ),
-      httr::content_type_json(),
-      encode = "json",
-      body = list(
-        model = model,
-        messages = messages,
-        temperature = temperature,
-        max_tokens = max_tokens,
-        stream = FALSE, # hard coded for the moment
-        seed = seed
+    response <- httr::with_config(
+      httr::timeout(600),
+      httr::POST(
+        endpoint,
+        httr::add_headers(
+          "Authorization" = paste("Bearer", Sys.getenv("OPENAI_API_KEY"))
+        ),
+        httr::content_type_json(),
+        encode = "json",
+        body = list(
+          model = model,
+          messages = messages,
+          temperature = temperature,
+          max_tokens = max_tokens,
+          stream = FALSE, # hard coded for the moment
+          seed = seed
+        )
       )
     )
 

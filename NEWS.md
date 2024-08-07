@@ -1,3 +1,7 @@
+# gpteasyr (development version)
+
+* Added timeout to the POST call in `get_completion_from_messages`, this should prevent the function to signal SSL connection timeout.
+
 # gpteasyr 0.5.0
 
 * Switch from `gpt-3.5-turbo` as cheapest default to `gpt-4o-mini`
